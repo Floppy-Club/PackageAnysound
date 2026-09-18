@@ -23,15 +23,30 @@ public partial class AnysoundSlider : Slider
     [UxmlAttribute] public bool integerOnly { get; set; } = false;
     
     private bool _showValues = false;
-    [UxmlAttribute] 
-    public bool showValues 
-    { 
+    [UxmlAttribute]
+    public bool showValues
+    {
         get => _showValues;
         set
         {
             _showValues = value;
             if (_valueLabel != null)
                 _valueLabel.style.display = _showValues ? DisplayStyle.Flex : DisplayStyle.None;
+            UpdateHeaderVisibility();
+        }
+    }
+
+    private bool _showLabel = true;
+    [UxmlAttribute]
+    public bool showLabel
+    {
+        get => _showLabel;
+        set
+        {
+            _showLabel = value;
+            if (labelElement != null)
+                labelElement.style.display = _showLabel ? DisplayStyle.Flex : DisplayStyle.None;
+            UpdateHeaderVisibility();
         }
     }
 #else
@@ -42,14 +57,28 @@ public partial class AnysoundSlider : Slider
     public bool integerOnly { get; set; } = false;
     
     private bool _showValues = false;
-    public bool showValues 
-    { 
+    public bool showValues
+    {
         get => _showValues;
         set
         {
             _showValues = value;
             if (_valueLabel != null)
                 _valueLabel.style.display = _showValues ? DisplayStyle.Flex : DisplayStyle.None;
+            UpdateHeaderVisibility();
+        }
+    }
+
+    private bool _showLabel = true;
+    public bool showLabel
+    {
+        get => _showLabel;
+        set
+        {
+            _showLabel = value;
+            if (labelElement != null)
+                labelElement.style.display = _showLabel ? DisplayStyle.Flex : DisplayStyle.None;
+            UpdateHeaderVisibility();
         }
     }
 #endif
@@ -62,6 +91,7 @@ public partial class AnysoundSlider : Slider
         private readonly UxmlBoolAttributeDescription _isEnabled = new UxmlBoolAttributeDescription { name = "isEnabled", defaultValue = true };
         private readonly UxmlBoolAttributeDescription _integerOnly = new UxmlBoolAttributeDescription { name = "integer-only", defaultValue = false };
         private readonly UxmlBoolAttributeDescription _showValues = new UxmlBoolAttributeDescription { name = "show-values", defaultValue = false };
+        private readonly UxmlBoolAttributeDescription _showLabel = new UxmlBoolAttributeDescription { name = "show-label", defaultValue = true };
 
         public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
         {
@@ -72,12 +102,14 @@ public partial class AnysoundSlider : Slider
             anySlider.isEnabled = _isEnabled.GetValueFromBag(bag, cc);
             anySlider.integerOnly = _integerOnly.GetValueFromBag(bag, cc);
             anySlider.showValues = _showValues.GetValueFromBag(bag, cc);
+            anySlider.showLabel = _showLabel.GetValueFromBag(bag, cc);
         }
     }
 #endif
 
 
     private readonly Label _valueLabel;
+    private readonly VisualElement _headerElement;
     private readonly VisualElement _dragTrack, _dragHandle;
     private Action _mouseUp;
 
@@ -116,12 +148,12 @@ public partial class AnysoundSlider : Slider
         _valueLabel.AddToClassList("value-label");
         // The display style will be set by the property setter
 
-        var headerElement = new VisualElement
+        _headerElement = new VisualElement
         {
             name = "header-element"
         };
-        headerElement.AddToClassList("slider-header-element");
-        this.Add(headerElement);
+        _headerElement.AddToClassList("slider-header-element");
+        this.Add(_headerElement);
 
 
         var dragContainerElement = new VisualElement
@@ -131,8 +163,8 @@ public partial class AnysoundSlider : Slider
         dragContainerElement.AddToClassList("drag-element");
         this.Add(dragContainerElement);
 
-        headerElement.Add(labelElement);
-        headerElement.Add(_valueLabel);
+        _headerElement.Add(labelElement);
+        _headerElement.Add(_valueLabel);
 
         AddToClassList("anysound-slider");
         var dragContainerLine = new VisualElement
@@ -169,6 +201,12 @@ public partial class AnysoundSlider : Slider
     public void RegisterDragEndCallback(Action callback)
     {
         _mouseUp += callback;
+    }
+
+    private void UpdateHeaderVisibility()
+    {
+        if (_headerElement == null) return;
+        _headerElement.style.display = (_showLabel || _showValues) ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
 

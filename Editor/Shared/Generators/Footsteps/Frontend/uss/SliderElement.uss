@@ -27,7 +27,7 @@
     min-height: 30px;
     max-height: 30px;
     width: 100%;
-    display: none;
+    display: flex;
 }
 
 .drag-element {
@@ -99,7 +99,7 @@
     align-items: auto;
     flex-basis: auto;
     min-width: 60px;
-    display: none;
+    display: flex;
 }
 
 .drag-handle-border {
@@ -162,7 +162,7 @@
 }
 
 .value-label {
-    display: none;
+    display: flex;
 }
 
 .drag-track {

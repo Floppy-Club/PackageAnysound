@@ -28,7 +28,7 @@
                                 <engine:Label text="RUN" style="-unity-font-definition: url(&quot;project://database/Packages/com.floppyclub.anysound/Editor/Fonts/IBMPlexMono-Medium.ttf?fileID=12800000&amp;guid=e1005e063d97148efacf3cc3692560e8&amp;type=3#IBMPlexMono-Medium&quot;); color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 10px;"/>
                             </engine:VisualElement>
                         </engine:VisualElement>
-                        <AnysoundSlider label="" name="MovementTypeSlider" show-input-field="false" high-value="2" low-value="0" color="#60C75CFF" inverted="false" value="1" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 60px; flex-grow: 0;"/>
+                        <AnysoundSlider label="Movement" name="MovementTypeSlider" show-input-field="false" high-value="2" low-value="0" color="#60C75CFF" inverted="false" value="1" show-label="false" show-values="false" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 60px; flex-grow: 0;"/>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="SizeElement" style="flex-grow: 0; height: 190px; flex-direction: row; flex-shrink: 0;">
@@ -55,7 +55,7 @@
                             <engine:VisualElement name="SizeIcon" class="size_icon" style="flex-direction: row; background-color: rgba(183, 66, 66, 0); background-image: none; margin-left: -10px; margin-right: -10px;"/>
                             <engine:VisualElement name="SizeIcon" class="size_icon" style="flex-direction: row; background-color: rgba(183, 66, 66, 0); background-image: none; margin-left: -7px; margin-right: -6px;"/>
                         </engine:VisualElement>
-                        <AnysoundSlider label="Size" name="SizeSlider" show-input-field="false" high-value="2" low-value="0" color="#3CA6FFFF" unit="%" inverted="false" value="1" show-values="false" fill="false" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 60px; flex-grow: 0;"/>
+                        <AnysoundSlider label="Size" name="SizeSlider" show-input-field="false" high-value="2" low-value="0" color="#3CA6FFFF" unit="%" inverted="false" value="1" show-values="false" fill="false" show-label="false" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 60px; flex-grow: 0;"/>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="SurfaceElement" style="flex-grow: 0; height: 150px; flex-direction: row; flex-shrink: 0;">
@@ -75,7 +75,7 @@
                             <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_gravel" name-text="GRAVEL"/>
                             <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_snow" name-text="SNOW"/>
                         </engine:VisualElement>
-                        <AnysoundSlider label="Surface" name="SurfaceSlider" show-input-field="false" high-value="2" low-value="0" color="#FFBB22FF" unit="%" inverted="false" value="1" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 60px; flex-grow: 0;"/>
+                        <AnysoundSlider label="Surface" name="SurfaceSlider" show-input-field="false" high-value="2" low-value="0" color="#FFBB22FF" unit="%" inverted="false" value="1" show-label="false" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 60px; flex-grow: 0;"/>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="AudioElement" style="flex-grow: 0; height: 80px; flex-direction: row; flex-shrink: 0;">

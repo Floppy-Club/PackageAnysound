@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Anysound.Shared.Footsteps;
-using UnityEditor;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 
