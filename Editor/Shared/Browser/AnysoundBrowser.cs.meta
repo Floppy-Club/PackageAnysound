@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 51e371b57bffb4592ba66e3edbcf9bf8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - visualTreeAsset: {fileID: 9197481963319205126, guid: db78f92dcc5554ccca3bcd994288092d, type: 3}
+  - tagTemplate: {fileID: 9197481963319205126, guid: 46e3d4840b07c4195bfa409c0f945d53, type: 3}
+  - generatorButtonTemplate: {fileID: 9197481963319205126, guid: 6f497b748fd324e9e91d130defc6daf7, type: 3}
+  - soundItemTemplate: {fileID: 9197481963319205126, guid: 7b6df2bcb442f426c8580e7432201881, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

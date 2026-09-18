@@ -1,0 +1,102 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Anysound/Shared/Generators/Footsteps/Frontend/uss/SliderElement.uss?fileID=7433441132597879392&amp;guid=aca955fb57f574bc5bc464c79efeee4c&amp;type=3#SliderElement"/>
+    <Style src="project://database/Assets/Anysound/Shared/Generators/Footsteps/Frontend/uss/AnysoundSurfaceToggle.uss?fileID=7433441132597879392&amp;guid=77f1e976f4e394b148f02e71fe20b1fb&amp;type=3#AnysoundSurfaceToggle"/>
+    <Style src="project://database/Assets/Anysound/Shared/uss/AnysoundStyles.uss?fileID=7433441132597879392&amp;guid=1e040dc50fcfa49f0aa3378443d2ffaa&amp;type=3#AnysoundStyles"/>
+    <engine:ScrollView style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; min-width: 400px;">
+        <engine:VisualElement style="flex-grow: 0; height: 394px; background-color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px;">
+            <engine:VisualElement name="Header" style="flex-grow: 0; align-self: stretch; justify-content: space-between; height: 60px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
+                <engine:Label text="WHOOSH" class="header-label" style="font-size: 28px; -unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-Light.ttf?fileID=12800000&amp;guid=c66c55044e1e5491b90d92aa9f9bcb47&amp;type=3#IBMPlexMono-Light&quot;); color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                <engine:Button text="Browse" name="BackButton" class="browse-button"/>
+            </engine:VisualElement>
+            <engine:VisualElement name="Preview" style="flex-grow: 0; height: 324px; background-color: rgb(0, 0, 0); -unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-Regular.ttf?fileID=12800000&amp;guid=a6603d1db13644a958c1ff883c8109e2&amp;type=3#IBMPlexMono-Regular&quot;);">
+                <engine:VisualElement name="MovementElement" style="flex-grow: 0; height: 32px; flex-direction: row; flex-shrink: 0;">
+                    <engine:VisualElement style="flex-grow: 1;">
+                        <engine:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgb(96, 199, 92); height: 2px;"/>
+                        <engine:VisualElement name="MovementLabelsContainer" style="flex-grow: 0; flex-direction: row; height: 20px;">
+                            <engine:VisualElement style="flex-grow: 1; background-color: rgb(96, 199, 92); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px;">
+                                <engine:Label text="SNEAK" style="-unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-Medium.ttf?fileID=12800000&amp;guid=e1005e063d97148efacf3cc3692560e8&amp;type=3#IBMPlexMono-Medium&quot;); color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 10px;"/>
+                            </engine:VisualElement>
+                            <engine:VisualElement style="flex-grow: 1; background-color: rgb(96, 199, 92); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px;">
+                                <engine:Label text="WALK" style="-unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-Medium.ttf?fileID=12800000&amp;guid=e1005e063d97148efacf3cc3692560e8&amp;type=3#IBMPlexMono-Medium&quot;); color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 10px;"/>
+                            </engine:VisualElement>
+                            <engine:VisualElement style="flex-grow: 1; background-color: rgb(96, 199, 92); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px;">
+                                <engine:Label text="RUN" style="-unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-Medium.ttf?fileID=12800000&amp;guid=e1005e063d97148efacf3cc3692560e8&amp;type=3#IBMPlexMono-Medium&quot;); color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 10px;"/>
+                            </engine:VisualElement>
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:VisualElement name="SizeElement" style="flex-grow: 0; height: 130px; flex-direction: row; flex-shrink: 0;">
+                    <engine:VisualElement name="VisualElement" style="flex-grow: 0; width: 64px;">
+                        <engine:VisualElement style="flex-grow: 0; height: 16px; background-color: rgb(60, 166, 255);">
+                            <engine:Label text="SIZE" class="section-label" style="color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 10px;"/>
+                        </engine:VisualElement>
+                        <engine:VisualElement name="SizeLabelsContainer" style="flex-grow: 1; margin-top: 10px; margin-bottom: 10px;">
+                            <engine:Label text="XXL" class="size-label" style="color: rgb(60, 166, 255); font-size: 10px; -unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-SemiBold.ttf?fileID=12800000&amp;guid=7ff7d8e76556a449a856aad3ca8ea896&amp;type=3#IBMPlexMono-SemiBold&quot;);"/>
+                            <engine:Label text="XL" class="size-label" style="color: rgb(60, 166, 255); font-size: 10px; -unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-SemiBold.ttf?fileID=12800000&amp;guid=7ff7d8e76556a449a856aad3ca8ea896&amp;type=3#IBMPlexMono-SemiBold&quot;);"/>
+                            <engine:Label text="L" class="size-label" style="color: rgb(60, 166, 255); font-size: 10px; -unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-SemiBold.ttf?fileID=12800000&amp;guid=7ff7d8e76556a449a856aad3ca8ea896&amp;type=3#IBMPlexMono-SemiBold&quot;);"/>
+                            <engine:Label text="M" class="size-label" style="color: rgb(60, 166, 255); font-size: 10px; -unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-SemiBold.ttf?fileID=12800000&amp;guid=7ff7d8e76556a449a856aad3ca8ea896&amp;type=3#IBMPlexMono-SemiBold&quot;);"/>
+                            <engine:Label text="S" class="size-label" style="color: rgb(60, 166, 255); font-size: 10px; -unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-SemiBold.ttf?fileID=12800000&amp;guid=7ff7d8e76556a449a856aad3ca8ea896&amp;type=3#IBMPlexMono-SemiBold&quot;);"/>
+                            <engine:Label text="XS" class="size-label" style="color: rgb(60, 166, 255); font-size: 10px; -unity-font-definition: url(&quot;project://database/Assets/Anysound/Fonts/IBMPlexMono-SemiBold.ttf?fileID=12800000&amp;guid=7ff7d8e76556a449a856aad3ca8ea896&amp;type=3#IBMPlexMono-SemiBold&quot;);"/>
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                    <engine:VisualElement style="flex-grow: 1;">
+                        <engine:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgb(60, 166, 255); height: 2px;"/>
+                        <engine:VisualElement name="SizeIconsContainer" style="flex-grow: 1; background-image: none; -unity-background-scale-mode: stretch-to-fill; background-color: rgba(147, 84, 84, 0); flex-shrink: 1; background-size: 64px 64px; -unity-slice-scale: 0; flex-direction: row; height: 70px; align-items: flex-end; padding-top: 1px; padding-right: 1px; padding-bottom: 1px; padding-left: 1px; margin-bottom: 10px; justify-content: space-around; margin-right: -9px; margin-left: -13px;">
+                            <engine:VisualElement name="SizeIcon" class="size_icon" style="flex-direction: row; background-color: rgba(183, 66, 66, 0); background-image: url(&quot;project://database/Assets/Anysound/Shared/Generators/Footsteps/graphics/svg/size_xs_run.svg?fileID=8742538545776668643&amp;guid=8a789fa8abfd449e5b02de7866b870c8&amp;type=3#size_xs_run&quot;); margin-right: -23px; margin-left: -22px;"/>
+                            <engine:VisualElement name="SizeIcon" class="size_icon" style="flex-direction: row; background-color: rgba(183, 66, 66, 0); background-image: url(&quot;project://database/Assets/Anysound/Shared/Generators/Footsteps/graphics/svg/size_s_run.svg?fileID=8742538545776668643&amp;guid=411b7bf6cc4754abf8817d79470833cb&amp;type=3#size_s_run&quot;); margin-left: -21px; margin-right: -21px;"/>
+                            <engine:VisualElement name="SizeIcon" class="size_icon" style="flex-direction: row; background-color: rgba(183, 66, 66, 0); background-image: url(&quot;project://database/Assets/Anysound/Shared/Generators/Footsteps/graphics/svg/size_m_run.svg?fileID=8742538545776668643&amp;guid=da01a6c5eacf0457e9b6e4125375b17d&amp;type=3#size_m_run&quot;); margin-left: -17px; margin-right: -19px;"/>
+                            <engine:VisualElement name="SizeIcon" class="size_icon" style="flex-direction: row; background-color: rgba(183, 66, 66, 0); background-image: url(&quot;project://database/Assets/Anysound/Shared/Generators/Footsteps/graphics/svg/size_l_run.svg?fileID=8742538545776668643&amp;guid=8f1e94bf588c14e6b9fc814fd83a3520&amp;type=3#size_l_run&quot;); margin-left: -13px; margin-right: -13px;"/>
+                            <engine:VisualElement name="SizeIcon" class="size_icon" style="flex-direction: row; background-color: rgba(183, 66, 66, 0); background-image: url(&quot;project://database/Assets/Anysound/Shared/Generators/Footsteps/graphics/svg/size_xl_run.svg?fileID=8742538545776668643&amp;guid=f2b0b8718daf345378f542ec4ea15ac7&amp;type=3#size_xl_run&quot;); margin-left: -10px; margin-right: -10px;"/>
+                            <engine:VisualElement name="SizeIcon" class="size_icon" style="flex-direction: row; background-color: rgba(183, 66, 66, 0); background-image: url(&quot;project://database/Assets/Anysound/Shared/Generators/Footsteps/graphics/svg/size_xxl_run.svg?fileID=8742538545776668643&amp;guid=6bc09c5419fa04f3b9dfd2305b14e831&amp;type=3#size_xxl_run&quot;); margin-left: -7px; margin-right: -6px;"/>
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:VisualElement name="SurfaceElement" style="flex-grow: 0; height: 80px; flex-direction: row; flex-shrink: 0;">
+                    <engine:VisualElement name="VisualElement" style="flex-grow: 0; width: 64px;">
+                        <engine:VisualElement style="flex-grow: 0; height: 16px; background-color: rgb(255, 187, 34);">
+                            <engine:Label text="SURFACE" class="section-label" style="color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 10px;"/>
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                    <engine:VisualElement style="flex-grow: 1;">
+                        <engine:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgb(255, 187, 34); height: 2px;"/>
+                        <engine:VisualElement name="SurfaceIconsContainer" style="flex-grow: 0; flex-direction: row; justify-content: space-between; flex-shrink: 0; height: 58px; align-self: stretch; align-items: flex-start; margin-left: 3px; margin-top: 14px; margin-right: 0;">
+                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_grass" name-text="GRASS"/>
+                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_sand" name-text="SAND"/>
+                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_mud" name-text="MUD"/>
+                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_wood" name-text="WOOD"/>
+                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_concrete" name-text="CONCRETE"/>
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:VisualElement name="AudioElement" style="flex-grow: 0; height: 80px; flex-direction: row; flex-shrink: 0;">
+                    <engine:VisualElement style="flex-grow: 0; width: 64px;">
+                        <engine:VisualElement style="flex-grow: 0; height: 16px; background-color: rgb(244, 64, 78);">
+                            <engine:Label text="AUDIO" class="section-label" style="color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 10px; justify-content: center;"/>
+                        </engine:VisualElement>
+                    </engine:VisualElement>
+                    <engine:VisualElement style="flex-grow: 1;">
+                        <engine:VisualElement style="flex-grow: 0; background-color: rgb(244, 64, 78); height: 2px;"/>
+                        <engine:VisualElement name="Playhead" style="flex-grow: 1; height: 10px; position: relative; width: 2px; display: flex; background-color: rgb(244, 64, 78); max-height: 14px; opacity: 1; left: 5%; visibility: hidden;"/>
+                        <engine:VisualElement name="WaveformContainer" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0);"/>
+                    </engine:VisualElement>
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="Sliders" style="flex-grow: 0; flex-shrink: 0;"/>
+        <AnysoundSlider label="Walk style" name="MovementTypeSlider" show-input-field="false" high-value="2" low-value="0" color="#60C75CFF" inverted="false" value="1" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 100px; flex-grow: 0;"/>
+        <AnysoundSlider label="Size" name="SizeSlider" show-input-field="false" high-value="2" low-value="0" color="#3CA6FFFF" unit="%" inverted="false" value="1" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 100px; flex-grow: 0;"/>
+        <AnysoundSlider label="Surface" name="SurfaceSlider" show-input-field="false" high-value="2" low-value="0" color="#FFBB22FF" unit="%" inverted="false" value="1" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 100px; flex-grow: 0;"/>
+        <engine:VisualElement name="Buttons" style="flex-grow: 0; flex-direction: row; height: 142px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 10px;">
+            <engine:VisualElement name="AnytwhenButton" class="anysound-button" style="flex-grow: 1;">
+                <engine:Label text="Export to project" style="-unity-text-align: middle-left; height: 30px; width: 150px;"/>
+                <engine:Button display-tooltip-when-elided="false" name="ExportButton" class="anysound-button-box" style="background-image: resource(&quot;button_export&quot;); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; height: 100px; -unity-background-scale-mode: scale-to-fit; background-size: 80px 80px; border-left-color: rgb(142, 142, 142); border-right-color: rgb(142, 142, 142); border-top-color: rgb(142, 142, 142); border-bottom-color: rgb(142, 142, 142);"/>
+            </engine:VisualElement>
+            <engine:VisualElement name="AnytwhenButton" class="anysound-button" style="flex-grow: 1;">
+                <engine:Label text="Preview sound" style="-unity-text-align: middle-left; height: 30px; width: 150px;"/>
+                <engine:Button display-tooltip-when-elided="false" name="PreviewButton" class="anysound-button-box" style="background-image: resource(&quot;button_preview&quot;); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; height: 100px; -unity-background-scale-mode: scale-to-fit; background-size: 80px 80px; border-left-color: rgb(142, 142, 142); border-right-color: rgb(142, 142, 142); border-top-color: rgb(142, 142, 142); border-bottom-color: rgb(142, 142, 142);"/>
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:Button text="Create preset" name="RedrawButton" style="display: flex;"/>
+    </engine:ScrollView>
+    <engine:VisualElement name="VisualElement" style="flex-grow: 1; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; flex-shrink: 0;"/>
+</engine:UXML>

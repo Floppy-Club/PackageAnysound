@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: Footstep_Water_Huge_Layer_1
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: d9296e262f16e44f3a861ec956670186, type: 3}
+  - {fileID: 8300000, guid: 60a06c6a2e0b941608875165f1c11e7f, type: 3}
+  - {fileID: 8300000, guid: dbc9e24e8797d4011a89097e4b62a1c2, type: 3}
+  - {fileID: 8300000, guid: 8dcb7381b13b9443282e1429a00bc2e8, type: 3}
+  - {fileID: 8300000, guid: 3204be627a9714a8bb9c7fdd69ad1782, type: 3}
+  - {fileID: 8300000, guid: ecb21bf5b70ff4846bb1a91f5752594b, type: 3}
+  - {fileID: 8300000, guid: 203c4bf2941ea48819427d65c948cf0b, type: 3}
+  - {fileID: 8300000, guid: c42a950a202674274932311a0ef3b8d7, type: 3}
+  - {fileID: 8300000, guid: e3a0ff7524e644842b1ef88a1344b931, type: 3}
+  - {fileID: 8300000, guid: 09b98b4923f70418b9a19338de2c4a7a, type: 3}

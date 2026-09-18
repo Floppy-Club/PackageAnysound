@@ -1,0 +1,36 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <engine:Template name="SoundBrowserTagButton" src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/Browser/SoundBrowserTag.uxml?fileID=9197481963319205126&amp;guid=46e3d4840b07c4195bfa409c0f945d53&amp;type=3#SoundBrowserTag"/>
+    <engine:Template name="SoundPreviewContainer" src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/Browser/SoundPreviewContainer.uxml?fileID=9197481963319205126&amp;guid=14024937319ee4d9098eb59db6159a5b&amp;type=3#SoundPreviewContainer"/>
+    <Style src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/uss/AnysoundStyles.uss?fileID=7433441132597879392&amp;guid=1e040dc50fcfa49f0aa3378443d2ffaa&amp;type=3#AnysoundStyles"/>
+    <engine:VisualElement style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; height: 100%; max-height: 100%; min-height: 100%; padding-top: 14px; padding-bottom: 14px; padding-right: 14px; padding-left: 14px;">
+        <engine:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; height: auto; max-height: 363px; min-height: 363px;">
+            <engine:VisualElement name="HeaderContainer" class="header-element">
+                <engine:Label text="ANYSOUND" name="HeaderLabel" class="header-label"/>
+            </engine:VisualElement>
+            <engine:VisualElement name="SearchBarContainer" style="flex-direction: row; margin-bottom: 8px; height: 40px; max-height: 40px; min-height: 40px;">
+                <engine:TextField placeholder-text="Search..." focusable="true" name="SearchText" style="flex-grow: 1; background-color: rgb(0, 0, 0); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgb(87, 87, 87); border-right-color: rgb(87, 87, 87); border-top-color: rgb(87, 87, 87); border-bottom-color: rgb(87, 87, 87); border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                <engine:Button text="Search" name="SearchButton" class="anysound-button-box"/>
+            </engine:VisualElement>
+            <engine:VisualElement name="VisualElement" style="flex-grow: 0; height: 110px; min-height: 130px;">
+                <engine:Label text="Generators" style="height: 20px; min-height: 20px;"/>
+                <engine:VisualElement name="GeneratorButtonsContainer" style="flex-grow: 1; flex-direction: row; height: 100px; max-height: 100px; min-height: 100px;">
+                    <engine:Button name="GeneratorButton" style="background-image: url(&quot;project://database/Packages/com.floppyclub.anysound/Editor/Shared/Generators/Footsteps/graphics/png/Footsteps_cover.png?fileID=2800000&amp;guid=ed1600cbb1adf40029aa0f1714689d98&amp;type=3#Footsteps_cover&quot;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; height: 100px; width: 100px; -unity-background-image-tint-color: rgb(255, 255, 255);"/>
+                    <engine:Button name="GeneratorButton" style="background-image: url(&quot;project://database/Packages/com.floppyclub.anysound/Editor/Shared/Generators/Whoosh/Graphics/png/Screenshot%202025-04-25%20at%2012.11.06%20(1).png?fileID=2800000&amp;guid=a54fa0f66b8da422096684830053243e&amp;type=3#Screenshot 2025-04-25 at 12.11.06 (1)&quot;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; height: 100px; width: 100px;"/>
+                    <engine:Button name="GeneratorButton" style="background-image: url(&quot;project://database/Packages/com.floppyclub.anysound/Editor/Shared/Generators/Whoosh/Graphics/png/Screenshot%202025-04-25%20at%2012.11.06%20(1).png?fileID=2800000&amp;guid=a54fa0f66b8da422096684830053243e&amp;type=3#Screenshot 2025-04-25 at 12.11.06 (1)&quot;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; height: 100px; width: 100px;"/>
+                </engine:VisualElement>
+            </engine:VisualElement>
+            <engine:VisualElement name="TagsContainer" style="flex-grow: 1; flex-direction: column; flex-wrap: wrap; margin-bottom: 10px; min-height: 60px;">
+                <engine:Label text="Tags" style="min-height: 20px;"/>
+                <engine:VisualElement name="Tags" style="flex-grow: 1; flex-direction: row; flex-wrap: wrap;">
+                    <engine:Instance template="SoundBrowserTagButton"/>
+                    <engine:Instance template="SoundBrowserTagButton"/>
+                    <engine:Instance template="SoundBrowserTagButton"/>
+                    <engine:Instance template="SoundBrowserTagButton"/>
+                    <engine:Instance template="SoundBrowserTagButton"/>
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:ListView item-template="project://database/Assets/Anysound/Shared/Browser/SoundBrowserResult.uxml" allow-add="false" allow-remove="false" show-foldout-header="false" header-title="Sounds" show-border="false" name="SoundsList" data-source-type="AnysoundSoundEffectObject, Assembly-CSharp" data-source-path="soundName" style="flex-grow: 1; margin-bottom: 10px; margin-top: 10px; height: 100%; max-height: 100%;"/>
+        <engine:Instance template="SoundPreviewContainer" name="SoundPreviewContainer" style="align-content: flex-end; flex-grow: 0; margin-top: 10px; height: 120px; margin-bottom: 10px; min-height: 120px;"/>
+    </engine:VisualElement>
+</engine:UXML>

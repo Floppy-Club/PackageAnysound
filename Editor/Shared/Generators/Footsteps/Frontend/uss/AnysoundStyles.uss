@@ -1,0 +1,96 @@
+.textbody {
+    font-size: 12px;
+    color: rgb(226, 226, 226);
+}
+
+.border {
+    border-left-color: rgb(149, 149, 149);
+    border-right-color: rgb(149, 149, 149);
+    border-top-color: rgb(149, 149, 149);
+    border-bottom-color: rgb(149, 149, 149);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.unity-button {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    min-height: 25px;
+}
+
+.unity-button:hover {
+    background-color: rgba(255, 255, 255, 0.09);
+}
+
+.tracklist-button {
+    min-height: 25px;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgb(188, 188, 188);
+    border-right-color: rgb(188, 188, 188);
+    border-top-color: rgb(188, 188, 188);
+    border-bottom-color: rgba(188, 188, 188, 0);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 0;
+    border-left-width: 1px;
+}
+
+.tracklist-button:hover {
+    background-color: rgb(72, 72, 72);
+}
+
+.tracklist-button:focus {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+.inspector-button {
+    min-height: 40px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    color: rgb(255, 255, 255);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(149, 149, 149);
+    border-right-color: rgb(149, 149, 149);
+    border-top-color: rgb(149, 149, 149);
+    border-bottom-color: rgb(149, 149, 149);
+    background-color: rgba(0, 0, 0, 0);
+    flex-grow: 1;
+}
+
+.foldout-label {
+}
+
+.section-button {
+    flex-grow: 1;
+    border-top-width: 0;
+    border-right-width: 1px;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgb(149, 149, 149);
+    border-right-color: rgb(149, 149, 149);
+    border-top-color: rgb(149, 149, 149);
+    border-bottom-color: rgb(149, 149, 149);
+}

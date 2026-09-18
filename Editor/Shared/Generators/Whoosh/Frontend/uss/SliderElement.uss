@@ -1,0 +1,282 @@
+.anysound-slider {
+    align-items: stretch;
+    align-self: stretch;
+    justify-content: flex-start;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-width: 0;
+    height: 100%;
+    width: 100%;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.header-element {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-self: auto;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 30px;
+    flex-grow: 1;
+    min-height: 30px;
+    max-height: 30px;
+    width: 100%;
+}
+
+.drag-element {
+    background-color: rgba(72, 51, 18, 0);
+    margin: 0;
+    border-width: 1px;
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-self: stretch;
+    flex-direction: column;
+    min-height: 20px;
+    border-color: rgb(120, 120, 120);
+    padding: 0;
+}
+
+.drag-element:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+
+.unity-drag-container {
+    flex-grow: 1;
+    justify-content: flex-start;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    align-items: stretch;
+    align-self: auto;
+    background-color: rgba(89, 37, 37, 0);
+    flex-direction: column;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 100%;
+    min-height: 20px;
+    align-content: auto;
+}
+
+.slider-label {
+    background-color: rgba(245, 87, 87, 0);
+    flex-direction: column;
+    flex-grow: 1;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 2px;
+    min-height: 20px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -unity-text-align: middle-left;
+    flex-shrink: 1;
+    align-self: auto;
+    align-items: auto;
+    flex-basis: auto;
+    min-width: 60px;
+}
+
+.value-label {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-top: 3px;
+    margin-right: 5px;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    flex-grow: 1;
+    align-self: center;
+    align-items: flex-end;
+    -unity-text-align: middle-right;
+    min-height: 20px;
+    -unity-font-style: bold;
+    flex-basis: 50%;
+    display: none;
+}
+
+.drag-handle-border {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    flex-shrink: 0;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    top: 0;
+    bottom: 0;
+    height: 30px;
+    min-width: 10px;
+    visibility: hidden;
+}
+
+.drag-container {
+    background-color: rgba(75, 74, 60, 0.22);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    flex-shrink: 1;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    flex-grow: 1;
+    width: 100%;
+    justify-content: center;
+}
+
+.drag-track {
+    background-color: rgb(255, 255, 255);
+    flex-grow: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 10%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: center;
+    align-self: flex-start;
+    align-items: flex-start;
+    max-height: none;
+    flex-shrink: 1;
+    min-height: auto;
+    top: 45%;
+    bottom: auto;
+}
+
+.drag-container-line {
+    background-color: rgb(149, 149, 149);
+    flex-grow: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 1%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: center;
+    align-self: flex-start;
+    align-items: flex-start;
+    max-height: none;
+    flex-shrink: 1;
+    min-height: auto;
+    top: 50%;
+    bottom: auto;
+    position: absolute;
+    visibility: visible;
+}
+
+.drag-handle {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    flex-shrink: 0;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    top: 0;
+    bottom: 0;
+    min-width: 10px;
+    min-height: 100%;
+}

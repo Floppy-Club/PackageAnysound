@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: Footstep_Wood_Normal
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: afadac255055f48ea89ca4ff4b601877, type: 3}
+  - {fileID: 8300000, guid: 8fe1d05a3224949299277b8810397b4a, type: 3}
+  - {fileID: 8300000, guid: 9d3bd3e7066ae468e93e726b1ccb07d9, type: 3}
+  - {fileID: 8300000, guid: 0ec47748145dd4dc0a98ee195a494b16, type: 3}
+  - {fileID: 8300000, guid: 43a863433569e49eabdd02be9a15162f, type: 3}
+  - {fileID: 8300000, guid: 99a17d2d245234b4e82142dfc7e0dd1d, type: 3}
+  - {fileID: 8300000, guid: 28239f240bb714bfbbbbcbb9a4bb87d7, type: 3}
+  - {fileID: 8300000, guid: e792f48b5f116490399b61632092731f, type: 3}
+  - {fileID: 8300000, guid: ff63e3dfd6bc740aa835b252fd723209, type: 3}
+  - {fileID: 8300000, guid: f5306d38e072a48aab8344dbc7e420a5, type: 3}

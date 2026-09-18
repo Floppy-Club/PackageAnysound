@@ -1,0 +1,6 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Anysound/Shared/Browser/SoundBrowser.uss?fileID=7433441132597879392&amp;guid=5280a99a60b3f49ee9aa1a775eafd6a6&amp;type=3#SoundBrowser" />
+    <engine:VisualElement name="ElementContainer" style="flex-grow: 1; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
+        <engine:Button text="Button" name="SoundTagButton" style="border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; padding-top: 4px; padding-right: 8px; padding-bottom: 4px; padding-left: 8px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; background-color: rgba(188, 188, 188, 0); border-left-color: rgb(106, 106, 106); border-right-color: rgb(106, 106, 106); border-top-color: rgb(106, 106, 106); border-bottom-color: rgb(106, 106, 106);" />
+    </engine:VisualElement>
+</engine:UXML>

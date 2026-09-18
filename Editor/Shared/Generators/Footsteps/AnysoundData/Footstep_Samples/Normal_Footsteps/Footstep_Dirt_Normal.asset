@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: Footstep_Dirt_Normal
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 9931aaa272e8648e4aadf6a7072851da, type: 3}
+  - {fileID: 8300000, guid: a1b36aa824d684e078e838935a7eed63, type: 3}
+  - {fileID: 8300000, guid: eb2d48afbf0d749dc9f440848f9f78e9, type: 3}
+  - {fileID: 8300000, guid: 9ace638a2373d441c8e380a9ff864d92, type: 3}
+  - {fileID: 8300000, guid: 896d6a22f0060438b97392aff7885377, type: 3}
+  - {fileID: 8300000, guid: 76348e927a59c43d691f38f7d9a63761, type: 3}
+  - {fileID: 8300000, guid: ce9738e2d26e148b18d16614eab1fa1c, type: 3}
+  - {fileID: 8300000, guid: a5003c1498fc74a6ab4d6905e340eea6, type: 3}
+  - {fileID: 8300000, guid: c2a7a472a93b340728081f6f24b8ff6f, type: 3}
+  - {fileID: 8300000, guid: cdbbc3fa8042a4ad9a86e5a11aefc63e, type: 3}

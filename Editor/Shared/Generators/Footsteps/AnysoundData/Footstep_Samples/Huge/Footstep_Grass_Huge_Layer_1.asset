@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: Footstep_Grass_Huge_Layer_1
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 9dd4940c7be8a4ee48951e6ee7a28334, type: 3}
+  - {fileID: 8300000, guid: 92d081f3cc9714c3e8ed7db8713924b1, type: 3}
+  - {fileID: 8300000, guid: c3c17c467548a4b43a3ab0325b45d70e, type: 3}
+  - {fileID: 8300000, guid: 865d238f60933487aa1b51c658b3e1be, type: 3}
+  - {fileID: 8300000, guid: 8f14bc01188ab46b394fd3430a44efa8, type: 3}
+  - {fileID: 8300000, guid: 31f6c182fe9fb40dda1e4ac7f342b3ee, type: 3}
+  - {fileID: 8300000, guid: 34e2729d1df0c4ad59d5c3470288fcaf, type: 3}
+  - {fileID: 8300000, guid: 2fda3ac119cbf48b0b81c11cca849005, type: 3}
+  - {fileID: 8300000, guid: 2194bf909785348189de0863638bd6da, type: 3}
+  - {fileID: 8300000, guid: 61b14fd223c0746d9886dc851d858333, type: 3}

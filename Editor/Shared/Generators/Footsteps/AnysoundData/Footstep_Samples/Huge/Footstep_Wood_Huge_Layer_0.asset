@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: Footstep_Wood_Huge_Layer_0
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: fa99a552fda664c99ace463e2abe00cf, type: 3}
+  - {fileID: 8300000, guid: c943cd2bc01c84f0eaad9d4d7dcd7c01, type: 3}
+  - {fileID: 8300000, guid: 710687b43ff7f4dfa8f9ce5c5f223866, type: 3}
+  - {fileID: 8300000, guid: a53ce0e4637fe4f54a0f81631151e81e, type: 3}
+  - {fileID: 8300000, guid: c097fb83df4f144ec8ed7fbc2cd54c23, type: 3}
+  - {fileID: 8300000, guid: e63db3a5efce94267962dc74fc2cd770, type: 3}
+  - {fileID: 8300000, guid: b00c964b6f4b545e8b2338148e0d6b97, type: 3}
+  - {fileID: 8300000, guid: 37a04caf3e7004530ba500a6b6e41c04, type: 3}
+  - {fileID: 8300000, guid: dcf7b13097ea7443996310a1444ef0a2, type: 3}
+  - {fileID: 8300000, guid: 470472e5e1d754ff7ab7e8da79c29d11, type: 3}

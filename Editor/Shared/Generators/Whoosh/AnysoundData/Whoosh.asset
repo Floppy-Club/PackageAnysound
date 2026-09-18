@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8142d8212fa9c4779974f0eae79ef0f1, type: 3}
+  m_Name: Whoosh
+  m_EditorClassIdentifier: 
+  coverTexture: {fileID: 2800000, guid: 02c818bd614664d52b94a1a464622569, type: 3}
+  isLoadable: 0
+  movementSettings:
+  - noiseGenerator1:
+      amplitude: 1
+      noiseType: 0
+    noiseGenerator2:
+      amplitude: 0.7356
+      noiseType: 2
+    toneGenerator:
+      amplitude: 0.1038
+      toneType: 3
+    bandPassFilter1:
+      centerFrequency: 1685
+      bandwidth: 3.437
+      gain: 1
+    bandPassFilter2:
+      centerFrequency: 2010
+      bandwidth: 3.89
+      gain: 0.808
+    amplitudeEnvelope:
+      attackTime: 0.047
+      decayTime: 0.269
+      sustainLevel: 0.722
+      releaseTime: 0.672
+      duration: 1.108
+    filterEnvelope1:
+      attackTime: 0.28
+      decayTime: 1.29
+      sustainLevel: 0.043
+      releaseTime: 0.3
+      duration: 1
+    filterEnvelope2:
+      attackTime: 0.001
+      decayTime: 0.076
+      sustainLevel: 0.485
+      releaseTime: 0.638
+      duration: 1
+    sineFrequencyEnvelope:
+      attackTime: 0.001
+      decayTime: 0.298
+      sustainLevel: 0.264
+      releaseTime: 2.028
+      duration: 1
+    fluctuationLFOGenerator:
+      speed: 8.87
+      amplitude: 0.41
+      lfoType: 0
+  - noiseGenerator1:
+      amplitude: 1
+      noiseType: 0
+    noiseGenerator2:
+      amplitude: 0.825
+      noiseType: 2
+    toneGenerator:
+      amplitude: 0.115
+      toneType: 0
+    bandPassFilter1:
+      centerFrequency: 2230
+      bandwidth: 2.11
+      gain: 0.826
+    bandPassFilter2:
+      centerFrequency: 941
+      bandwidth: 2.81
+      gain: 0.755
+    amplitudeEnvelope:
+      attackTime: 0.58
+      decayTime: 0.1
+      sustainLevel: 1
+      releaseTime: 0.3
+      duration: 1
+    filterEnvelope1:
+      attackTime: 0.98
+      decayTime: 0.1
+      sustainLevel: 1
+      releaseTime: 0.3
+      duration: 1
+    filterEnvelope2:
+      attackTime: 1.09
+      decayTime: 0.1
+      sustainLevel: 1
+      releaseTime: 0.3
+      duration: 1
+    sineFrequencyEnvelope:
+      attackTime: 0.73
+      decayTime: 0.1
+      sustainLevel: 1
+      releaseTime: 0.3
+      duration: 1
+    fluctuationLFOGenerator:
+      speed: 7.19
+      amplitude: 0.36
+      lfoType: 0

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: Footstep_Snow_Normal_Layer_0
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: e3df3c405b0a74bd790cb98723c17caa, type: 3}
+  - {fileID: 8300000, guid: 146227000ddb347edbb18bc2ebd8a699, type: 3}
+  - {fileID: 8300000, guid: 300cb76aef07148039ec77368683d1c9, type: 3}
+  - {fileID: 8300000, guid: 13c387dd6865245629359135497f8b18, type: 3}
+  - {fileID: 8300000, guid: cf7ae4c5d43604d329d8e735876d7dcf, type: 3}
+  - {fileID: 8300000, guid: 358403762c6fa4792bde709e62a2f1a6, type: 3}
+  - {fileID: 8300000, guid: f18f308bef4a94c9da3b3717ade8ef1b, type: 3}
+  - {fileID: 8300000, guid: c57764b804c1d4a8b8e1d855ee13c262, type: 3}
+  - {fileID: 8300000, guid: 8dea3d5cc6350456ebfd32536f32c891, type: 3}
+  - {fileID: 8300000, guid: 0b59b7ff84e984ff2876b4382262e89b, type: 3}

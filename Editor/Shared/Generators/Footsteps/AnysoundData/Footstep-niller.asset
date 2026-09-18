@@ -1,0 +1,1820 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1da53e8496eb4c7697a0679efce5355, type: 3}
+  m_Name: Footstep-niller
+  m_EditorClassIdentifier: 
+  coverTexture: {fileID: 2800000, guid: ed1600cbb1adf40029aa0f1714689d98, type: 3}
+  isLoadable: 1
+  surfaceSettings:
+  - surfaceTypeName: Grass
+    footstepSizeSettings:
+    - name: Mini
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: 4fb7a52df4742473fa1e0dff25c4ba03, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.054
+        sustainLevel: 0.72
+        releaseTime: 0.16
+        duration: 0.03
+      BandPassFilterSettings:
+        centerFrequency: 10807
+        bandwidth: 0.55
+        gain: 0.995
+      DistortionSettings:
+        mix: 0.5
+        amount: 0.17
+        gain: 5
+    - name: Small
+      audioLayers:
+      - value: 0.442
+        clipCollection: {fileID: 11400000, guid: 4fb7a52df4742473fa1e0dff25c4ba03, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 1.325
+        sustainLevel: 0.767
+        releaseTime: 0.56
+        duration: 1.26
+      BandPassFilterSettings:
+        centerFrequency: 11557
+        bandwidth: 1.45
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Mid
+      audioLayers:
+      - value: 0.528
+        clipCollection: {fileID: 11400000, guid: 107af5d1ba70543ec8ed0a90bca1ed4f, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.2
+        sustainLevel: 0.87
+        releaseTime: 0.14
+        duration: 0.06
+      BandPassFilterSettings:
+        centerFrequency: 5146
+        bandwidth: 1.34
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Normal
+      audioLayers:
+      - value: 0.726
+        clipCollection: {fileID: 11400000, guid: 107af5d1ba70543ec8ed0a90bca1ed4f, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.659
+        sustainLevel: 0.934
+        releaseTime: 0.63
+        duration: 1.01
+      BandPassFilterSettings:
+        centerFrequency: 3698
+        bandwidth: 3.81
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Big
+      audioLayers:
+      - value: 0.91
+        clipCollection: {fileID: 11400000, guid: 08d9bba2c4ed2432e86a930fd3f54af9, type: 2}
+      - value: 0.79
+        clipCollection: {fileID: 11400000, guid: 2b6babbf8137647c39ebf3f048705aec, type: 2}
+      - value: 0.653
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 1.595
+        sustainLevel: 1
+        releaseTime: 1.35
+        duration: 3.15
+      BandPassFilterSettings:
+        centerFrequency: 942
+        bandwidth: 5
+        gain: 1
+      DistortionSettings:
+        mix: 0.198
+        amount: 2.79
+        gain: 0.96
+    - name: Huge
+      audioLayers:
+      - value: 0.709
+        clipCollection: {fileID: 11400000, guid: 08d9bba2c4ed2432e86a930fd3f54af9, type: 2}
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: 2b6babbf8137647c39ebf3f048705aec, type: 2}
+      - value: 0.47
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.208
+        sustainLevel: 0.989
+        releaseTime: 0.001
+        duration: 2.84
+      BandPassFilterSettings:
+        centerFrequency: 272
+        bandwidth: 5
+        gain: 1
+      DistortionSettings:
+        mix: 0.353
+        amount: 3.06
+        gain: 1.51
+    footstepStyleEnvelopeCurves:
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.20521286
+          value: 0.9517301
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.58271074
+          value: 0.5914591
+          inSlope: 0.03552987
+          outSlope: -0.036713537
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.059753302
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -2.484235
+          outSlope: -2.484235
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.027658168
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 10.578528
+          outSlope: 10.578528
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.038588308
+        - serializedVersion: 3
+          time: 0.14603795
+          value: 0.99868774
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.37612063
+          value: 0.41975668
+          inSlope: -0.008461365
+          outSlope: -0.008461365
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.7379469
+          value: 0.4316109
+          inSlope: 0.03552987
+          outSlope: -0.25664952
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.1581762
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -6.129142
+          outSlope: -6.129142
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.07082447
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.0339406
+          value: 0.9987672
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.15295015
+          value: 0.123155236
+          inSlope: -6.129885
+          outSlope: -0.1967342
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.032446817
+          outWeight: 0.048429593
+        - serializedVersion: 3
+          time: 0.84411025
+          value: 0.16002086
+          inSlope: -0.27960223
+          outSlope: -0.27960223
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: -0.0009765625
+          inSlope: -0.29715195
+          outSlope: -0.29715195
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.0317059
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - surfaceTypeName: Dirt
+    footstepSizeSettings:
+    - name: Mini
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: 902d1d0302a2643659e76e6f882140f9, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.04
+        sustainLevel: 1
+        releaseTime: 0.05
+        duration: 0.07
+      BandPassFilterSettings:
+        centerFrequency: 8110
+        bandwidth: 0.8
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Small
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: 902d1d0302a2643659e76e6f882140f9, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.234
+        sustainLevel: 1
+        releaseTime: 0.73
+        duration: 0.9
+      BandPassFilterSettings:
+        centerFrequency: 3814
+        bandwidth: 1
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Mid
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: a342178d99e334bc28f0e2b3c3105da5, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.2
+        sustainLevel: 1
+        releaseTime: 0.06
+        duration: 0.86
+      BandPassFilterSettings:
+        centerFrequency: 597
+        bandwidth: 3.13
+        gain: 0.1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Normal
+      audioLayers:
+      - value: 0.677
+        clipCollection: {fileID: 11400000, guid: a342178d99e334bc28f0e2b3c3105da5, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.001
+        sustainLevel: 1
+        releaseTime: 3.788
+        duration: 1.92
+      BandPassFilterSettings:
+        centerFrequency: 1562
+        bandwidth: 4.15
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Big
+      audioLayers:
+      - value: 0.952
+        clipCollection: {fileID: 11400000, guid: 2070c478c8aa14e79bf04442e7670f5b, type: 2}
+      - value: 0.065
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      - value: 0.903
+        clipCollection: {fileID: 11400000, guid: a342178d99e334bc28f0e2b3c3105da5, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 1.834
+        sustainLevel: 1
+        releaseTime: 3.788
+        duration: 4.665
+      BandPassFilterSettings:
+        centerFrequency: 1424
+        bandwidth: 4.4
+        gain: 1
+      DistortionSettings:
+        mix: 0.25
+        amount: 0
+        gain: 3.39
+    - name: Huge
+      audioLayers:
+      - value: 0.959
+        clipCollection: {fileID: 11400000, guid: 2070c478c8aa14e79bf04442e7670f5b, type: 2}
+      - value: 0.223
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      - value: 0.967
+        clipCollection: {fileID: 11400000, guid: a342178d99e334bc28f0e2b3c3105da5, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 1.697
+        sustainLevel: 1
+        releaseTime: 3.55
+        duration: 4.35
+      BandPassFilterSettings:
+        centerFrequency: 1562
+        bandwidth: 4.81
+        gain: 1
+      DistortionSettings:
+        mix: 0.343
+        amount: 0.37
+        gain: 4.01
+    footstepStyleEnvelopeCurves:
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.17583328
+          value: 0.99999475
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.40525103
+          value: 0.50283605
+          inSlope: 0.03552987
+          outSlope: -0.036713537
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.059753302
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -2.484235
+          outSlope: -2.484235
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.027658168
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 20
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.125
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.25
+          value: 0.5
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.01811342
+          value: 0.9015077
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.10420595
+          value: 0.0861069
+          inSlope: -6.129885
+          outSlope: -0.1967342
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.032446817
+          outWeight: 0.048429593
+        - serializedVersion: 3
+          time: 0.9355419
+          value: 0.054419912
+          inSlope: -0.22641478
+          outSlope: -0.22641478
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: -0.0009765625
+          inSlope: -0.29715195
+          outSlope: -0.29715195
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.0317059
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - surfaceTypeName: Water
+    footstepSizeSettings:
+    - name: Mini
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: c7cd3ea2983aa417ba36a03cb29a3f2e, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.702
+        sustainLevel: 1
+        releaseTime: 0.12
+        duration: 0.1
+      BandPassFilterSettings:
+        centerFrequency: 9351
+        bandwidth: 0.22
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Small
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: c7cd3ea2983aa417ba36a03cb29a3f2e, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.387
+        sustainLevel: 1
+        releaseTime: 0.23
+        duration: 0.18
+      BandPassFilterSettings:
+        centerFrequency: 5698
+        bandwidth: 1.94
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Mid
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: e988e602899494d2db56f23665bf2880, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.776
+        sustainLevel: 1
+        releaseTime: 0.07
+        duration: 0.1
+      BandPassFilterSettings:
+        centerFrequency: 5974
+        bandwidth: 1.12
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Normal
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: e988e602899494d2db56f23665bf2880, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.001
+        sustainLevel: 1
+        releaseTime: 0.67
+        duration: 2.03
+      BandPassFilterSettings:
+        centerFrequency: 1024
+        bandwidth: 3.15
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Big
+      audioLayers:
+      - value: 0.882
+        clipCollection: {fileID: 11400000, guid: b42c80d2adc8e432388b33c93af4064f, type: 2}
+      - value: 0.857
+        clipCollection: {fileID: 11400000, guid: bb80640f56c614295b562914beb73b0d, type: 2}
+      - value: 0
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 1.315
+        sustainLevel: 1
+        releaseTime: 0.3
+        duration: 2.44
+      BandPassFilterSettings:
+        centerFrequency: 2389
+        bandwidth: 2.73
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Huge
+      audioLayers:
+      - value: 0.991
+        clipCollection: {fileID: 11400000, guid: b42c80d2adc8e432388b33c93af4064f, type: 2}
+      - value: 0.919
+        clipCollection: {fileID: 11400000, guid: bb80640f56c614295b562914beb73b0d, type: 2}
+      - value: 0.014
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.001
+        sustainLevel: 1
+        releaseTime: 0.35
+        duration: 3.56
+      BandPassFilterSettings:
+        centerFrequency: 2251
+        bandwidth: 5
+        gain: 1
+      DistortionSettings:
+        mix: 0.332
+        amount: 1.67
+        gain: 4.45
+    footstepStyleEnvelopeCurves:
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.30411318
+          value: 0.99999475
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.53353095
+          value: 0.50283605
+          inSlope: 0.03552987
+          outSlope: -0.036713537
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.059753302
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -2.484235
+          outSlope: -2.484235
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.027658168
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 10.578528
+          outSlope: 10.578528
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.038588308
+        - serializedVersion: 3
+          time: 0.03719701
+          value: 0.9971695
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.13835162
+          value: 0.58724
+          inSlope: 0.03552987
+          outSlope: -0.03620617
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.08216783
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -1.2197878
+          outSlope: -1.2197878
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.06356175
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.027135178
+          value: 0.9942277
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.07233034
+          value: 0.2871567
+          inSlope: -6.129885
+          outSlope: -0.1967342
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.032446817
+          outWeight: 0.048429593
+        - serializedVersion: 3
+          time: 0.8552594
+          value: 0.69225544
+          inSlope: -0.4032499
+          outSlope: -0.4032499
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: -0.0009765625
+          inSlope: -0.29715195
+          outSlope: -0.29715195
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.0317059
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - surfaceTypeName: Sand
+    footstepSizeSettings:
+    - name: Mini
+      audioLayers:
+      - value: 0.871
+        clipCollection: {fileID: 11400000, guid: ea19491c5f3fb46c891d7d34a40099d2, type: 2}
+      - value: 0.959
+        clipCollection: {fileID: 11400000, guid: e1eabae09834740198623c318ccb7026, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.021
+        decayTime: 0.001
+        sustainLevel: 1
+        releaseTime: 0.01
+        duration: 0.02
+      BandPassFilterSettings:
+        centerFrequency: 5698
+        bandwidth: 0.46
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Small
+      audioLayers:
+      - value: 0.931
+        clipCollection: {fileID: 11400000, guid: ea19491c5f3fb46c891d7d34a40099d2, type: 2}
+      - value: 0.678
+        clipCollection: {fileID: 11400000, guid: e1eabae09834740198623c318ccb7026, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.174
+        sustainLevel: 1
+        releaseTime: 0.1
+        duration: 0.18
+      BandPassFilterSettings:
+        centerFrequency: 7076
+        bandwidth: 2.37
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Mid
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: e1eabae09834740198623c318ccb7026, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.642
+        sustainLevel: 1
+        releaseTime: 0.16
+        duration: 1.03
+      BandPassFilterSettings:
+        centerFrequency: 4388
+        bandwidth: 2.13
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Normal
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: e1eabae09834740198623c318ccb7026, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.001
+        sustainLevel: 1
+        releaseTime: 0.78
+        duration: 3.28
+      BandPassFilterSettings:
+        centerFrequency: 2389
+        bandwidth: 4.13
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Big
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: 1bb5d436e7d02479d9db0380876259e1, type: 2}
+      - value: 0.139
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      - value: 0.59
+        clipCollection: {fileID: 11400000, guid: e1eabae09834740198623c318ccb7026, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.915
+        sustainLevel: 1
+        releaseTime: 0.15
+        duration: 3.35
+      BandPassFilterSettings:
+        centerFrequency: 804
+        bandwidth: 3.72
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Huge
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: 1bb5d436e7d02479d9db0380876259e1, type: 2}
+      - value: 0.029
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      - value: 0.505
+        clipCollection: {fileID: 11400000, guid: e1eabae09834740198623c318ccb7026, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.001
+        sustainLevel: 1
+        releaseTime: 0.22
+        duration: 3.23
+      BandPassFilterSettings:
+        centerFrequency: 942
+        bandwidth: 5
+        gain: 1
+      DistortionSettings:
+        mix: 0.349
+        amount: 3.48
+        gain: 1.07
+    footstepStyleEnvelopeCurves:
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.30411318
+          value: 0.99999475
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.53353095
+          value: 0.50283605
+          inSlope: 0.03552987
+          outSlope: -0.036713537
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.059753302
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -2.484235
+          outSlope: -2.484235
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.027658168
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.01
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.99
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.027135178
+          value: 0.9942277
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.07233034
+          value: 0.2871567
+          inSlope: -6.129885
+          outSlope: -0.1967342
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.032446817
+          outWeight: 0.048429593
+        - serializedVersion: 3
+          time: 0.8552594
+          value: 0.69225544
+          inSlope: -0.4032499
+          outSlope: -0.4032499
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: -0.0009765625
+          inSlope: -0.29715195
+          outSlope: -0.29715195
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.0317059
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - surfaceTypeName: Wood
+    footstepSizeSettings:
+    - name: Mini
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: d7db0bdfc91734fb9b940c6b8e5f198a, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.625
+        sustainLevel: 1
+        releaseTime: 0.001
+        duration: 0.001
+      BandPassFilterSettings:
+        centerFrequency: 2941
+        bandwidth: 0.31
+        gain: 1
+      DistortionSettings:
+        mix: 0.497
+        amount: 0.44
+        gain: 5
+    - name: Small
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: d7db0bdfc91734fb9b940c6b8e5f198a, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 1.196
+        sustainLevel: 1
+        releaseTime: 0.37
+        duration: 0.29
+      BandPassFilterSettings:
+        centerFrequency: 2803
+        bandwidth: 1.65
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0.72
+        gain: 5
+    - name: Mid
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: a2010f19f6bd64f9bbc2cf20cad10bc4, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.319
+        sustainLevel: 1
+        releaseTime: 0.001
+        duration: 0.65
+      BandPassFilterSettings:
+        centerFrequency: 2114
+        bandwidth: 1.39
+        gain: 1
+      DistortionSettings:
+        mix: 0.66
+        amount: 0.44
+        gain: 5
+    - name: Normal
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: a2010f19f6bd64f9bbc2cf20cad10bc4, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.566
+        sustainLevel: 1
+        releaseTime: 0.48
+        duration: 2.46
+      BandPassFilterSettings:
+        centerFrequency: 804
+        bandwidth: 4.65
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Big
+      audioLayers:
+      - value: 0.97
+        clipCollection: {fileID: 11400000, guid: ffeb8b61376904d3ab15ac87a95bf7ba, type: 2}
+      - value: 0.822
+        clipCollection: {fileID: 11400000, guid: 4e9e58045e80f4802a63104ca0218794, type: 2}
+      - value: 0.047
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.608
+        sustainLevel: 1
+        releaseTime: 0.001
+        duration: 2.447
+      BandPassFilterSettings:
+        centerFrequency: 2114
+        bandwidth: 2.19
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Huge
+      audioLayers:
+      - value: 0.917
+        clipCollection: {fileID: 11400000, guid: ffeb8b61376904d3ab15ac87a95bf7ba, type: 2}
+      - value: 0.582
+        clipCollection: {fileID: 11400000, guid: 4e9e58045e80f4802a63104ca0218794, type: 2}
+      - value: 0.346
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.001
+        sustainLevel: 1
+        releaseTime: 0.001
+        duration: 2.447
+      BandPassFilterSettings:
+        centerFrequency: 1024
+        bandwidth: 5
+        gain: 1
+      DistortionSettings:
+        mix: 0.239
+        amount: 1.06
+        gain: 3.57
+    footstepStyleEnvelopeCurves:
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.30411318
+          value: 0.99999475
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.53353095
+          value: 0.50283605
+          inSlope: 0.03552987
+          outSlope: -0.036713537
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.059753302
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -2.484235
+          outSlope: -2.484235
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.027658168
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.01
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.99
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.027135178
+          value: 0.9942277
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.07233034
+          value: 0.2871567
+          inSlope: -6.129885
+          outSlope: -0.1967342
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.032446817
+          outWeight: 0.048429593
+        - serializedVersion: 3
+          time: 0.8552594
+          value: 0.69225544
+          inSlope: -0.4032499
+          outSlope: -0.4032499
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: -0.0009765625
+          inSlope: -0.29715195
+          outSlope: -0.29715195
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.0317059
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - surfaceTypeName: Gravel
+    footstepSizeSettings:
+    - name: Mini
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: e7c7c703d7ec94fbc817475ecd8c51d3, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.035
+        sustainLevel: 1
+        releaseTime: 0.14
+        duration: 0.09
+      BandPassFilterSettings:
+        centerFrequency: 5146
+        bandwidth: 0.38
+        gain: 0.548
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Smal
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: e7c7c703d7ec94fbc817475ecd8c51d3, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.907
+        sustainLevel: 1
+        releaseTime: 0.84
+        duration: 0.54
+      BandPassFilterSettings:
+        centerFrequency: 1976
+        bandwidth: 1.41
+        gain: 0.887
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Mid
+      audioLayers:
+      - value: 0.969
+        clipCollection: {fileID: 11400000, guid: 4c80e94a4871a446abc1fa3e68a74df0, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.328
+        sustainLevel: 1
+        releaseTime: 0.001
+        duration: 2.277
+      BandPassFilterSettings:
+        centerFrequency: 2114
+        bandwidth: 1.07
+        gain: 0.921
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Normal
+      audioLayers:
+      - value: 1
+        clipCollection: {fileID: 11400000, guid: 4c80e94a4871a446abc1fa3e68a74df0, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 1.068
+        sustainLevel: 1
+        releaseTime: 0.001
+        duration: 2.447
+      BandPassFilterSettings:
+        centerFrequency: 942
+        bandwidth: 4.54
+        gain: 0.859
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Big
+      audioLayers:
+      - value: 0.915
+        clipCollection: {fileID: 11400000, guid: 8487165fa313a4ea68fd960e2cf925b8, type: 2}
+      - value: 0.069
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 0.728
+        sustainLevel: 0.478
+        releaseTime: 0.22
+        duration: 2.89
+      BandPassFilterSettings:
+        centerFrequency: 541
+        bandwidth: 4.08
+        gain: 0.784
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Huge
+      audioLayers:
+      - value: 0.967
+        clipCollection: {fileID: 11400000, guid: 8487165fa313a4ea68fd960e2cf925b8, type: 2}
+      - value: 0.949
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0.001
+        decayTime: 1.357
+        sustainLevel: 1
+        releaseTime: 0.001
+        duration: 2.447
+      BandPassFilterSettings:
+        centerFrequency: 3355
+        bandwidth: 5
+        gain: 0.747
+      DistortionSettings:
+        mix: 0.208
+        amount: 1.75
+        gain: 3.99
+    footstepStyleEnvelopeCurves:
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.30411318
+          value: 0.99999475
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.53353095
+          value: 0.50283605
+          inSlope: 0.03552987
+          outSlope: -0.036713537
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.059753302
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -2.484235
+          outSlope: -2.484235
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.027658168
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.01
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.99
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.027135178
+          value: 0.9942277
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.07233034
+          value: 0.2871567
+          inSlope: -6.129885
+          outSlope: -0.1967342
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.032446817
+          outWeight: 0.048429593
+        - serializedVersion: 3
+          time: 0.8552594
+          value: 0.69225544
+          inSlope: -0.4032499
+          outSlope: -0.4032499
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: -0.0009765625
+          inSlope: -0.29715195
+          outSlope: -0.29715195
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.0317059
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - surfaceTypeName: Snow
+    footstepSizeSettings:
+    - name: Mini
+      audioLayers:
+      - value: 0.953
+        clipCollection: {fileID: 11400000, guid: 204f69321c86e440f8f9cdf6a9cb14a9, type: 2}
+      - value: 0.854
+        clipCollection: {fileID: 11400000, guid: fddf29016302a4720890dd6fea9ea23b, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0
+        decayTime: 0.122
+        sustainLevel: 1
+        releaseTime: 0.001
+        duration: 0.001
+      BandPassFilterSettings:
+        centerFrequency: 8662
+        bandwidth: 0.41
+        gain: 1
+      DistortionSettings:
+        mix: 0.546
+        amount: 0
+        gain: 5
+    - name: Small
+      audioLayers:
+      - value: 0.875
+        clipCollection: {fileID: 11400000, guid: 204f69321c86e440f8f9cdf6a9cb14a9, type: 2}
+      - value: 0.868
+        clipCollection: {fileID: 11400000, guid: fddf29016302a4720890dd6fea9ea23b, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0
+        decayTime: 0.25
+        sustainLevel: 1
+        releaseTime: 0.2
+        duration: 0.5
+      BandPassFilterSettings:
+        centerFrequency: 9144
+        bandwidth: 4
+        gain: 0.415
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Mid
+      audioLayers:
+      - value: 0.974
+        clipCollection: {fileID: 11400000, guid: 1154041fbe81842feb6673d73ada3f4e, type: 2}
+      - value: 0.871
+        clipCollection: {fileID: 11400000, guid: 4a40b850f36ad43eaa87130513f8a2da, type: 2}
+      - value: 0.684
+        clipCollection: {fileID: 11400000, guid: 7c12697079b80447aa305e532cf6e8a5, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0
+        decayTime: 0.25
+        sustainLevel: 1
+        releaseTime: 0.14
+        duration: 0.24
+      BandPassFilterSettings:
+        centerFrequency: 7628
+        bandwidth: 1.85
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Normal
+      audioLayers:
+      - value: 0.893
+        clipCollection: {fileID: 11400000, guid: 1154041fbe81842feb6673d73ada3f4e, type: 2}
+      - value: 0.889
+        clipCollection: {fileID: 11400000, guid: 4a40b850f36ad43eaa87130513f8a2da, type: 2}
+      - value: 0.921
+        clipCollection: {fileID: 11400000, guid: 7c12697079b80447aa305e532cf6e8a5, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0
+        decayTime: 0.25
+        sustainLevel: 1
+        releaseTime: 0.2
+        duration: 0.5
+      BandPassFilterSettings:
+        centerFrequency: 8386
+        bandwidth: 4.45
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Big
+      audioLayers:
+      - value: 0.935
+        clipCollection: {fileID: 11400000, guid: 6788d902e8bfc4319b7c2b5c722868c2, type: 2}
+      - value: 0.794
+        clipCollection: {fileID: 11400000, guid: 5c6c04ebaa50e4a3e91cb0dc3faa5562, type: 2}
+      - value: 0.847
+        clipCollection: {fileID: 11400000, guid: 57002ccb4e7eb43db83d9a94ff265ae7, type: 2}
+      - value: 0.033
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0
+        decayTime: 0.25
+        sustainLevel: 1
+        releaseTime: 0.2
+        duration: 0.5
+      BandPassFilterSettings:
+        centerFrequency: 5905
+        bandwidth: 4
+        gain: 1
+      DistortionSettings:
+        mix: 0.5
+        amount: 0
+        gain: 5
+    - name: Huge
+      audioLayers:
+      - value: 0.889
+        clipCollection: {fileID: 11400000, guid: 6788d902e8bfc4319b7c2b5c722868c2, type: 2}
+      - value: 0.819
+        clipCollection: {fileID: 11400000, guid: 5c6c04ebaa50e4a3e91cb0dc3faa5562, type: 2}
+      - value: 0.882
+        clipCollection: {fileID: 11400000, guid: 57002ccb4e7eb43db83d9a94ff265ae7, type: 2}
+      - value: 0.466
+        clipCollection: {fileID: 11400000, guid: ff1cebadbc23e4901873df6e04aad713, type: 2}
+      ADSREnvelopeSettings:
+        attackTime: 0
+        decayTime: 0.25
+        sustainLevel: 1
+        releaseTime: 0.2
+        duration: 0.5
+      BandPassFilterSettings:
+        centerFrequency: 4181
+        bandwidth: 5
+        gain: 1
+      DistortionSettings:
+        mix: 0.219
+        amount: 2.03
+        gain: 3.64
+    footstepStyleEnvelopeCurves:
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.30411318
+          value: 0.99999475
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.53353095
+          value: 0.50283605
+          inSlope: 0.03552987
+          outSlope: -0.036713537
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.059753302
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: -2.484235
+          outSlope: -2.484235
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.027658168
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.01
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.99
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    - curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.027135178
+          value: 0.9942277
+          inSlope: 0.0015638324
+          outSlope: 0.0015638324
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.063953556
+        - serializedVersion: 3
+          time: 0.07233034
+          value: 0.2871567
+          inSlope: -6.129885
+          outSlope: -0.1967342
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.032446817
+          outWeight: 0.048429593
+        - serializedVersion: 3
+          time: 0.8552594
+          value: 0.69225544
+          inSlope: -0.4032499
+          outSlope: -0.4032499
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: -0.0009765625
+          inSlope: -0.29715195
+          outSlope: -0.29715195
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.0317059
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4

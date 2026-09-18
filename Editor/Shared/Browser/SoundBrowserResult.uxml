@@ -1,0 +1,9 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Anysound/Shared/Browser/SoundBrowser.uss?fileID=7433441132597879392&amp;guid=5280a99a60b3f49ee9aa1a775eafd6a6&amp;type=3#SoundBrowser" />
+    <engine:VisualElement name="ElementContainer" style="flex-grow: 1; flex-direction: row; align-items: center; height: 26px;">
+        <engine:Label text="Sound Name" name="SoundName" style="flex-grow: 1;" />
+        <engine:VisualElement name="TagsContainer" style="flex-grow: 1; flex-direction: row-reverse;">
+            <engine:Label text="Tag1" name="TagLabel" style="font-size: 10px; background-color: rgb(111, 111, 111); border-radius: 5px; padding: 2px; margin: 6px; color: rgb(0, 0, 0);" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

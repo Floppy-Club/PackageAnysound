@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: Footstep_Water_Small
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 78f9ca43a6cbd4f2dbfc76a04425c493, type: 3}
+  - {fileID: 8300000, guid: 949a853e567e5486ea01dad8bfafd5c7, type: 3}
+  - {fileID: 8300000, guid: 745b70bfa10e64e9e96079d63e2042a3, type: 3}
+  - {fileID: 8300000, guid: 627b560464e794f6c84821c2cd68868c, type: 3}
+  - {fileID: 8300000, guid: fc5c3508a13024c86ad3088eef0b4346, type: 3}
+  - {fileID: 8300000, guid: 35b2e60f3a3fb48e494a6da09636f8ef, type: 3}
+  - {fileID: 8300000, guid: dc978fc60c5374624accbed63e03835f, type: 3}
+  - {fileID: 8300000, guid: 90c432e373b27404f873c925ac196f48, type: 3}
+  - {fileID: 8300000, guid: 21479b9c9b1c14d5286a123b583e699d, type: 3}
+  - {fileID: 8300000, guid: fe4619470f9ca465a89cc04cfbd1aba5, type: 3}
