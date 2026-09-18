@@ -27,6 +27,7 @@
     min-height: 30px;
     max-height: 30px;
     width: 100%;
+    display: none;
 }
 
 .drag-element {
@@ -41,6 +42,10 @@
     min-height: 20px;
     border-color: rgb(120, 120, 120);
     padding: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }
 
 .drag-element:hover {
@@ -94,6 +99,7 @@
     align-items: auto;
     flex-basis: auto;
     min-width: 60px;
+    display: none;
 }
 
 .drag-handle-border {
@@ -156,7 +162,7 @@
 }
 
 .value-label {
-    display: flex;
+    display: none;
 }
 
 .drag-track {
@@ -258,6 +264,6 @@
 }
 
 .input-field {
-    display: flex;
+    display: none;
     font-size: 153px;
 }
