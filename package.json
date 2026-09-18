@@ -1,8 +1,7 @@
 {
   "name": "com.floppyclub.anysound",
-  "version": "0.0.100",
+  "version": "0.0.101",
   "displayName": "Anysound",
-  "description": "",
   "unity": "2019.1",
   "unityRelease": "0b5",
   "documentationUrl": "https://example.com/",

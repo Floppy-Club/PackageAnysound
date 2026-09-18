@@ -200,7 +200,7 @@ namespace Anysound.Shared.Generators.Whoosh.Backend
             }
 
             previewClip = AnysoundWhoosh.CreateMorphedAudioClip(_anysoundWhooshObject, _durationValue, _movementValue, _sizeValue, _fluctuationValue);
-            if (previewClip != null)
+            if (previewClip)
             {
                 AnysoundWhoosh.PlayClip(previewClip, f => { });
             }

@@ -243,34 +243,7 @@ namespace Anysound
                 _anysoundFootstepObject.CreatePreset(GetPresetValues());
             }
 
-            return;
-            normalizeOutput = EditorGUILayout.Toggle("Normalize Output", normalizeOutput);
-
-
-            // Sample rate selection
-            string[] sampleRateOptions = new string[] { "22050 Hz", "44100 Hz", "48000 Hz", "96000 Hz" };
-            int[] sampleRates = new int[] { 22050, 44100, 48000, 96000 };
-
-            int selectedSampleRateIndex = 1; // Default to 44100
-            for (int i = 0; i < sampleRates.Length; i++)
-            {
-                if (sampleRates[i] == sampleRate)
-                {
-                    selectedSampleRateIndex = i;
-                    break;
-                }
-            }
-
-            selectedSampleRateIndex = EditorGUILayout.Popup("Sample Rate", selectedSampleRateIndex, sampleRateOptions);
-            sampleRate = sampleRates[selectedSampleRateIndex];
-
-            outputFileName = EditorGUILayout.TextField("Output Filename", outputFileName);
-
-            if (GUILayout.Button("Generate and Save Morphed Audio", GUILayout.Height(30)))
-            {
-                AnysoundFootstepDSP.CreateMorphedAudioClip(_anysoundFootstepObject, _currentSize, _currentMovementSpeed, _currentSurfaceType);
-                //SaveMultipleVariants(5, 0.15f);
-            }
+            
         }
 
 

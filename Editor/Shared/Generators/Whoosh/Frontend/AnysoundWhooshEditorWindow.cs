@@ -11,12 +11,13 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
 #if UNITY_EDITOR
     public class AnysoundWhooshEditorWindow : AnysoundGeneratorWindowBase
     {
-        [SerializeField] private VisualTreeAsset mVisualTreeAsset;
+        private VisualTreeAsset _mVisualTreeAsset;
 
         private AnysoundWhooshObject _anysoundWhooshObject;
-        private float _currentSurfaceType;
+
         private float _currentSizeValue;
         private float _currentMovementSpeed;
+        private float _currentDurationType;
         private float _currentFluctuation;
         private VisualElement _waveformContainer;
         private VisualElement _sizeLabelsContainer, _sizeIconsContainer, _surfaceIconsContainer, _movementLabelsContainer, _playheadContainer;
@@ -24,9 +25,10 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
         int _currentMovementIndex;
 
         private Button _previewButton;
-        private AnysoundSlider _surfaceSlider;
+        private AnysoundSlider _durationSlider;
         private AnysoundSlider _sizeSlider;
         private AnysoundSlider _movementSlider;
+        AnysoundSlider _fluctuationSlider;
         private bool _isInit;
 
         VisualElement _rootVisualElement;
@@ -43,7 +45,8 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
         {
             // Import UXML
             var visualTree =
-                AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Packages/com.floppyclub.anysound/Editor/Shared/Generators/Whoosh/Frontend/uxml/AnysoundWhooshInspector.uxml");
+                AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(
+                    "Packages/com.floppyclub.anysound/Editor/Shared/Generators/Whoosh/Frontend/uxml/AnysoundWhooshInspector.uxml");
             if (visualTree == null)
             {
                 Debug.LogError("Could not find AnysoundWhooshInspector.uxml");
@@ -81,7 +84,7 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
             {
                 { "Size", _currentSizeValue },
                 { "Movement", _currentMovementSpeed },
-                { "Duration", _currentSurfaceType },
+                { "Duration", _currentDurationType },
                 { "Fluctuation", _currentFluctuation }
             };
             return presetValues;
@@ -116,22 +119,27 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
         {
             if (_isInit) return;
             _waveformContainer = _rootVisualElement.Q<VisualElement>("WaveformContainer");
-            _movementSlider = _rootVisualElement.Q<AnysoundSlider>("MovementTypeSlider");
+
+
+            _movementSlider = _rootVisualElement.Q<AnysoundSlider>("MovementSpeedSlider");
             _sizeSlider = _rootVisualElement.Q<AnysoundSlider>("SizeSlider");
-            _surfaceSlider = _rootVisualElement.Q<AnysoundSlider>("SurfaceSlider");
+            _durationSlider = _rootVisualElement.Q<AnysoundSlider>("DurationSlider");
+            _fluctuationSlider = _rootVisualElement.Q<AnysoundSlider>("FluctuationSlider");
+            
+            
             _playheadContainer = _rootVisualElement.Q<VisualElement>("Playhead");
 
-            _surfaceSlider.highValue = 2;
+            _durationSlider.highValue = 2;
             _sizeSlider.highValue = 3;
             _movementSlider.highValue = 2;
 
             _movementSlider.RegisterValueChangedCallback(evt => { OnMovementSliderValueChanged(_movementSlider.value); });
             _sizeSlider.RegisterValueChangedCallback(evt => { OnSizeSliderValueChanged(_sizeSlider.value); });
-            _surfaceSlider.RegisterValueChangedCallback(evt => { OnSurfaceSliderValueChanged(_surfaceSlider.value); });
+            _durationSlider.RegisterValueChangedCallback(evt => { OnSurfaceSliderValueChanged(_durationSlider.value); });
 
             _movementSlider.RegisterDragEndCallback(UpdateWaveform);
             _sizeSlider.RegisterDragEndCallback(UpdateWaveform);
-            _surfaceSlider.RegisterDragEndCallback(UpdateWaveform);
+            _durationSlider.RegisterDragEndCallback(UpdateWaveform);
 
 
             _previewButton = _rootVisualElement.Q<Button>("PreviewButton");
@@ -211,23 +219,18 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
             _movementSlider.SetValueWithoutNotify(value);
             _currentMovementSpeed = value;
             _currentMovementIndex = (int)Mathf.Clamp(((_currentMovementSpeed / 2f) * 3), 0, 2);
-            AnysoundFootstepsHelper.UpdateMovementVisuals(_movementLabelsContainer, _currentMovementSpeed);
-            AnysoundFootstepsHelper.UpdateSizeImages(_sizeIconsContainer, _sizeSlider.value, 5, _currentMovementIndex);
         }
 
         void OnSurfaceSliderValueChanged(float value)
         {
-            _surfaceSlider.SetValueWithoutNotify(value);
-            _currentSurfaceType = value;
-            AnysoundFootstepsHelper.UpdateSurfaceIcons(_surfaceIconsContainer, _currentSurfaceType, 3);
+            _durationSlider.SetValueWithoutNotify(value);
+            _currentDurationType = value;
         }
 
         void OnSizeSliderValueChanged(float value)
         {
             _sizeSlider.SetValueWithoutNotify(value);
             _currentSizeValue = value;
-            AnysoundFootstepsHelper.UpdateSizeLabels(_sizeLabelsContainer, value, 6);
-            AnysoundFootstepsHelper.UpdateSizeImages(_sizeIconsContainer, value, 5, _currentMovementIndex);
         }
 
         public sealed override void SetPresetObject(AnysoundPresetObject preset)
@@ -242,7 +245,7 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
             _currentFluctuation = preset.GetPresetValue("Fluctuation");
             _currentMovementSpeed = preset.GetPresetValue("Movement");
             _currentSizeValue = preset.GetPresetValue("Size");
-            _currentSurfaceType = preset.GetPresetValue("Surface");
+            _currentDurationType = preset.GetPresetValue("Duration");
 
             UpdateWaveform();
         }

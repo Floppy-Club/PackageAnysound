@@ -33,8 +33,9 @@ namespace Anysound.Shared.Browser
         private List<Button> _tagButtons = new();
 
 
-        public Color _colorHighLight = AnysoundFootstepsHelper.AnysoundFootstepsEditorExtensions.HexToColor("60C75C");
-        public Color _colorLowLight = new(0.325f, 0.325f, 0.325f, 0);
+        public static Color ColorHighLight => AnysoundFootstepsHelper.AnysoundFootstepsEditorExtensions.HexToColor("60C75C");
+        public static Color ColorLowLight = new(0.325f, 0.325f, 0.325f, 0);
+
         private UISoundPreviewController _soundPreviewController;
         private VisualElement _tagsContainer, _generatorButtonsContainer;
         private Button _refreshButton;
@@ -140,13 +141,13 @@ namespace Anysound.Shared.Browser
                 _tagButtons.Add(button);
                 button.text = tag;
 
-                button.style.backgroundColor = _colorLowLight;
-                button.style.color = GetTextColor(_colorLowLight);
+                button.style.backgroundColor = ColorLowLight;
+                button.style.color = GetTextColor(ColorLowLight);
 
                 button.clicked += () =>
                 {
                     ToggleTag(button.text);
-                    var backgroundColor = IsTagActive(button.text) ? _colorHighLight : _colorLowLight;
+                    var backgroundColor = IsTagActive(button.text) ? ColorHighLight : ColorLowLight;
                     button.style.backgroundColor = backgroundColor;
                     button.style.color = GetTextColor(backgroundColor);
                 };
@@ -542,7 +543,7 @@ namespace Anysound.Shared.Browser
                 var n = tagTemplate.CloneTree();
                 var tagLabel = n.Q<Label>();
                 tagLabel.text = tag;
-                var backgroundColor = anysoundBrowser.IsTagActive(tag) ? anysoundBrowser._colorHighLight : anysoundBrowser._colorLowLight;
+                var backgroundColor = anysoundBrowser.IsTagActive(tag) ? AnysoundBrowser.ColorHighLight : AnysoundBrowser.ColorLowLight;
                 tagLabel.style.backgroundColor = backgroundColor;
                 tagLabel.style.color = anysoundBrowser.GetTextColor(backgroundColor);
                 tagsContainer.Add(n);
