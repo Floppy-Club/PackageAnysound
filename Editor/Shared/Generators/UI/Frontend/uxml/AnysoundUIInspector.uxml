@@ -62,6 +62,10 @@
                     </engine:VisualElement>
                     <engine:VisualElement class="generator-section-content">
                         <engine:VisualElement class="generator-section-line" style="background-color: rgb(60, 166, 255);"/>
+                        <engine:VisualElement class="generator-hint-row">
+                            <engine:Label text="SMALL" class="generator-hint-label" style="color: rgb(60, 166, 255);"/>
+                            <engine:Label text="BIG" class="generator-hint-label" style="color: rgb(60, 166, 255);"/>
+                        </engine:VisualElement>
                         <AnysoundSlider label="Size" name="SizeSlider" show-input-field="false" high-value="1" low-value="0" color="#3CA6FFFF" unit="%" inverted="false" value="1" show-label="false" show-values="false" style="flex-shrink: 0; height: 60px; flex-grow: 0;"/>
                     </engine:VisualElement>
                 </engine:VisualElement>

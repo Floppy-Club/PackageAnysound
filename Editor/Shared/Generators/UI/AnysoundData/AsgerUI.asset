@@ -15,9 +15,12 @@ MonoBehaviour:
   coverTexture: {fileID: 0}
   isLoadable: 1
   materials:
-  - name: 
-    clipCollection: {fileID: 0}
-    volume: 1.835
+  - name: Wood
+    clipCollection: {fileID: 11400000, guid: 2070c478c8aa14e79bf04442e7670f5b, type: 2}
+    volume: 1.859
+  - name: Steel
+    clipCollection: {fileID: 11400000, guid: e988e602899494d2db56f23665bf2880, type: 2}
+    volume: 1.859
   actions:
   - name: Click
     steps:
@@ -113,7 +116,14 @@ MonoBehaviour:
     - delay: 0.1
       pitchSemitones: -1
       volume: 1
-  extras: []
+  extras:
+  - name: Test
+    volume: 0.934
+    followActionSequence: 0
+    defaultClipCollection: {fileID: 11400000, guid: e7c7c703d7ec94fbc817475ecd8c51d3, type: 2}
+    actionClips:
+    - actionName: ggg
+      clipCollection: {fileID: 11400000, guid: d7db0bdfc91734fb9b940c6b8e5f198a, type: 2}
   extraMaterialVolume: 0.7
   normalizeOutput: 1
   normalizePeak: 0.9
@@ -128,7 +138,7 @@ MonoBehaviour:
   shortEnvelope:
     attackTime: 0.001
     decayTime: 0.04
-    sustainLevel: 0.5
+    sustainLevel: 0.144
     releaseTime: 0.05
     duration: 0.06
   fullEnvelope:
