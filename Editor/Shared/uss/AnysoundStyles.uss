@@ -167,11 +167,15 @@
 
 .generator-section-content {
     flex-grow: 1;
+    /* Gap between the category label and the controls */
+    padding-left: 5px;
 }
 
 .generator-section-line {
     flex-grow: 0;
     height: 2px;
+    /* The colored line still connects to the category label */
+    margin-left: -5px;
 }
 
 .generator-hint-row {

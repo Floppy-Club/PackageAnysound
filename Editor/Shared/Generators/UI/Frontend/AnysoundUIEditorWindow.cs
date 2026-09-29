@@ -11,14 +11,11 @@ namespace Anysound.Shared.Generators.UI.Frontend
 #if UNITY_EDITOR
     public class AnysoundUIEditorWindow : AnysoundGeneratorWindowBase
     {
-        const string NoneChoice = "None";
-
         private AnysoundUIObject _anysoundUIObject;
         private AnysoundUIParameters _parameters = AnysoundUIParameters.Default;
 
         private VisualElement _waveformContainer, _playheadContainer;
-        private AnysoundDropdown _materialDropdown, _extraMaterialDropdown;
-        private DropdownField _actionDropdown, _extraDropdown;
+        private AnysoundDropdown _actionDropdown, _materialDropdown, _extraMaterialDropdown, _extraDropdown;
         private AnysoundSlider _sizeSlider;
         private bool _isInit;
 
@@ -93,31 +90,14 @@ namespace Anysound.Shared.Generators.UI.Frontend
             _waveformContainer = _rootVisualElement.Q<VisualElement>("WaveformContainer");
             _playheadContainer = _rootVisualElement.Q<VisualElement>("Playhead");
 
-            _materialDropdown = _rootVisualElement.Q<AnysoundDropdown>("MaterialDropdown");
-            _extraMaterialDropdown = _rootVisualElement.Q<AnysoundDropdown>("ExtraMaterialDropdown");
-            _actionDropdown = _rootVisualElement.Q<DropdownField>("ActionDropdown");
-            _extraDropdown = _rootVisualElement.Q<DropdownField>("ExtraDropdown");
+            // The items come from the generator object, so new materials/actions/extras added in the backend show up automatically.
+            // Extra material and extra sample have "None" first, matching their encoding (index + 1, 0 = none)
+            _actionDropdown = SetupDropdown("ActionDropdown", _anysoundUIObject.GetActionDropdownItems(), v => _parameters.action = v);
+            _materialDropdown = SetupDropdown("MaterialDropdown", _anysoundUIObject.GetMaterialDropdownItems(), v => _parameters.material = v);
+            _extraMaterialDropdown = SetupDropdown("ExtraMaterialDropdown", _anysoundUIObject.GetMaterialDropdownItems(includeNone: true),
+                v => _parameters.extraMaterial = v);
+            _extraDropdown = SetupDropdown("ExtraDropdown", _anysoundUIObject.GetExtraDropdownItems(), v => _parameters.extraSample = v);
             _sizeSlider = _rootVisualElement.Q<AnysoundSlider>("SizeSlider");
-
-            // The choices come from the generator object, so new materials/actions/extras added in the backend show up automatically
-            _materialDropdown.SetItems(_anysoundUIObject.GetMaterialDropdownItems());
-            _extraMaterialDropdown.SetItems(_anysoundUIObject.GetMaterialDropdownItems(includeNone: true));
-            _actionDropdown.choices = new List<string>(_anysoundUIObject.ActionNames);
-            _extraDropdown.choices = WithNone(_anysoundUIObject.ExtraNames);
-
-            _materialDropdown.RegisterValueChangedCallback(evt =>
-            {
-                _parameters.material = evt.newValue;
-                UpdateWaveform();
-            });
-            // Index 0 is "None", matching the extraMaterial encoding (index + 1, 0 = none)
-            _extraMaterialDropdown.RegisterValueChangedCallback(evt =>
-            {
-                _parameters.extraMaterial = evt.newValue;
-                UpdateWaveform();
-            });
-            _actionDropdown.RegisterValueChangedCallback(_ => OnDropdownChanged(ref _parameters.action, _actionDropdown));
-            _extraDropdown.RegisterValueChangedCallback(_ => OnDropdownChanged(ref _parameters.extraSample, _extraDropdown));
 
             _sizeSlider.lowValue = 0;
             _sizeSlider.highValue = 1;
@@ -151,33 +131,26 @@ namespace Anysound.Shared.Generators.UI.Frontend
             _isInit = true;
         }
 
-        static List<string> WithNone(string[] names)
+        AnysoundDropdown SetupDropdown(string dropdownName, List<AnysoundDropdown.Item> items, System.Action<int> setParameter)
         {
-            var choices = new List<string> { NoneChoice };
-            choices.AddRange(names);
-            return choices;
-        }
-
-        void OnDropdownChanged(ref int parameter, DropdownField dropdown)
-        {
-            parameter = Mathf.Max(0, dropdown.index);
-            UpdateWaveform();
+            var dropdown = _rootVisualElement.Q<AnysoundDropdown>(dropdownName);
+            dropdown.SetItems(items);
+            dropdown.RegisterValueChangedCallback(evt =>
+            {
+                setParameter(evt.newValue);
+                UpdateWaveform();
+            });
+            return dropdown;
         }
 
         // Pushes the current parameters to the controls without triggering callbacks
         void UpdateControls()
         {
+            _actionDropdown?.SetValueWithoutNotify(_parameters.action);
             _materialDropdown?.SetValueWithoutNotify(_parameters.material);
             _extraMaterialDropdown?.SetValueWithoutNotify(_parameters.extraMaterial);
-            SetDropdownIndex(_actionDropdown, _parameters.action);
-            SetDropdownIndex(_extraDropdown, _parameters.extraSample);
+            _extraDropdown?.SetValueWithoutNotify(_parameters.extraSample);
             _sizeSlider?.SetValueWithoutNotify(_parameters.size);
-        }
-
-        static void SetDropdownIndex(DropdownField dropdown, int index)
-        {
-            if (dropdown == null || dropdown.choices == null || dropdown.choices.Count == 0) return;
-            dropdown.SetValueWithoutNotify(dropdown.choices[Mathf.Clamp(index, 0, dropdown.choices.Count - 1)]);
         }
 
         void ExportClip()
@@ -185,7 +158,7 @@ namespace Anysound.Shared.Generators.UI.Frontend
             var clip = AnysoundUIDSP.CreateAudioClip(_anysoundUIObject, _parameters);
             if (!clip) return;
 
-            string action = _actionDropdown?.value ?? "Sound";
+            string action = _actionDropdown?.selectedName ?? "Sound";
             string path = EditorUtility.SaveFilePanel(
                 "Save Audio Clip",
                 "Assets",

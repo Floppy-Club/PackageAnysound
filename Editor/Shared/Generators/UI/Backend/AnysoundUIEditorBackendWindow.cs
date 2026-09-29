@@ -159,7 +159,8 @@ namespace Anysound.Shared.Generators.UI.Backend
             if (listName == "actions")
             {
                 EditorGUILayout.HelpBox(
-                    $"Each step triggers the material (and extras) after 'delay' seconds from the previous step, pitched in semitones. Max {AnysoundUIObject.MaxActionSteps} steps.",
+                    $"Each step triggers the material (and extras) after 'delay' seconds from the previous step, pitched in semitones. " +
+                    $"'Duration' cuts the step after that many seconds (0 = the whole sample). Max {AnysoundUIObject.MaxActionSteps} steps.",
                     MessageType.None);
             }
 

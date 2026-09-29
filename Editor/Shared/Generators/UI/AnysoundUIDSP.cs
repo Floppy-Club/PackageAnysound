@@ -12,12 +12,18 @@ namespace Anysound.Shared.Generators.UI
         // Samples below this level at the end of the sound are trimmed away
         const float SilenceThreshold = 0.0005f;
 
+        // Fade out used when a step is cut short by its duration, to avoid clicks
+        const float StepFadeOutSeconds = 0.005f;
+
         struct RenderJob
         {
             public AudioClip clip;
             public int startFrame;
             public float pitchRatio;
             public float gain;
+
+            // Output frames this job may play. 0 = the whole (resampled) clip
+            public int maxFrames;
         }
 
         /// <summary>
@@ -76,14 +82,19 @@ namespace Anysound.Shared.Generators.UI
                 stepTime += step.delay;
                 int startFrame = Mathf.RoundToInt(stepTime * OutputSampleRate);
                 float pitchRatio = Mathf.Pow(2f, step.pitchSemitones / 12f);
+                int maxFrames = Mathf.RoundToInt(Mathf.Max(0f, step.duration) * OutputSampleRate);
 
-                jobs.Add(new RenderJob { clip = materialClip, startFrame = startFrame, pitchRatio = pitchRatio, gain = step.volume * material.volume });
+                jobs.Add(new RenderJob
+                {
+                    clip = materialClip, startFrame = startFrame, pitchRatio = pitchRatio, maxFrames = maxFrames,
+                    gain = step.volume * material.volume
+                });
 
                 if (extraMaterialClip)
                 {
                     jobs.Add(new RenderJob
                     {
-                        clip = extraMaterialClip, startFrame = startFrame, pitchRatio = pitchRatio,
+                        clip = extraMaterialClip, startFrame = startFrame, pitchRatio = pitchRatio, maxFrames = maxFrames,
                         gain = step.volume * extraMaterial.volume * uiObject.extraMaterialVolume
                     });
                 }
@@ -95,6 +106,7 @@ namespace Anysound.Shared.Generators.UI
                         clip = extraClip,
                         startFrame = extra.followActionSequence ? startFrame : 0,
                         pitchRatio = extra.followActionSequence ? pitchRatio : 1f,
+                        maxFrames = extra.followActionSequence ? maxFrames : 0,
                         gain = (extra.followActionSequence ? step.volume : 1f) * extra.volume
                     });
                 }
@@ -150,8 +162,8 @@ namespace Anysound.Shared.Generators.UI
 
         static int GetResampledFrameCount(RenderJob job)
         {
-            if (job.clip.samples < 2) return job.clip.samples;
-            return Mathf.FloorToInt((job.clip.samples - 1) / GetStep(job)) + 1;
+            int frames = job.clip.samples < 2 ? job.clip.samples : Mathf.FloorToInt((job.clip.samples - 1) / GetStep(job)) + 1;
+            return job.maxFrames > 0 ? Mathf.Min(frames, job.maxFrames) : frames;
         }
 
         /// <summary>
@@ -175,7 +187,7 @@ namespace Anysound.Shared.Generators.UI
                 int index = (int)position;
                 float fraction = position - index;
                 int nextIndex = Mathf.Min(index + 1, sourceFrames - 1);
-                float gain = job.gain * EvaluateEnvelope(envelope, (float)i / OutputSampleRate);
+                float gain = job.gain * EvaluateEnvelope(envelope, (float)i / OutputSampleRate) * EvaluateStepFadeOut(job, i);
                 if (gain <= 0f && i > 0) continue;
 
                 for (int channel = 0; channel < OutputChannels; channel++)
@@ -187,6 +199,17 @@ namespace Anysound.Shared.Generators.UI
                     output[outFrame * OutputChannels + channel] += Mathf.Lerp(a, b, fraction) * gain;
                 }
             }
+        }
+
+        /// <summary>
+        /// Short fade out at the end of a step that is cut by its duration
+        /// </summary>
+        static float EvaluateStepFadeOut(RenderJob job, int frame)
+        {
+            if (job.maxFrames <= 0) return 1f;
+            int fadeFrames = Mathf.Min(Mathf.RoundToInt(StepFadeOutSeconds * OutputSampleRate), job.maxFrames);
+            int framesLeft = job.maxFrames - frame;
+            return framesLeft >= fadeFrames ? 1f : Mathf.Clamp01((float)framesLeft / fadeFrames);
         }
 
         /// <summary>

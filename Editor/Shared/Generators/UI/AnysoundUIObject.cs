@@ -43,11 +43,15 @@ namespace Anysound.Shared.Generators.UI
             [Range(-24f, 24f)] public float pitchSemitones;
             [Range(0f, 1f)] public float volume;
 
-            public UIActionStep(float delay, float pitchSemitones, float volume)
+            [Tooltip("Seconds this step plays before it is faded out. 0 = the whole sample")] [Range(0f, 1f)]
+            public float duration;
+
+            public UIActionStep(float delay, float pitchSemitones, float volume, float duration = 0f)
             {
                 this.delay = delay;
                 this.pitchSemitones = pitchSemitones;
                 this.volume = volume;
+                this.duration = duration;
             }
         }
 
@@ -59,6 +63,10 @@ namespace Anysound.Shared.Generators.UI
         public class UIActionSettings
         {
             public string name;
+
+            [Tooltip("Auto picks a built-in icon from the name")]
+            public AnysoundIcon icon = AnysoundIcon.Auto;
+
             public List<UIActionStep> steps = new();
 
             public UIActionSettings()
@@ -125,6 +133,30 @@ namespace Anysound.Shared.Generators.UI
         [SerializeField] public AnysoundAudioDSP.ADSREnvelopeSettings fullEnvelope = new(0.001f, 0.001f, 1f, 0.1f, 2f);
 
         public string[] MaterialNames => GetNames(materials, m => m.name);
+
+        public List<AnysoundDropdown.Item> GetActionDropdownItems()
+        {
+            var names = ActionNames;
+            var items = new List<AnysoundDropdown.Item>();
+            for (int i = 0; i < names.Length; i++)
+            {
+                var icon = actions[i].icon == AnysoundIcon.Auto ? AnysoundIconElement.FromActionName(names[i]) : actions[i].icon;
+                items.Add(new AnysoundDropdown.Item(names[i], icon));
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// Extras are shown without icons, with "None" first (0 means no extra)
+        /// </summary>
+        public List<AnysoundDropdown.Item> GetExtraDropdownItems()
+        {
+            var items = new List<AnysoundDropdown.Item> { new("None", AnysoundIcon.None) };
+            foreach (var extraName in ExtraNames)
+                items.Add(new AnysoundDropdown.Item(extraName, AnysoundIcon.Generic));
+            return items;
+        }
 
         /// <param name="includeNone">Adds a "None" item first (used for the extra material, where 0 means none)</param>
         public List<AnysoundDropdown.Item> GetMaterialDropdownItems(bool includeNone = false)

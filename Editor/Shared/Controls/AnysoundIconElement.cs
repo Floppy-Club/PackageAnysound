@@ -32,6 +32,17 @@ public enum AnysoundIcon
     Stick,
     Electricity,
     Button,
+    ActionClick,
+    ActionHover,
+    ActionUp,
+    ActionDown,
+    ActionOk,
+    ActionConfirm,
+    ActionBack,
+    ActionDelete,
+    ActionIn,
+    ActionOut,
+    ActionError,
 }
 
 public enum AnysoundIconState
@@ -160,6 +171,28 @@ public partial class AnysoundIconElement : VisualElement
         if (n.Contains("water") || n.Contains("liquid")) return AnysoundIcon.Water;
         if (n.Contains("synth") || n.Contains("digital") || n.Contains("sine")) return AnysoundIcon.Synth;
         return AnysoundIcon.Generic;
+    }
+
+    /// <summary>
+    /// Guesses an icon from an action name, e.g. "Confirm" or "Back" (used when an action's icon is set to Auto)
+    /// </summary>
+    public static AnysoundIcon FromActionName(string name)
+    {
+        switch (name?.Trim().ToLowerInvariant())
+        {
+            case "click": case "tap": case "press": case "select": return AnysoundIcon.ActionClick;
+            case "hover": case "highlight": case "focus": return AnysoundIcon.ActionHover;
+            case "up": case "next": case "increase": return AnysoundIcon.ActionUp;
+            case "down": case "previous": case "decrease": return AnysoundIcon.ActionDown;
+            case "ok": case "accept": case "yes": return AnysoundIcon.ActionOk;
+            case "confirm": case "success": case "done": return AnysoundIcon.ActionConfirm;
+            case "back": case "cancel": case "close": return AnysoundIcon.ActionBack;
+            case "delete": case "remove": case "trash": return AnysoundIcon.ActionDelete;
+            case "in": case "open": case "enter": return AnysoundIcon.ActionIn;
+            case "out": case "exit": case "leave": return AnysoundIcon.ActionOut;
+            case "error": case "fail": case "warning": case "deny": return AnysoundIcon.ActionError;
+            default: return AnysoundIcon.Generic;
+        }
     }
 
     void OnGenerateVisualContent(MeshGenerationContext mgc)
@@ -362,6 +395,70 @@ public partial class AnysoundIconElement : VisualElement
                 pen.RoundedRect(16, 4, 24, 24, 3);
                 pen.Circle(28, 16, 7);
                 pen.Circle(28, 16, 2.2f, true);
+                break;
+
+            case AnysoundIcon.ActionClick:
+                pen.Polygon(24, 8, 24, 26, 28.5f, 22, 31.5f, 28.5f, 34, 27.3f, 31, 21, 37, 21);
+                pen.Line(19, 9, 15, 6);
+                pen.Line(18, 14, 13, 14);
+                pen.Line(22, 5.5f, 20.5f, 2.5f);
+                break;
+
+            case AnysoundIcon.ActionHover:
+                pen.RoundedRect(10, 6, 24, 14, 3);
+                pen.Polygon(30, 14, 30, 26, 33, 23.5f, 35, 28, 36.7f, 27.2f, 34.7f, 22.8f, 38.7f, 22.8f);
+                break;
+
+            case AnysoundIcon.ActionUp:
+                pen.Line(28, 27, 28, 6);
+                pen.Polyline(20, 13, 28, 5, 36, 13);
+                break;
+
+            case AnysoundIcon.ActionDown:
+                pen.Line(28, 5, 28, 26);
+                pen.Polyline(20, 19, 28, 27, 36, 19);
+                break;
+
+            case AnysoundIcon.ActionOk:
+                pen.Polyline(18, 16, 25, 23, 38, 9);
+                break;
+
+            case AnysoundIcon.ActionConfirm:
+                pen.Circle(28, 16, 11);
+                pen.Polyline(22, 16, 26.5f, 20.5f, 34, 11.5f);
+                break;
+
+            case AnysoundIcon.ActionBack:
+                pen.Polyline(21, 7, 16, 12, 21, 17);
+                pen.Line(16, 12, 34, 12);
+                pen.Curve(34, 12, 43, 12, 43, 24, 34, 24);
+                pen.Line(34, 24, 24, 24);
+                break;
+
+            case AnysoundIcon.ActionDelete:
+                pen.Line(18, 8, 38, 8);
+                pen.Polyline(24, 8, 24, 5, 32, 5, 32, 8);
+                pen.Polygon(20, 10, 36, 10, 34, 28, 22, 28);
+                pen.Line(26, 13, 26.5f, 25);
+                pen.Line(30, 13, 29.5f, 25);
+                break;
+
+            case AnysoundIcon.ActionIn:
+                pen.Polyline(30, 6, 40, 6, 40, 26, 30, 26);
+                pen.Line(12, 16, 33, 16);
+                pen.Polyline(27, 10, 33, 16, 27, 22);
+                break;
+
+            case AnysoundIcon.ActionOut:
+                pen.Polyline(26, 6, 16, 6, 16, 26, 26, 26);
+                pen.Line(22, 16, 44, 16);
+                pen.Polyline(38, 10, 44, 16, 38, 22);
+                break;
+
+            case AnysoundIcon.ActionError:
+                pen.Polygon(28, 4, 42, 28, 14, 28);
+                pen.Line(28, 11, 28, 20);
+                pen.Circle(28, 24, 1.3f, true);
                 break;
 
             case AnysoundIcon.None:

@@ -51,6 +51,24 @@ public partial class AnysoundDropdown : BaseField<int>
         }
     }
 
+    bool _showIcons = true;
+
+    /// <summary>
+    /// When false the dropdown only shows names (the popup shows text tiles instead of icon tiles)
+    /// </summary>
+#if UNITY_2023_2_OR_NEWER || UNITY_6000_0_OR_NEWER
+    [UxmlAttribute]
+#endif
+    public bool showIcons
+    {
+        get => _showIcons;
+        set
+        {
+            _showIcons = value;
+            RefreshInput();
+        }
+    }
+
     readonly List<Item> _items = new();
     public IReadOnlyList<Item> items => _items;
     public string selectedName => value >= 0 && value < _items.Count ? _items[value].name : "";
@@ -133,6 +151,7 @@ public partial class AnysoundDropdown : BaseField<int>
         _chevron.style.rotate = new Rotate(Angle.Degrees(isOpen ? 180 : 0));
         _inputIcon.color = _color;
         _inputIcon.state = AnysoundIconState.Selected;
+        _input.EnableInClassList(UssClassName + "__input--no-icon", !_showIcons);
 
         if (value >= 0 && value < _items.Count)
         {
@@ -140,7 +159,7 @@ public partial class AnysoundDropdown : BaseField<int>
             _inputLabel.text = item.name.ToUpperInvariant();
             _inputIcon.icon = item.icon;
             _inputIcon.SetCustomIcon(item.customIcon, item.customIconSelected);
-            _inputIcon.style.display = DisplayStyle.Flex;
+            _inputIcon.style.display = _showIcons ? DisplayStyle.Flex : DisplayStyle.None;
         }
         else
         {
@@ -235,11 +254,15 @@ public partial class AnysoundDropdown : BaseField<int>
 
         var tile = new VisualElement();
         tile.AddToClassList(UssClassName + "__tile");
+        tile.EnableInClassList(UssClassName + "__tile--text", !_showIcons);
 
-        var icon = new AnysoundIconElement { icon = item.icon, color = _color };
-        icon.SetCustomIcon(item.customIcon, item.customIconSelected);
-        icon.AddToClassList(UssClassName + "__tile-icon");
-        tile.Add(icon);
+        if (_showIcons)
+        {
+            var icon = new AnysoundIconElement { icon = item.icon, color = _color };
+            icon.SetCustomIcon(item.customIcon, item.customIconSelected);
+            icon.AddToClassList(UssClassName + "__tile-icon");
+            tile.Add(icon);
+        }
 
         var label = new Label(item.name.ToUpperInvariant());
         label.AddToClassList(UssClassName + "__tile-label");
@@ -261,12 +284,25 @@ public partial class AnysoundDropdown : BaseField<int>
     void UpdateTile(VisualElement tile, int index)
     {
         var state = index == value ? AnysoundIconState.Selected : index == _highlightIndex ? AnysoundIconState.Hover : AnysoundIconState.Normal;
-        tile.Q<AnysoundIconElement>().state = state;
+        var icon = tile.Q<AnysoundIconElement>();
+        if (icon != null) icon.state = state;
 
         var label = tile.Q<Label>();
         Color labelColor = state == AnysoundIconState.Normal ? _color * 0.6f : _color;
         labelColor.a = 1f;
         label.style.color = labelColor;
+
+        if (!_showIcons)
+        {
+            // Text tiles show the selection like the icons do: filled with the accent color and dark text
+            bool selected = state == AnysoundIconState.Selected;
+            Color dimmed = _color * 0.5f;
+            dimmed.a = 1f;
+            tile.style.backgroundColor = selected ? _color : Color.clear;
+            tile.style.borderTopColor = tile.style.borderBottomColor =
+                tile.style.borderLeftColor = tile.style.borderRightColor = state == AnysoundIconState.Normal ? dimmed : _color;
+            if (selected) label.style.color = new Color(0.141f, 0.141f, 0.141f);
+        }
         tile.EnableInClassList(UssClassName + "__tile--highlighted", index == _highlightIndex);
     }
 

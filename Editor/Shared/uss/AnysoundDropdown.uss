@@ -26,6 +26,11 @@
     margin-right: 10px;
 }
 
+.anysound-dropdown__input--no-icon {
+    height: 30px;
+    padding-left: 8px;
+}
+
 .anysound-dropdown__input-label {
     flex-grow: 1;
     font-size: 12px;
@@ -66,6 +71,18 @@
 
 .anysound-dropdown__tile--highlighted {
     background-color: rgb(20, 20, 20);
+}
+
+.anysound-dropdown__tile--text {
+    width: auto;
+    min-width: 84px;
+    padding: 6px 10px;
+    justify-content: center;
+}
+
+.anysound-dropdown__tile--text .anysound-dropdown__tile-label {
+    margin: 0;
+    font-size: 11px;
 }
 
 .anysound-dropdown__tile-icon {
