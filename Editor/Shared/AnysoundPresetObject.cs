@@ -37,7 +37,7 @@ namespace Anysound.Shared
 
         public float GetPresetValue(string key)
         {
-            return _presetValues.ContainsKey(key) ? _presetValues[key] : 0f;
+            return _presetValues != null && _presetValues.ContainsKey(key) ? _presetValues[key] : 0f;
         }
 
         public void Create(string thisName, List<string> thisTags, AnysoundGeneratorBase newFootstepObject)

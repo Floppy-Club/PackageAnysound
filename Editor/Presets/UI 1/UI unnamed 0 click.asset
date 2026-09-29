@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a8171f17e244074afcb65a8ccf1ec1, type: 3}
+  m_Name: UI unnamed 0 click
+  m_EditorClassIdentifier: AnysoundShared::Anysound.Shared.AnysoundPresetObject
+  soundName: UI unnamed 0 click
+  tags:
+  - ui
+  - unnamed 0
+  - click
+  waveformTexture: {fileID: 0}
+  generatorObject: {fileID: 11400000, guid: a699ba915b8a149f692fe353d014719a, type: 2}
+  isLoadable: 1
+  _presetValues:
+  - key: Material
+    value: 0
+  - key: ExtraMaterial
+    value: 0
+  - key: Action
+    value: 0
+  - key: ExtraSample
+    value: 0
+  - key: Size
+    value: 1
+  previewSamples: []

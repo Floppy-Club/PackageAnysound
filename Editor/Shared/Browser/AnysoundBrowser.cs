@@ -7,6 +7,8 @@ using Anysound.Shared.Generators.Footsteps;
 using Anysound.Shared.Generators.Footsteps.Frontend;
 using Anysound.Shared.Generators.Whoosh;
 using Anysound.Shared.Generators.Whoosh.Frontend;
+using Anysound.Shared.Generators.UI;
+using Anysound.Shared.Generators.UI.Frontend;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -246,6 +248,7 @@ namespace Anysound.Shared.Browser
             {
                 AnysoundFootstepObject settings => new AnysoundFootstepsEditorWindow(rootVisualElement, settings, selectedPreset),
                 AnysoundWhooshObject settings => new AnysoundWhooshEditorWindow(rootVisualElement, settings, selectedPreset),
+                AnysoundUIObject settings => new AnysoundUIEditorWindow(rootVisualElement, settings, selectedPreset),
                 _ => null
             };
         }

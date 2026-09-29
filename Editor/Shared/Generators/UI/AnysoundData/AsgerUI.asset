@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9557218e6524245dfb19101503cb102c, type: 3}
+  m_Name: AsgerUI
+  m_EditorClassIdentifier: AnysoundShared::Anysound.Shared.Generators.UI.AnysoundUIObject
+  coverTexture: {fileID: 0}
+  isLoadable: 1
+  materials:
+  - name: 
+    clipCollection: {fileID: 0}
+    volume: 1.835
+  actions:
+  - name: Click
+    steps:
+    - delay: 0
+      pitchSemitones: 0
+      volume: 1
+  - name: Hover
+    steps:
+    - delay: 0
+      pitchSemitones: 3
+      volume: 0.5
+  - name: Up
+    steps:
+    - delay: 0
+      pitchSemitones: 0
+      volume: 1
+    - delay: 0.07
+      pitchSemitones: 4
+      volume: 0.8
+  - name: Down
+    steps:
+    - delay: 0
+      pitchSemitones: 0
+      volume: 1
+    - delay: 0.07
+      pitchSemitones: -4
+      volume: 0.8
+  - name: Ok
+    steps:
+    - delay: 0
+      pitchSemitones: 0
+      volume: 1
+    - delay: 0.08
+      pitchSemitones: 7
+      volume: 0.9
+  - name: Confirm
+    steps:
+    - delay: 0
+      pitchSemitones: 0
+      volume: 1
+    - delay: 0.07
+      pitchSemitones: 4
+      volume: 0.9
+    - delay: 0.07
+      pitchSemitones: 7
+      volume: 0.9
+  - name: Back
+    steps:
+    - delay: 0
+      pitchSemitones: 0
+      volume: 1
+    - delay: 0.08
+      pitchSemitones: -5
+      volume: 0.8
+  - name: Delete
+    steps:
+    - delay: 0
+      pitchSemitones: 0
+      volume: 1
+    - delay: 0.06
+      pitchSemitones: -3
+      volume: 0.9
+    - delay: 0.06
+      pitchSemitones: -6
+      volume: 0.8
+  - name: In
+    steps:
+    - delay: 0
+      pitchSemitones: -2
+      volume: 0.7
+    - delay: 0.05
+      pitchSemitones: 0
+      volume: 0.85
+    - delay: 0.05
+      pitchSemitones: 2
+      volume: 1
+  - name: Out
+    steps:
+    - delay: 0
+      pitchSemitones: 2
+      volume: 1
+    - delay: 0.05
+      pitchSemitones: 0
+      volume: 0.85
+    - delay: 0.05
+      pitchSemitones: -2
+      volume: 0.7
+  - name: Error
+    steps:
+    - delay: 0
+      pitchSemitones: -1
+      volume: 1
+    - delay: 0.1
+      pitchSemitones: -1
+      volume: 1
+  extras: []
+  extraMaterialVolume: 0.7
+  normalizeOutput: 1
+  normalizePeak: 0.9
+  narrowFilter:
+    centerFrequency: 2500
+    bandwidth: 0.8
+    gain: 1
+  wideFilter:
+    centerFrequency: 1500
+    bandwidth: 5
+    gain: 1
+  shortEnvelope:
+    attackTime: 0.001
+    decayTime: 0.04
+    sustainLevel: 0.5
+    releaseTime: 0.05
+    duration: 0.06
+  fullEnvelope:
+    attackTime: 0.001
+    decayTime: 0.001
+    sustainLevel: 1
+    releaseTime: 0.1
+    duration: 2

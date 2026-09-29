@@ -19,10 +19,13 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
         private float _currentMovementSpeed;
         private float _currentDurationType;
         private float _currentFluctuation;
-        private VisualElement _waveformContainer;
-        private VisualElement _sizeLabelsContainer, _sizeIconsContainer, _surfaceIconsContainer, _movementLabelsContainer, _playheadContainer;
+        private VisualElement _waveformContainer, _playheadContainer;
 
-        int _currentMovementIndex;
+        // Same ranges as the backend window, so presets created there load with the same values
+        const float MovementMin = 0f, MovementMax = 1f, MovementDefault = 0.5f;
+        const float SizeMin = 0.5f, SizeMax = 2f, SizeDefault = 1f;
+        const float DurationMin = 0.05f, DurationMax = 0.5f, DurationDefault = 0.25f;
+        const float FluctuationMin = 0f, FluctuationMax = 1f, FluctuationDefault = 0.5f;
 
         private Button _previewButton;
         private AnysoundSlider _durationSlider;
@@ -121,26 +124,12 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
             _waveformContainer = _rootVisualElement.Q<VisualElement>("WaveformContainer");
 
 
-            _movementSlider = _rootVisualElement.Q<AnysoundSlider>("MovementSpeedSlider");
-            _sizeSlider = _rootVisualElement.Q<AnysoundSlider>("SizeSlider");
-            _durationSlider = _rootVisualElement.Q<AnysoundSlider>("DurationSlider");
-            _fluctuationSlider = _rootVisualElement.Q<AnysoundSlider>("FluctuationSlider");
-            
-            
+            _movementSlider = SetupSlider("MovementSpeedSlider", MovementMin, MovementMax, OnMovementSliderValueChanged);
+            _sizeSlider = SetupSlider("SizeSlider", SizeMin, SizeMax, OnSizeSliderValueChanged);
+            _durationSlider = SetupSlider("DurationSlider", DurationMin, DurationMax, OnDurationSliderValueChanged);
+            _fluctuationSlider = SetupSlider("FluctuationSlider", FluctuationMin, FluctuationMax, OnFluctuationSliderValueChanged);
+
             _playheadContainer = _rootVisualElement.Q<VisualElement>("Playhead");
-
-            _durationSlider.highValue = 2;
-            _sizeSlider.highValue = 3;
-            _movementSlider.highValue = 2;
-
-            _movementSlider.RegisterValueChangedCallback(evt => { OnMovementSliderValueChanged(_movementSlider.value); });
-            _sizeSlider.RegisterValueChangedCallback(evt => { OnSizeSliderValueChanged(_sizeSlider.value); });
-            _durationSlider.RegisterValueChangedCallback(evt => { OnSurfaceSliderValueChanged(_durationSlider.value); });
-
-            _movementSlider.RegisterDragEndCallback(UpdateWaveform);
-            _sizeSlider.RegisterDragEndCallback(UpdateWaveform);
-            _durationSlider.RegisterDragEndCallback(UpdateWaveform);
-
 
             _previewButton = _rootVisualElement.Q<Button>("PreviewButton");
             if (_previewButton != null)
@@ -168,17 +157,22 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
                 backButton.clicked += Back;
             }
 
-            _sizeLabelsContainer = _rootVisualElement.Q<VisualElement>("SizeLabelsContainer");
-            _sizeIconsContainer = _rootVisualElement.Q<VisualElement>("SizeIconsContainer");
-            _surfaceIconsContainer = _rootVisualElement.Q<VisualElement>("SurfaceIconsContainer");
-            _movementLabelsContainer = _rootVisualElement.Q<VisualElement>("MovementLabelsContainer");
-
-
-            OnSizeSliderValueChanged(1);
-            OnSurfaceSliderValueChanged(1);
-            OnMovementSliderValueChanged(1);
+            OnMovementSliderValueChanged(MovementDefault);
+            OnSizeSliderValueChanged(SizeDefault);
+            OnDurationSliderValueChanged(DurationDefault);
+            OnFluctuationSliderValueChanged(FluctuationDefault);
             UpdateWaveform();
             _isInit = true;
+        }
+
+        AnysoundSlider SetupSlider(string sliderName, float min, float max, System.Action<float> onValueChanged)
+        {
+            var slider = _rootVisualElement.Q<AnysoundSlider>(sliderName);
+            slider.lowValue = min;
+            slider.highValue = max;
+            slider.RegisterValueChangedCallback(evt => onValueChanged(evt.newValue));
+            slider.RegisterDragEndCallback(UpdateWaveform);
+            return slider;
         }
 
 
@@ -218,13 +212,6 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
         {
             _movementSlider.SetValueWithoutNotify(value);
             _currentMovementSpeed = value;
-            _currentMovementIndex = (int)Mathf.Clamp(((_currentMovementSpeed / 2f) * 3), 0, 2);
-        }
-
-        void OnSurfaceSliderValueChanged(float value)
-        {
-            _durationSlider.SetValueWithoutNotify(value);
-            _currentDurationType = value;
         }
 
         void OnSizeSliderValueChanged(float value)
@@ -233,19 +220,42 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
             _currentSizeValue = value;
         }
 
+        void OnDurationSliderValueChanged(float value)
+        {
+            _durationSlider.SetValueWithoutNotify(value);
+            _currentDurationType = value;
+        }
+
+        void OnFluctuationSliderValueChanged(float value)
+        {
+            _fluctuationSlider.SetValueWithoutNotify(value);
+            _currentFluctuation = value;
+        }
+
+        // Presets without stored values return 0, which is outside some ranges (e.g. duration), so fall back to the default
+        static float PresetValueOrDefault(AnysoundPresetObject preset, string key, float min, float max, float defaultValue)
+        {
+            float value = preset.GetPresetValue(key);
+            return value >= min && value <= max ? value : defaultValue;
+        }
+
         public sealed override void SetPresetObject(AnysoundPresetObject preset)
         {
             _anysoundWhooshObject = preset.generatorObject as AnysoundWhooshObject;
+            if (!_anysoundWhooshObject)
+                return;
+
             if (_rootVisualElement != null)
             {
                 _rootVisualElement.Clear();
+                _isInit = false;
                 CreateGUI();
             }
 
-            _currentFluctuation = preset.GetPresetValue("Fluctuation");
-            _currentMovementSpeed = preset.GetPresetValue("Movement");
-            _currentSizeValue = preset.GetPresetValue("Size");
-            _currentDurationType = preset.GetPresetValue("Duration");
+            OnMovementSliderValueChanged(PresetValueOrDefault(preset, "Movement", MovementMin, MovementMax, MovementDefault));
+            OnSizeSliderValueChanged(PresetValueOrDefault(preset, "Size", SizeMin, SizeMax, SizeDefault));
+            OnDurationSliderValueChanged(PresetValueOrDefault(preset, "Duration", DurationMin, DurationMax, DurationDefault));
+            OnFluctuationSliderValueChanged(PresetValueOrDefault(preset, "Fluctuation", FluctuationMin, FluctuationMax, FluctuationDefault));
 
             UpdateWaveform();
         }
