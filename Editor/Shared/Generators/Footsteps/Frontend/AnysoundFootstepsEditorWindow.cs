@@ -58,7 +58,7 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
                 SetupObjectEditing();
             }
 
-            _rootVisualElement.RegisterCallback<KeyDownEvent>(OnKeyDownEvent);
+            RegisterKeyDownHandler(_rootVisualElement, OnKeyDownEvent);
         }
 
         private void OnKeyDownEvent(KeyDownEvent evt)

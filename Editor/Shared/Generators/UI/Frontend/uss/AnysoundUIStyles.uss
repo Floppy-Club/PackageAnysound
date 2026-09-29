@@ -18,14 +18,6 @@
     border-color: rgb(255, 255, 255);
 }
 
-.ui-dropdown--material .unity-base-popup-field__input {
-    color: rgb(96, 199, 92);
-}
-
-.ui-dropdown--extra-material .unity-base-popup-field__input {
-    color: rgb(168, 130, 255);
-}
-
 .ui-dropdown--action .unity-base-popup-field__input {
     color: rgb(255, 187, 34);
 }

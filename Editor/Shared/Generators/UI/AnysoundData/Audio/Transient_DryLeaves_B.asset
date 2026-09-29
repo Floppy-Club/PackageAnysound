@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: Transient_DryLeaves_B
+  m_EditorClassIdentifier: AnysoundShared::Anysound.Shared.AnysoundSoundCollectionObject
+  clips:
+  - {fileID: 8300000, guid: 384ec2d05abd1453b9311d7874f221d7, type: 3}
+  - {fileID: 8300000, guid: 1753855c0475144c997697589d1d656d, type: 3}
+  - {fileID: 8300000, guid: be4ca2c97ddb14811bd5b91355cf602d, type: 3}
+  - {fileID: 8300000, guid: 0be2848fa478e4675b81f504e38fc5ae, type: 3}

@@ -21,6 +21,14 @@ namespace Anysound.Shared.Generators.UI
             public string name;
             public AnysoundSoundCollectionObject clipCollection;
             [Range(0f, 2f)] public float volume = 1f;
+
+            [Header("Icon")] [Tooltip("Auto picks a built-in icon from the name")]
+            public AnysoundIcon icon = AnysoundIcon.Auto;
+
+            [Tooltip("Optional textures replacing the built-in icon (like the footstep surface_x / surface_x_fill pngs)")]
+            public Texture2D customIcon;
+
+            public Texture2D customIconSelected;
         }
 
         /// <summary>
@@ -117,6 +125,18 @@ namespace Anysound.Shared.Generators.UI
         [SerializeField] public AnysoundAudioDSP.ADSREnvelopeSettings fullEnvelope = new(0.001f, 0.001f, 1f, 0.1f, 2f);
 
         public string[] MaterialNames => GetNames(materials, m => m.name);
+
+        /// <param name="includeNone">Adds a "None" item first (used for the extra material, where 0 means none)</param>
+        public List<AnysoundDropdown.Item> GetMaterialDropdownItems(bool includeNone = false)
+        {
+            var names = MaterialNames;
+            var items = new List<AnysoundDropdown.Item>();
+            if (includeNone)
+                items.Add(new AnysoundDropdown.Item("None", AnysoundIcon.None));
+            for (int i = 0; i < names.Length; i++)
+                items.Add(new AnysoundDropdown.Item(names[i], materials[i].icon, materials[i].customIcon, materials[i].customIconSelected));
+            return items;
+        }
         public string[] ActionNames => GetNames(actions, a => a.name);
         public string[] ExtraNames => GetNames(extras, e => e.name);
 

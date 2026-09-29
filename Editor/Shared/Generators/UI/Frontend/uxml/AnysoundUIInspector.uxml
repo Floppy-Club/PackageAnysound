@@ -3,6 +3,7 @@
     <Style src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/Generators/Footsteps/Frontend/uss/AnysoundSurfaceToggle.uss?fileID=7433441132597879392&amp;guid=77f1e976f4e394b148f02e71fe20b1fb&amp;type=3#AnysoundSurfaceToggle"/>
     <Style src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/uss/AnysoundStyles.uss?fileID=7433441132597879392&amp;guid=1e040dc50fcfa49f0aa3378443d2ffaa&amp;type=3#AnysoundStyles"/>
     <Style src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/Generators/UI/Frontend/uss/AnysoundUIStyles.uss?fileID=7433441132597879392&amp;guid=98dc4e4e392c4021a60e3a6cef3b9413&amp;type=3#AnysoundUIStyles"/>
+    <Style src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/uss/AnysoundDropdown.uss?fileID=7433441132597879392&amp;guid=7b8ede17e160441992f477aedaafaed2&amp;type=3#AnysoundDropdown"/>
     <engine:ScrollView style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; min-width: 400px;">
         <engine:VisualElement style="flex-grow: 0; flex-shrink: 0; background-color: rgb(0, 0, 0); padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px;">
             <engine:VisualElement name="Header" class="header-element" style="flex-grow: 0; background-color: rgb(0, 0, 0); align-self: stretch; justify-content: space-between; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
@@ -18,7 +19,7 @@
                     </engine:VisualElement>
                     <engine:VisualElement class="generator-section-content">
                         <engine:VisualElement class="generator-section-line" style="background-color: rgb(96, 199, 92);"/>
-                        <engine:DropdownField name="MaterialDropdown" class="ui-dropdown ui-dropdown--material"/>
+                        <AnysoundDropdown name="MaterialDropdown" color="#60C75CFF"/>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="ExtraMaterialElement" class="generator-section">
@@ -29,7 +30,7 @@
                     </engine:VisualElement>
                     <engine:VisualElement class="generator-section-content">
                         <engine:VisualElement class="generator-section-line" style="background-color: rgb(168, 130, 255);"/>
-                        <engine:DropdownField name="ExtraMaterialDropdown" class="ui-dropdown ui-dropdown--extra-material"/>
+                        <AnysoundDropdown name="ExtraMaterialDropdown" color="#A882FFFF"/>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="ActionElement" class="generator-section">

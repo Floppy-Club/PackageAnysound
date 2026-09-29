@@ -15,12 +15,90 @@ MonoBehaviour:
   coverTexture: {fileID: 0}
   isLoadable: 1
   materials:
-  - name: Wood
-    clipCollection: {fileID: 11400000, guid: 2070c478c8aa14e79bf04442e7670f5b, type: 2}
+  - name: Dirt
+    clipCollection: {fileID: 11400000, guid: 207bfe754ac0e4022ac6fe90f1678976, type: 2}
     volume: 1.859
-  - name: Steel
-    clipCollection: {fileID: 11400000, guid: e988e602899494d2db56f23665bf2880, type: 2}
+    icon: 14
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Mouth
+    clipCollection: {fileID: 11400000, guid: eee1c8fd36b74427f8c39503fa215123, type: 2}
     volume: 1.859
+    icon: 15
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Crunch
+    clipCollection: {fileID: 11400000, guid: 5465ecb456a349a59987b0b409e5acc3, type: 2}
+    volume: 1
+    icon: 16
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Pebbles
+    clipCollection: {fileID: 11400000, guid: 61bb35fca5bb4b7db8a37ab2b53dd11b, type: 2}
+    volume: 1
+    icon: 17
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Leaves
+    clipCollection: {fileID: 11400000, guid: 8e3778e0fa2647d08216404ef13176ba, type: 2}
+    volume: 1
+    icon: 18
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Leaves B
+    clipCollection: {fileID: 11400000, guid: 13bc259bd2a541cc88b3722ade030c37, type: 2}
+    volume: 1
+    icon: 18
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Glass Synth
+    clipCollection: {fileID: 11400000, guid: 5144835ea65f4d6fb776a3e1da509685, type: 2}
+    volume: 1
+    icon: 8
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Ice
+    clipCollection: {fileID: 11400000, guid: 98ee5cf0fbfd473aa0161d5b20f215ae, type: 2}
+    volume: 1.376
+    icon: 19
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Levers
+    clipCollection: {fileID: 11400000, guid: 10bdf59fa5f0413d8e1ad6fee51c99af, type: 2}
+    volume: 1
+    icon: 20
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Plastic Bottle
+    clipCollection: {fileID: 11400000, guid: 1708aaa189de4e66933c3045cf2bd9b7, type: 2}
+    volume: 1
+    icon: 21
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Sticks
+    clipCollection: {fileID: 11400000, guid: 5060ed1a930340b3828f62c6536afc82, type: 2}
+    volume: 1
+    icon: 22
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: TE Click
+    clipCollection: {fileID: 11400000, guid: 54f2435d059a461486c72a0232404c83, type: 2}
+    volume: 1
+    icon: 24
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: TE Click B
+    clipCollection: {fileID: 11400000, guid: be0f8f95522543bbae65187719178fa9, type: 2}
+    volume: 1
+    icon: 24
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
+  - name: Electricity
+    clipCollection: {fileID: 11400000, guid: 2d29f168ec854eefb95ef458c38d7a20, type: 2}
+    volume: 1
+    icon: 23
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
   actions:
   - name: Click
     steps:
@@ -124,23 +202,23 @@ MonoBehaviour:
     actionClips:
     - actionName: ggg
       clipCollection: {fileID: 11400000, guid: d7db0bdfc91734fb9b940c6b8e5f198a, type: 2}
-  extraMaterialVolume: 0.7
+  extraMaterialVolume: 0.538
   normalizeOutput: 1
   normalizePeak: 0.9
   narrowFilter:
-    centerFrequency: 2500
-    bandwidth: 0.8
+    centerFrequency: 8998
+    bandwidth: 0.404
     gain: 1
   wideFilter:
     centerFrequency: 1500
     bandwidth: 5
-    gain: 1
+    gain: 0.8
   shortEnvelope:
     attackTime: 0.001
-    decayTime: 0.04
-    sustainLevel: 0.144
-    releaseTime: 0.05
-    duration: 0.06
+    decayTime: 0.008
+    sustainLevel: 0
+    releaseTime: 0.001
+    duration: 0.001
   fullEnvelope:
     attackTime: 0.001
     decayTime: 0.001

@@ -62,7 +62,7 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
                 SetupObjectEditing();
             }
 
-            _rootVisualElement.RegisterCallback<KeyDownEvent>(OnKeyDownEvent);
+            RegisterKeyDownHandler(_rootVisualElement, OnKeyDownEvent);
         }
 
         private void OnKeyDownEvent(KeyDownEvent evt)

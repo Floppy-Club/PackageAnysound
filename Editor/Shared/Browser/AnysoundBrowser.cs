@@ -69,6 +69,8 @@ namespace Anysound.Shared.Browser
             generatorButtonTemplate = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>($"{BrowserFolder}/GeneratorButtonTemplate.uxml");
             soundItemTemplate = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>($"{BrowserFolder}/SoundBrowserResult.uxml");
 
+            // Remove the space-to-preview handler of the generator that was shown in this window
+            AnysoundGeneratorWindowBase.UnregisterKeyDownHandler();
             rootVisualElement.Clear();
 
             TemplateContainer container = visualTreeAsset.CloneTree();

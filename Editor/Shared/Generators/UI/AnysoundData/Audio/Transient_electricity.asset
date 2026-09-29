@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: Transient_electricity
+  m_EditorClassIdentifier: AnysoundShared::Anysound.Shared.AnysoundSoundCollectionObject
+  clips:
+  - {fileID: 8300000, guid: 9f30f3a14047344c1a5857397b7c51a1, type: 3}
+  - {fileID: 8300000, guid: 763cd456c30614253a935f33b49aef52, type: 3}
+  - {fileID: 8300000, guid: 91e455893116843c79ae987512de648c, type: 3}
+  - {fileID: 8300000, guid: 7967b9d7e735940a89099aec576d7053, type: 3}
+  - {fileID: 8300000, guid: 8ddd579edc69d4d9dbc212b9c449d009, type: 3}
+  - {fileID: 8300000, guid: ab4897e3601364f3a83634ebdf1edf5c, type: 3}
+  - {fileID: 8300000, guid: 60126db81dbcc4ce8bf3dcf167de5524, type: 3}
+  - {fileID: 8300000, guid: 8132c605557de4f7fb973967c1d013b0, type: 3}
