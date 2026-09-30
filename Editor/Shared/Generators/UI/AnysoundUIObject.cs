@@ -100,7 +100,7 @@ namespace Anysound.Shared.Generators.UI
             [Range(0f, 2f)] public float volume = 1f;
 
             [Tooltip("When enabled the extra follows the action sequence (delays and pitches). When disabled it is triggered once, unpitched")]
-            public bool followActionSequence = true;
+            public bool followActionSequence;
 
             public AnysoundSoundCollectionObject defaultClipCollection;
             public List<UIExtraActionClips> actionClips = new();

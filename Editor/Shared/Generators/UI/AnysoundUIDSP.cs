@@ -29,6 +29,7 @@ namespace Anysound.Shared.Generators.UI
         /// <summary>
         /// Renders a UI sound: the action sequencer triggers the material (+ extra material and extra sample) 1-4 times
         /// with individual delays and pitches. Size then sets the band pass filter and the amplitude envelope.
+        /// The extra sample is mixed in after filtering and normalization, so size never affects it
         /// </summary>
         public static AudioClip CreateAudioClip(AnysoundUIObject uiObject, AnysoundUIParameters parameters)
         {
@@ -75,6 +76,7 @@ namespace Anysound.Shared.Generators.UI
             }
 
             List<RenderJob> jobs = new();
+            List<RenderJob> extraJobs = new();
             float stepTime = 0f;
             for (int i = 0; i < steps.Count; i++)
             {
@@ -101,7 +103,7 @@ namespace Anysound.Shared.Generators.UI
 
                 if (extraClip && (extra.followActionSequence || i == 0))
                 {
-                    jobs.Add(new RenderJob
+                    extraJobs.Add(new RenderJob
                     {
                         clip = extraClip,
                         startFrame = extra.followActionSequence ? startFrame : 0,
@@ -114,13 +116,22 @@ namespace Anysound.Shared.Generators.UI
 
             float[] output = Render(jobs, uiObject.GetEnvelopeSettings(parameters.size));
 
-            AudioClip result = AudioClip.Create("UISound", output.Length / OutputChannels, OutputChannels, OutputSampleRate, false);
-            result.SetData(output, 0);
+            AudioClip filtered = AudioClip.Create("UISound", output.Length / OutputChannels, OutputChannels, OutputSampleRate, false);
+            filtered.SetData(output, 0);
 
-            // The filter is applied after mixing, so it affects the material, the extra material and the extra sample alike
-            result = AnysoundAudioDSP.ApplyBandpassFilter(result, uiObject.GetFilterSettings(parameters.size));
+            // The filter is applied after mixing, so it affects the material and the extra material alike
+            filtered = AnysoundAudioDSP.ApplyBandpassFilter(filtered, uiObject.GetFilterSettings(parameters.size));
+            output = new float[filtered.samples * filtered.channels];
+            filtered.GetData(output, 0);
 
-            return Finalize(result, uiObject.normalizeOutput ? uiObject.normalizePeak : 0f);
+            if (uiObject.normalizeOutput)
+                Normalize(output, uiObject.normalizePeak);
+
+            // The extra sample skips envelope, filter and normalization, so it sounds the same at every size
+            if (extraJobs.Count > 0)
+                output = Mix(output, Render(extraJobs, null));
+
+            return Finalize(output);
         }
 
         static AudioClip GetClip(AnysoundSoundCollectionObject collection)
@@ -137,7 +148,7 @@ namespace Anysound.Shared.Generators.UI
             }
         }
 
-        static float[] Render(List<RenderJob> jobs, AnysoundAudioDSP.ADSREnvelopeSettings envelope)
+        static float[] Render(List<RenderJob> jobs, AnysoundAudioDSP.ADSREnvelopeSettings? envelope)
         {
             int totalFrames = 1;
             List<float[]> sourceData = new();
@@ -171,7 +182,7 @@ namespace Anysound.Shared.Generators.UI
         /// and pitches the sound (like a sampler, higher pitch = shorter sound).
         /// The envelope is applied per trigger, so a short envelope shortens every step instead of cutting off the sequence
         /// </summary>
-        static void AddResampled(float[] output, float[] source, RenderJob job, AnysoundAudioDSP.ADSREnvelopeSettings envelope)
+        static void AddResampled(float[] output, float[] source, RenderJob job, AnysoundAudioDSP.ADSREnvelopeSettings? envelope)
         {
             int sourceChannels = job.clip.channels;
             int sourceFrames = job.clip.samples;
@@ -187,7 +198,8 @@ namespace Anysound.Shared.Generators.UI
                 int index = (int)position;
                 float fraction = position - index;
                 int nextIndex = Mathf.Min(index + 1, sourceFrames - 1);
-                float gain = job.gain * EvaluateEnvelope(envelope, (float)i / OutputSampleRate) * EvaluateStepFadeOut(job, i);
+                float envelopeGain = envelope.HasValue ? EvaluateEnvelope(envelope.Value, (float)i / OutputSampleRate) : 1f;
+                float gain = job.gain * envelopeGain * EvaluateStepFadeOut(job, i);
                 if (gain <= 0f && i > 0) continue;
 
                 for (int channel = 0; channel < OutputChannels; channel++)
@@ -229,14 +241,32 @@ namespace Anysound.Shared.Generators.UI
             return Mathf.Lerp(sustain, 0f, (time - releaseStart) / release);
         }
 
-        /// <summary>
-        /// Trims trailing silence and normalizes to the given peak (0 = no normalization, only clipping protection)
-        /// </summary>
-        static AudioClip Finalize(AudioClip clip, float normalizePeak)
+        static void Normalize(float[] samples, float normalizePeak)
         {
-            float[] samples = new float[clip.samples * clip.channels];
-            clip.GetData(samples, 0);
+            float peak = 0f;
+            foreach (float sample in samples)
+                peak = Mathf.Max(peak, Mathf.Abs(sample));
 
+            if (normalizePeak <= 0f || peak <= 0f) return;
+
+            float gain = normalizePeak / peak;
+            for (int i = 0; i < samples.Length; i++)
+                samples[i] *= gain;
+        }
+
+        static float[] Mix(float[] a, float[] b)
+        {
+            float[] result = new float[Mathf.Max(a.Length, b.Length)];
+            for (int i = 0; i < a.Length; i++) result[i] += a[i];
+            for (int i = 0; i < b.Length; i++) result[i] += b[i];
+            return result;
+        }
+
+        /// <summary>
+        /// Trims trailing silence and protects against clipping
+        /// </summary>
+        static AudioClip Finalize(float[] samples)
+        {
             float peak = 0f;
             int lastAudibleFrame = 0;
             for (int i = 0; i < samples.Length; i++)
@@ -244,21 +274,17 @@ namespace Anysound.Shared.Generators.UI
                 float abs = Mathf.Abs(samples[i]);
                 peak = Mathf.Max(peak, abs);
                 if (abs > SilenceThreshold)
-                    lastAudibleFrame = i / clip.channels;
+                    lastAudibleFrame = i / OutputChannels;
             }
 
-            float gain = 1f;
-            if (normalizePeak > 0f && peak > 0f)
-                gain = normalizePeak / peak;
-            else if (peak > 0.99f)
-                gain = 0.99f / peak;
+            float gain = peak > 0.99f ? 0.99f / peak : 1f;
 
             int frames = Mathf.Max(1, lastAudibleFrame + 1);
-            float[] trimmed = new float[frames * clip.channels];
+            float[] trimmed = new float[frames * OutputChannels];
             for (int i = 0; i < trimmed.Length; i++)
                 trimmed[i] = samples[i] * gain;
 
-            AudioClip result = AudioClip.Create("UISound", frames, clip.channels, clip.frequency, false);
+            AudioClip result = AudioClip.Create("UISound", frames, OutputChannels, OutputSampleRate, false);
             result.SetData(trimmed, 0);
             return result;
         }

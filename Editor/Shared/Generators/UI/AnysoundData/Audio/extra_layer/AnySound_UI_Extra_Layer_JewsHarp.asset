@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: AnySound_UI_Extra_Layer_JewsHarp
+  m_EditorClassIdentifier: AnysoundShared::Anysound.Shared.AnysoundSoundCollectionObject
+  clips:
+  - {fileID: 8300000, guid: a66222538a7cc46a9a050b66a9337c9e, type: 3}
+  - {fileID: 8300000, guid: 5d778d5d3ae934ea6b25b3988301d3c9, type: 3}
+  - {fileID: 8300000, guid: 32a834d831e424167a84f05a45093819, type: 3}
+  - {fileID: 8300000, guid: d6490aaa555314969aad92155ac12749, type: 3}
+  - {fileID: 8300000, guid: a930609a8d2104e4facbbbfb925e3aae, type: 3}

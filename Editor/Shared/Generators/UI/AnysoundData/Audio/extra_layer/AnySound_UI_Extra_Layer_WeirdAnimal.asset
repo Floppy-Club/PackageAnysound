@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: AnySound_UI_Extra_Layer_WeirdAnimal
+  m_EditorClassIdentifier: AnysoundShared::Anysound.Shared.AnysoundSoundCollectionObject
+  clips:
+  - {fileID: 8300000, guid: 996f3ee1022de498b8d19079c630c2d3, type: 3}
+  - {fileID: 8300000, guid: 5d1e325ff68d045678f3e194c7b89a24, type: 3}

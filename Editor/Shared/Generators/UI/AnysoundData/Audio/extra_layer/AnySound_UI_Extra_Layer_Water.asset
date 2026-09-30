@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e9500a0310f4ecebfc7fc0dad33667, type: 3}
+  m_Name: AnySound_UI_Extra_Layer_Water
+  m_EditorClassIdentifier: AnysoundShared::Anysound.Shared.AnysoundSoundCollectionObject
+  clips:
+  - {fileID: 8300000, guid: 20b004de338ef4ce78167a4e2cd2fa34, type: 3}
+  - {fileID: 8300000, guid: 1c7343c2c5f53457da02317dc4575364, type: 3}
+  - {fileID: 8300000, guid: 6182d383a26dd4ddda0e0ab47ba1a1cf, type: 3}
+  - {fileID: 8300000, guid: 73f1cd836a53d483e818a6cc65c60832, type: 3}
+  - {fileID: 8300000, guid: 08bad52055922409c9350748fb730f6d, type: 3}
+  - {fileID: 8300000, guid: 8b5a092e1ca5f479fbb4ea86d706b181, type: 3}
+  - {fileID: 8300000, guid: c6789cdddcee843fd8b5f06432760400, type: 3}
+  - {fileID: 8300000, guid: 41dd643558a854bda9414600e2b0f63d, type: 3}
