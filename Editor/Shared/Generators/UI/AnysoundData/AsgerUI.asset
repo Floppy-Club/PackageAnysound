@@ -230,48 +230,43 @@ MonoBehaviour:
       volume: 1
       duration: 0
   extras:
-  - name: Test
-    volume: 0.083
-    followActionSequence: 0
-    defaultClipCollection: {fileID: 11400000, guid: e7c7c703d7ec94fbc817475ecd8c51d3, type: 2}
-    actionClips: []
   - name: Boing
-    volume: 0.065
+    volume: 0.058
     followActionSequence: 0
     defaultClipCollection: {fileID: 11400000, guid: a9c2a2b3b8e24da49ddf48de104f9205, type: 2}
     actionClips: []
   - name: Guinea Pig
-    volume: 0.041
+    volume: 0.025
     followActionSequence: 0
     defaultClipCollection: {fileID: 11400000, guid: 92858a12d11b4df8b036daeccacf669f, type: 2}
     actionClips: []
   - name: Ice
-    volume: 1
+    volume: 0.066
     followActionSequence: 0
     defaultClipCollection: {fileID: 11400000, guid: 9b70855e04da4614b285647099de7313, type: 2}
     actionClips: []
   - name: Jews Harp
-    volume: 1
+    volume: 0.075
     followActionSequence: 0
     defaultClipCollection: {fileID: 11400000, guid: abd64bce049d41f3bd3f55bad50767d5, type: 2}
     actionClips: []
   - name: Rat
-    volume: 1
+    volume: 0.033
     followActionSequence: 0
     defaultClipCollection: {fileID: 11400000, guid: 21c9948c71524765989d84016da9ae72, type: 2}
     actionClips: []
   - name: Underwater Glass
-    volume: 1
+    volume: 0.041
     followActionSequence: 0
     defaultClipCollection: {fileID: 11400000, guid: af2c5ebe001840f4b8b6628e18e1c157, type: 2}
     actionClips: []
   - name: Water
-    volume: 1
+    volume: 0.025
     followActionSequence: 0
     defaultClipCollection: {fileID: 11400000, guid: 37aa7d2c746746a2aab9a150240df4e3, type: 2}
     actionClips: []
   - name: Weird Animal
-    volume: 1
+    volume: 0.017
     followActionSequence: 0
     defaultClipCollection: {fileID: 11400000, guid: 65022b63f4a24d8b880a5d80b8acd199, type: 2}
     actionClips: []
