@@ -103,132 +103,252 @@ MonoBehaviour:
   - name: Click
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: 0
-      volume: 1
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: -1.7557081
+      pitchMax: 3.0434918
+      volumeMin: 0.59006834
+      volumeMax: 0.7967006
+      durationMin: 0.056823827
+      durationMax: 0.100149944
+      hasRanges: 1
   - name: Hover
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: 3
-      volume: 0.5
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: 3
+      pitchMax: 3
+      volumeMin: 0.5
+      volumeMax: 0.5
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
   - name: Up
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: 0
-      volume: 1
-      duration: 0
-    - delay: 0.07
-      pitchSemitones: 4
-      volume: 0.8
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: -2.075655
+      pitchMax: 1.2837853
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0.01666389
+      durationMax: 0.10998167
+      hasRanges: 1
+    - delayMin: 0.040005
+      delayMax: 0.20664385
+      pitchMin: 3.52008
+      pitchMax: 6.7195444
+      volumeMin: 0.65669054
+      volumeMax: 0.9066489
+      durationMin: 0.039993335
+      durationMax: 0.09665057
+      hasRanges: 1
   - name: Down
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: 0
-      volume: 1
-      duration: 0
-    - delay: 0.07
-      pitchSemitones: -4
-      volume: 0.8
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: 0
+      pitchMax: 0
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.07
+      delayMax: 0.07
+      pitchMin: -4
+      pitchMax: -4
+      volumeMin: 0.8
+      volumeMax: 0.8
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
   - name: Ok
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: 0
-      volume: 1
-      duration: 0
-    - delay: 0.08
-      pitchSemitones: 7
-      volume: 0.9
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: 0
+      pitchMax: 0
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.08
+      delayMax: 0.08
+      pitchMin: 7
+      pitchMax: 7
+      volumeMin: 0.9
+      volumeMax: 0.9
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
   - name: Confirm
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: 0
-      volume: 1
-      duration: 0
-    - delay: 0.07
-      pitchSemitones: 4
-      volume: 0.9
-      duration: 0
-    - delay: 0.07
-      pitchSemitones: 7
-      volume: 0.9
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: 0
+      pitchMax: 0
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0.020163264
+      durationMax: 0.06682216
+      hasRanges: 1
+    - delayMin: 0.050158262
+      delayMax: 0.12681216
+      pitchMin: 0.16063929
+      pitchMax: 4.6398935
+      volumeMin: 0.37343773
+      volumeMax: 0.7067155
+      durationMin: 0.09015161
+      durationMax: 0.20013326
+      hasRanges: 1
+    - delayMin: 0.013331112
+      delayMax: 0.109981656
+      pitchMin: 0.7610394
+      pitchMax: 7.47992
+      volumeMin: 0.65670717
+      volumeMax: 0.9
+      durationMin: 0.32011333
+      durationMax: 0.4734211
+      hasRanges: 1
   - name: Back
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: 0
-      volume: 1
-      duration: 0
-    - delay: 0.08
-      pitchSemitones: -5
-      volume: 0.8
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: 0
+      pitchMax: 0
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.08
+      delayMax: 0.08
+      pitchMin: -5
+      pitchMax: -5
+      volumeMin: 0.8
+      volumeMax: 0.8
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
   - name: Delete
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: 0
-      volume: 1
-      duration: 0
-    - delay: 0.06
-      pitchSemitones: -3
-      volume: 0.9
-      duration: 0
-    - delay: 0.06
-      pitchSemitones: -6
-      volume: 0.8
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: 0
+      pitchMax: 0
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.06
+      delayMax: 0.06
+      pitchMin: -3
+      pitchMax: -3
+      volumeMin: 0.9
+      volumeMax: 0.9
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.06
+      delayMax: 0.06
+      pitchMin: -6
+      pitchMax: -6
+      volumeMin: 0.8
+      volumeMax: 0.8
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
   - name: In
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: -2
-      volume: 0.7
-      duration: 0
-    - delay: 0.05
-      pitchSemitones: 0
-      volume: 0.85
-      duration: 0
-    - delay: 0.05
-      pitchSemitones: 2
-      volume: 1
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: -2
+      pitchMax: -2
+      volumeMin: 0.7
+      volumeMax: 0.7
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.05
+      delayMax: 0.05
+      pitchMin: 0
+      pitchMax: 0
+      volumeMin: 0.85
+      volumeMax: 0.85
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.05
+      delayMax: 0.05
+      pitchMin: 2
+      pitchMax: 2
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
   - name: Out
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: 2
-      volume: 1
-      duration: 0
-    - delay: 0.05
-      pitchSemitones: 0
-      volume: 0.85
-      duration: 0
-    - delay: 0.05
-      pitchSemitones: -2
-      volume: 0.7
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: 2
+      pitchMax: 2
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.05
+      delayMax: 0.05
+      pitchMin: 0
+      pitchMax: 0
+      volumeMin: 0.85
+      volumeMax: 0.85
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.05
+      delayMax: 0.05
+      pitchMin: -2
+      pitchMax: -2
+      volumeMin: 0.7
+      volumeMax: 0.7
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
   - name: Error
     icon: 0
     steps:
-    - delay: 0
-      pitchSemitones: -1
-      volume: 1
-      duration: 0
-    - delay: 0.1
-      pitchSemitones: -1
-      volume: 1
-      duration: 0
+    - delayMin: 0
+      delayMax: 0
+      pitchMin: -1
+      pitchMax: -1
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
+    - delayMin: 0.1
+      delayMax: 0.1
+      pitchMin: -1
+      pitchMax: -1
+      volumeMin: 1
+      volumeMax: 1
+      durationMin: 0
+      durationMax: 0
+      hasRanges: 1
   extras:
   - name: Boing
     volume: 0.058
