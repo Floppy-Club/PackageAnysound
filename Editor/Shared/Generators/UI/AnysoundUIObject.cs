@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Anysound.Shared.BaseClasses;
 using Anysound.Shared.Browser;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Anysound.Shared.Generators.UI
 {
@@ -32,27 +33,61 @@ namespace Anysound.Shared.Generators.UI
         }
 
         /// <summary>
-        /// One trigger in the action mini sequencer.
+        /// One trigger in the action mini sequencer. Every parameter has a min/max range, the frontend's random action button
+        /// picks a value within it (see AnysoundUIParameters.actionSeed)
         /// </summary>
         [Serializable]
         public struct UIActionStep
         {
-            [Tooltip("Seconds to wait after the previous step before this step is triggered")] [Range(0f, 1f)]
-            public float delay;
+            public const float MaxDelay = 1f;
+            public const float MaxPitch = 24f;
+            public const float MaxDuration = 1f;
 
-            [Range(-24f, 24f)] public float pitchSemitones;
-            [Range(0f, 1f)] public float volume;
+            // The min fields keep the old single value names, so existing actions load their values as min
+            [Tooltip("Seconds to wait after the previous step before this step is triggered")]
+            [FormerlySerializedAs("delay")] public float delayMin;
+            public float delayMax;
 
-            [Tooltip("Seconds this step plays before it is faded out. 0 = the whole sample")] [Range(0f, 1f)]
-            public float duration;
+            [FormerlySerializedAs("pitchSemitones")] public float pitchMin;
+            public float pitchMax;
+
+            [FormerlySerializedAs("volume")] public float volumeMin;
+            public float volumeMax;
+
+            [Tooltip("Seconds this step plays before it is faded out. 0 = the whole sample")]
+            [FormerlySerializedAs("duration")] public float durationMin;
+            public float durationMax;
+
+            // False for steps saved before the ranges existed. Their max is then set to their min (see MigrateStepRanges)
+            [SerializeField, HideInInspector] internal bool hasRanges;
 
             public UIActionStep(float delay, float pitchSemitones, float volume, float duration = 0f)
             {
-                this.delay = delay;
-                this.pitchSemitones = pitchSemitones;
-                this.volume = volume;
-                this.duration = duration;
+                delayMin = delayMax = delay;
+                pitchMin = pitchMax = pitchSemitones;
+                volumeMin = volumeMax = volume;
+                durationMin = durationMax = duration;
+                hasRanges = true;
             }
+
+            /// <summary>
+            /// The step values at the given positions in the ranges (0 = min, 1 = max)
+            /// </summary>
+            public ResolvedStep Resolve(float delayT, float pitchT, float volumeT, float durationT) => new()
+            {
+                delay = Mathf.Max(0f, Mathf.Lerp(delayMin, delayMax, delayT)),
+                pitchSemitones = Mathf.Lerp(pitchMin, pitchMax, pitchT),
+                volume = Mathf.Max(0f, Mathf.Lerp(volumeMin, volumeMax, volumeT)),
+                duration = Mathf.Max(0f, Mathf.Lerp(durationMin, durationMax, durationT)),
+            };
+        }
+
+        public struct ResolvedStep
+        {
+            public float delay;
+            public float pitchSemitones;
+            public float volume;
+            public float duration;
         }
 
         /// <summary>
@@ -169,6 +204,51 @@ namespace Anysound.Shared.Generators.UI
                 items.Add(new AnysoundDropdown.Item(names[i], materials[i].icon, materials[i].customIcon, materials[i].customIconSelected));
             return items;
         }
+        /// <summary>
+        /// One text item per clip in the collection, so the exact sample can be picked
+        /// </summary>
+        public static List<AnysoundDropdown.Item> GetClipDropdownItems(AnysoundSoundCollectionObject collection)
+        {
+            var items = new List<AnysoundDropdown.Item>();
+            int count = collection ? collection.Count : 0;
+            for (int i = 0; i < count; i++)
+            {
+                var clip = collection.GetClip(i);
+                items.Add(new AnysoundDropdown.Item(clip ? TrimClipName(clip.name) : $"Clip {i + 1}", AnysoundIcon.None));
+            }
+
+            return items;
+        }
+
+        static readonly string[] ClipNamePrefixes = { "AnySound_UI_Extra_Layer_", "Transient_" };
+
+        /// <summary>
+        /// "Transient_DirtCrumble_3" -> "DirtCrumble 3"
+        /// </summary>
+        static string TrimClipName(string clipName)
+        {
+            foreach (var prefix in ClipNamePrefixes)
+            {
+                if (clipName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                {
+                    clipName = clipName.Substring(prefix.Length);
+                    break;
+                }
+            }
+
+            return clipName.Replace('_', ' ').Trim();
+        }
+
+        public AnysoundSoundCollectionObject GetMaterialCollection(int materialIndex) =>
+            materials != null && materialIndex >= 0 && materialIndex < materials.Count ? materials[materialIndex].clipCollection : null;
+
+        public AnysoundSoundCollectionObject GetExtraCollection(int extraIndex, int actionIndex)
+        {
+            if (extras == null || extraIndex < 0 || extraIndex >= extras.Count) return null;
+            string actionName = actions != null && actionIndex >= 0 && actionIndex < actions.Count ? actions[actionIndex].name : "";
+            return extras[extraIndex].GetClipCollection(actionName);
+        }
+
         public string[] ActionNames => GetNames(actions, a => a.name);
         public string[] ExtraNames => GetNames(extras, e => e.name);
 
@@ -193,9 +273,15 @@ namespace Anysound.Shared.Generators.UI
             actions = CreateDefaultActions();
         }
 
+        void OnEnable()
+        {
+            MigrateStepRanges();
+        }
+
         void OnValidate()
         {
             if (actions == null) return;
+            MigrateStepRanges();
             foreach (var action in actions)
             {
                 if (action.steps != null && action.steps.Count > MaxActionSteps)
@@ -204,6 +290,37 @@ namespace Anysound.Shared.Generators.UI
                     action.steps.RemoveRange(MaxActionSteps, action.steps.Count - MaxActionSteps);
                 }
             }
+        }
+
+        /// <summary>
+        /// Steps saved before the min/max ranges only have their value loaded into min. Max is set to the same value,
+        /// so they sound exactly like before
+        /// </summary>
+        void MigrateStepRanges()
+        {
+            if (actions == null) return;
+            bool changed = false;
+            foreach (var action in actions)
+            {
+                if (action.steps == null) continue;
+                for (int i = 0; i < action.steps.Count; i++)
+                {
+                    var step = action.steps[i];
+                    if (step.hasRanges) continue;
+                    step.delayMax = step.delayMin;
+                    step.pitchMax = step.pitchMin;
+                    step.volumeMax = step.volumeMin;
+                    step.durationMax = step.durationMin;
+                    step.hasRanges = true;
+                    action.steps[i] = step;
+                    changed = true;
+                }
+            }
+
+#if UNITY_EDITOR
+            if (changed)
+                UnityEditor.EditorUtility.SetDirty(this);
+#endif
         }
 
         public static List<UIActionSettings> CreateDefaultActions()
@@ -262,6 +379,13 @@ namespace Anysound.Shared.Generators.UI
         public const string ActionKey = "Action";
         public const string ExtraSampleKey = "ExtraSample";
         public const string SizeKey = "Size";
+        public const string MaterialClipKey = "MaterialClip";
+        public const string ExtraMaterialClipKey = "ExtraMaterialClip";
+        public const string ExtraSampleClipKey = "ExtraSampleClip";
+        public const string ActionSeedKey = "ActionSeed";
+
+        // Seeds are stored as floats in presets, so they are kept below 2^24 where floats are still exact
+        public const int MaxActionSeed = 1 << 24;
 
         public int material;
         public int extraMaterial;
@@ -269,12 +393,41 @@ namespace Anysound.Shared.Generators.UI
         public int extraSample;
         [Range(0f, 1f)] public float size;
 
+        // Index of the exact clip within the chosen material / extra material / extra sample collection
+        public int materialClip;
+        public int extraMaterialClip;
+        public int extraSampleClip;
+
+        // Picks the action step values within their min/max ranges. 0 = the middle of every range
+        public int actionSeed;
+
         public bool HasExtraMaterial => extraMaterial > 0;
         public int ExtraMaterialIndex => extraMaterial - 1;
         public bool HasExtraSample => extraSample > 0;
         public int ExtraSampleIndex => extraSample - 1;
 
         public static AnysoundUIParameters Default => new() { size = 1f };
+
+        public static int NewActionSeed() => UnityEngine.Random.Range(1, MaxActionSeed);
+
+        /// <summary>
+        /// The step values of the action for this seed. The random positions are drawn in a fixed order,
+        /// so the same seed always gives the same sound, no matter how the ranges are set
+        /// </summary>
+        public List<AnysoundUIObject.ResolvedStep> ResolveSteps(IReadOnlyList<AnysoundUIObject.UIActionStep> steps)
+        {
+            var rng = actionSeed != 0 ? new System.Random(actionSeed) : null;
+            float Next() => rng != null ? (float)rng.NextDouble() : 0.5f;
+
+            var resolved = new List<AnysoundUIObject.ResolvedStep>();
+            foreach (var step in steps)
+            {
+                float delayT = Next(), pitchT = Next(), volumeT = Next(), durationT = Next();
+                resolved.Add(step.Resolve(delayT, pitchT, volumeT, durationT));
+            }
+
+            return resolved;
+        }
 
         public Dictionary<string, float> ToPresetValues()
         {
@@ -285,6 +438,10 @@ namespace Anysound.Shared.Generators.UI
                 { ActionKey, action },
                 { ExtraSampleKey, extraSample },
                 { SizeKey, size },
+                { MaterialClipKey, materialClip },
+                { ExtraMaterialClipKey, extraMaterialClip },
+                { ExtraSampleClipKey, extraSampleClip },
+                { ActionSeedKey, actionSeed },
             };
         }
 
@@ -298,6 +455,10 @@ namespace Anysound.Shared.Generators.UI
                 action = Mathf.RoundToInt(Get(ActionKey, 0)),
                 extraSample = Mathf.RoundToInt(Get(ExtraSampleKey, 0)),
                 size = Get(SizeKey, 1f),
+                materialClip = Mathf.RoundToInt(Get(MaterialClipKey, 0)),
+                extraMaterialClip = Mathf.RoundToInt(Get(ExtraMaterialClipKey, 0)),
+                extraSampleClip = Mathf.RoundToInt(Get(ExtraSampleClipKey, 0)),
+                actionSeed = Mathf.RoundToInt(Get(ActionSeedKey, 0)),
             };
         }
 
@@ -310,6 +471,10 @@ namespace Anysound.Shared.Generators.UI
                 action = Mathf.RoundToInt(preset.GetPresetValue(ActionKey)),
                 extraSample = Mathf.RoundToInt(preset.GetPresetValue(ExtraSampleKey)),
                 size = preset.GetPresetValue(SizeKey),
+                materialClip = Mathf.RoundToInt(preset.GetPresetValue(MaterialClipKey)),
+                extraMaterialClip = Mathf.RoundToInt(preset.GetPresetValue(ExtraMaterialClipKey)),
+                extraSampleClip = Mathf.RoundToInt(preset.GetPresetValue(ExtraSampleClipKey)),
+                actionSeed = Mathf.RoundToInt(preset.GetPresetValue(ActionSeedKey)),
             };
         }
     }

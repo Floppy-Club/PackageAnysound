@@ -64,10 +64,10 @@ namespace Anysound.Shared.Generators.UI
             if (parameters.HasExtraSample && uiObject.extras != null && parameters.ExtraSampleIndex < uiObject.extras.Count)
                 extra = uiObject.extras[parameters.ExtraSampleIndex];
 
-            // Pick the samples once, so every step in the sequence triggers the same sample
-            AudioClip materialClip = GetClip(material.clipCollection);
-            AudioClip extraMaterialClip = extraMaterial != null ? GetClip(extraMaterial.clipCollection) : null;
-            AudioClip extraClip = extra != null ? GetClip(extra.GetClipCollection(actionName)) : null;
+            // The exact samples are chosen in the parameters, so the same parameters always render the same sound
+            AudioClip materialClip = GetClip(material.clipCollection, parameters.materialClip);
+            AudioClip extraMaterialClip = extraMaterial != null ? GetClip(extraMaterial.clipCollection, parameters.extraMaterialClip) : null;
+            AudioClip extraClip = extra != null ? GetClip(extra.GetClipCollection(actionName), parameters.extraSampleClip) : null;
 
             if (!materialClip)
             {
@@ -75,12 +75,14 @@ namespace Anysound.Shared.Generators.UI
                 return null;
             }
 
+            var resolvedSteps = parameters.ResolveSteps(steps);
+
             List<RenderJob> jobs = new();
             List<RenderJob> extraJobs = new();
             float stepTime = 0f;
             for (int i = 0; i < steps.Count; i++)
             {
-                var step = steps[i];
+                var step = resolvedSteps[i];
                 stepTime += step.delay;
                 int startFrame = Mathf.RoundToInt(stepTime * OutputSampleRate);
                 float pitchRatio = Mathf.Pow(2f, step.pitchSemitones / 12f);
@@ -134,18 +136,9 @@ namespace Anysound.Shared.Generators.UI
             return Finalize(output);
         }
 
-        static AudioClip GetClip(AnysoundSoundCollectionObject collection)
+        static AudioClip GetClip(AnysoundSoundCollectionObject collection, int index)
         {
-            if (!collection) return null;
-            try
-            {
-                return collection.GetClip();
-            }
-            catch (System.Exception e) when (e is System.ArgumentOutOfRangeException or System.NullReferenceException)
-            {
-                // Empty collection
-                return null;
-            }
+            return collection ? collection.GetClip(index) : null;
         }
 
         static float[] Render(List<RenderJob> jobs, AnysoundAudioDSP.ADSREnvelopeSettings? envelope)

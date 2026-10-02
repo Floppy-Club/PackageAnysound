@@ -18,7 +18,12 @@
                     </engine:VisualElement>
                     <engine:VisualElement class="generator-section-content">
                         <engine:VisualElement class="generator-section-line" style="background-color: rgb(255, 187, 34);"/>
-                        <AnysoundDropdown name="ActionDropdown" color="#FFBB22FF"/>
+                        <engine:VisualElement class="generator-clip-row">
+                            <AnysoundDropdown name="ActionDropdown" color="#FFBB22FF" class="generator-clip-row__type"/>
+                            <engine:Button name="ActionRandomButton" tooltip="New random step values within the action's ranges" class="generator-random-button" style="color: #FFBB22; border-left-color: #FFBB22; border-right-color: #FFBB22; border-top-color: #FFBB22; border-bottom-color: #FFBB22;">
+                                <AnysoundDiceIcon class="generator-random-button__icon"/>
+                            </engine:Button>
+                        </engine:VisualElement>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="MaterialElement" class="generator-section">
@@ -29,7 +34,13 @@
                     </engine:VisualElement>
                     <engine:VisualElement class="generator-section-content">
                         <engine:VisualElement class="generator-section-line" style="background-color: rgb(96, 199, 92);"/>
-                        <AnysoundDropdown name="MaterialDropdown" color="#60C75CFF"/>
+                        <engine:VisualElement class="generator-clip-row">
+                            <AnysoundDropdown name="MaterialDropdown" color="#60C75CFF" class="generator-clip-row__type"/>
+                            <AnysoundDropdown name="MaterialClipDropdown" color="#60C75CFF" show-icons="false" class="generator-clip-row__clip"/>
+                            <engine:Button name="MaterialRandomButton" tooltip="Randomize this row" class="generator-random-button" style="color: #60C75C; border-left-color: #60C75C; border-right-color: #60C75C; border-top-color: #60C75C; border-bottom-color: #60C75C;">
+                                <AnysoundDiceIcon class="generator-random-button__icon"/>
+                            </engine:Button>
+                        </engine:VisualElement>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="ExtraMaterialElement" class="generator-section">
@@ -40,7 +51,13 @@
                     </engine:VisualElement>
                     <engine:VisualElement class="generator-section-content">
                         <engine:VisualElement class="generator-section-line" style="background-color: rgb(168, 130, 255);"/>
-                        <AnysoundDropdown name="ExtraMaterialDropdown" color="#A882FFFF"/>
+                        <engine:VisualElement class="generator-clip-row">
+                            <AnysoundDropdown name="ExtraMaterialDropdown" color="#A882FFFF" class="generator-clip-row__type"/>
+                            <AnysoundDropdown name="ExtraMaterialClipDropdown" color="#A882FFFF" show-icons="false" class="generator-clip-row__clip"/>
+                            <engine:Button name="ExtraMaterialRandomButton" tooltip="Randomize this row" class="generator-random-button" style="color: #A882FF; border-left-color: #A882FF; border-right-color: #A882FF; border-top-color: #A882FF; border-bottom-color: #A882FF;">
+                                <AnysoundDiceIcon class="generator-random-button__icon"/>
+                            </engine:Button>
+                        </engine:VisualElement>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="ExtraElement" class="generator-section">
@@ -51,7 +68,13 @@
                     </engine:VisualElement>
                     <engine:VisualElement class="generator-section-content">
                         <engine:VisualElement class="generator-section-line" style="background-color: rgb(255, 128, 191);"/>
-                        <AnysoundDropdown name="ExtraDropdown" color="#FF80BFFF" show-icons="false"/>
+                        <engine:VisualElement class="generator-clip-row">
+                            <AnysoundDropdown name="ExtraDropdown" color="#FF80BFFF" show-icons="false" class="generator-clip-row__type"/>
+                            <AnysoundDropdown name="ExtraClipDropdown" color="#FF80BFFF" show-icons="false" class="generator-clip-row__clip"/>
+                            <engine:Button name="ExtraRandomButton" tooltip="Randomize this row" class="generator-random-button" style="color: #FF80BF; border-left-color: #FF80BF; border-right-color: #FF80BF; border-top-color: #FF80BF; border-bottom-color: #FF80BF;">
+                                <AnysoundDiceIcon class="generator-random-button__icon"/>
+                            </engine:Button>
+                        </engine:VisualElement>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="SizeElement" class="generator-section">

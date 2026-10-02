@@ -108,6 +108,19 @@ namespace Anysound.Shared.Generators.UI.Backend
             _parameters.extraSample = EditorGUILayout.Popup("A little extra", _parameters.extraSample, WithNone(extraNames));
             _parameters.size = EditorGUILayout.Slider("Size", _parameters.size, 0f, 1f);
 
+            // Same as the random action button in the frontend: picks new step values within the min/max ranges
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Action values", _parameters.actionSeed == 0 ? "Middle of ranges" : $"Seed {_parameters.actionSeed}");
+            if (GUILayout.Button("Randomize", GUILayout.Width(80)))
+            {
+                _parameters.actionSeed = AnysoundUIParameters.NewActionSeed();
+                GenerateAndPlayPreview();
+            }
+
+            if (GUILayout.Button("Middle", GUILayout.Width(60)))
+                _parameters.actionSeed = 0;
+            EditorGUILayout.EndHorizontal();
+
             EditorGUILayout.EndVertical();
         }
 
@@ -160,7 +173,8 @@ namespace Anysound.Shared.Generators.UI.Backend
             {
                 EditorGUILayout.HelpBox(
                     $"Each step triggers the material (and extras) after 'delay' seconds from the previous step, pitched in semitones. " +
-                    $"'Duration' cuts the step after that many seconds (0 = the whole sample). Max {AnysoundUIObject.MaxActionSteps} steps.",
+                    $"'Duration' cuts the step after that many seconds (0 = the whole sample). Max {AnysoundUIObject.MaxActionSteps} steps. " +
+                    "Every value is a min/max range: the random action button picks a value within it, set min = max for a fixed value.",
                     MessageType.None);
             }
 
