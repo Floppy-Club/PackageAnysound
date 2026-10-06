@@ -14,16 +14,20 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
     public class AnysoundFootstepsEditorWindow : AnysoundGeneratorWindowBase
     {
         private AnysoundFootstepObject _anysoundFootstepObject;
-        private float _currentSurfaceTypeValue;
+        // The surface slider crossfades between the two surfaces chosen in the dropdowns (0 = only A, 1 = only B)
+        private int _surfaceA, _surfaceB;
+        private float _surfaceCrossfade;
         private float _currentSizeValue;
         private float _currentMovementSpeedValue;
         private VisualElement _waveformContainer;
-        private VisualElement _sizeLabelsContainer, _sizeIconsContainer, _surfaceIconsContainer, _movementLabelsContainer, _playheadContainer;
+        private VisualElement _sizeLabelsContainer, _sizeIconsContainer, _playheadContainer;
 
         int _currentMovementIndex;
 
         private Button _previewButton;
         private AnysoundSlider _surfaceSlider;
+        private AnysoundDropdown _surfaceADropdown, _surfaceBDropdown;
+        private Label _surfaceALabel, _surfaceBLabel;
         private AnysoundSlider _sizeSlider;
         private AnysoundSlider _movementSlider;
         private bool _isInit;
@@ -80,8 +84,8 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
 
         void GenerateAndPlayPreview()
         {
-            var clip = AnysoundFootstepDSP.CreateMorphedAudioClip(_anysoundFootstepObject, _currentSizeValue, _currentMovementSpeedValue,
-                _currentSurfaceTypeValue);
+            var clip = AnysoundFootstepDSP.CreateCrossfadedAudioClip(_anysoundFootstepObject, _currentSizeValue, _currentMovementSpeedValue,
+                _surfaceA, _surfaceB, _surfaceCrossfade);
             AnysoundFootstepsHelper.UpdateWaveform(_waveformContainer, clip);
             AnysoundFootstepDSP.PlayClip(clip, f =>
             {
@@ -114,7 +118,8 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
             _surfaceSlider = _rootVisualElement.Q<AnysoundSlider>("SurfaceSlider");
 
 
-            _surfaceSlider.highValue = _anysoundFootstepObject.surfaceSettings.Count - 1;
+            _surfaceSlider.lowValue = 0;
+            _surfaceSlider.highValue = 1;
             _sizeSlider.highValue = _anysoundFootstepObject.surfaceSettings[0].FootstepSizeSettings.Count - 1;
             _movementSlider.highValue = 2;
 
@@ -125,6 +130,12 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
             _movementSlider.RegisterDragEndCallback(UpdateWaveform);
             _sizeSlider.RegisterDragEndCallback(UpdateWaveform);
             _surfaceSlider.RegisterDragEndCallback(UpdateWaveform);
+
+            _surfaceALabel = _rootVisualElement.Q<Label>("SurfaceALabel");
+            _surfaceBLabel = _rootVisualElement.Q<Label>("SurfaceBLabel");
+            var surfaceItems = AnysoundFootstepsHelper.GetSurfaceDropdownItems(_anysoundFootstepObject);
+            _surfaceADropdown = SetupSurfaceDropdown("SurfaceADropdown", surfaceItems, v => _surfaceA = v);
+            _surfaceBDropdown = SetupSurfaceDropdown("SurfaceBDropdown", surfaceItems, v => _surfaceB = v);
 
 
             _previewButton = _rootVisualElement.Q<Button>("PreviewButton");
@@ -151,8 +162,6 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
 
             _sizeLabelsContainer = _rootVisualElement.Q<VisualElement>("SizeLabelsContainer");
             _sizeIconsContainer = _rootVisualElement.Q<VisualElement>("SizeIconsContainer");
-            _surfaceIconsContainer = _rootVisualElement.Q<VisualElement>("SurfaceIconsContainer");
-            _movementLabelsContainer = _rootVisualElement.Q<VisualElement>("MovementLabelsContainer");
 
 
             //OnSizeSliderValueChanged(1);
@@ -162,9 +171,23 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
             _isInit = true;
         }
 
+        AnysoundDropdown SetupSurfaceDropdown(string dropdownName, List<AnysoundDropdown.Item> items, System.Action<int> setSurface)
+        {
+            var dropdown = _rootVisualElement.Q<AnysoundDropdown>(dropdownName);
+            dropdown.SetItems(items);
+            dropdown.RegisterValueChangedCallback(evt =>
+            {
+                setSurface(evt.newValue);
+                UpdateSurfaceLabels();
+                UpdateWaveform();
+            });
+            return dropdown;
+        }
+
         void ExportClips()
         {
-            AnysoundExporterWindow.ShowExporterWindow(_anysoundFootstepObject, _currentSizeValue, _currentMovementSpeedValue, _currentSurfaceTypeValue);
+            AnysoundExporterWindow.ShowExporterWindow(_anysoundFootstepObject, _currentSizeValue, _currentMovementSpeedValue, _surfaceA, _surfaceB,
+                _surfaceCrossfade);
         }
 
 
@@ -174,7 +197,9 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
             {
                 { "Size", _currentSizeValue },
                 { "MovementSpeed", _currentMovementSpeedValue },
-                { "SurfaceType", _currentSurfaceTypeValue },
+                { AnysoundFootstepObject.SurfaceAKey, _surfaceA },
+                { AnysoundFootstepObject.SurfaceBKey, _surfaceB },
+                { AnysoundFootstepObject.SurfaceCrossfadeKey, _surfaceCrossfade },
             };
             return presetValues;
         }
@@ -182,7 +207,7 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
         void UpdateWaveform()
         {
             var clip = AnysoundFootstepsHelper.GenerateAudioClip(_anysoundFootstepObject, _currentSizeValue, _currentMovementSpeedValue,
-                _currentSurfaceTypeValue);
+                _surfaceA, _surfaceB, _surfaceCrossfade);
             AnysoundFootstepsHelper.UpdateWaveform(_waveformContainer, clip);
         }
 
@@ -191,7 +216,6 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
             _movementSlider.SetValueWithoutNotify(value);
             _currentMovementSpeedValue = value;
             _currentMovementIndex = (int)Mathf.Clamp(((_currentMovementSpeedValue / 2f) * 3), 0, 2);
-            AnysoundFootstepsHelper.UpdateMovementVisuals(_movementLabelsContainer, _currentMovementSpeedValue);
             float maxSizeValue = _anysoundFootstepObject.surfaceSettings[0].FootstepSizeSettings.Count - 1;
             AnysoundFootstepsHelper.UpdateSizeImages(_sizeIconsContainer, _sizeSlider.value, maxSizeValue, _currentMovementIndex);
         }
@@ -199,8 +223,28 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
         void OnSurfaceSliderValueChanged(float value)
         {
             _surfaceSlider.SetValueWithoutNotify(value);
-            _currentSurfaceTypeValue = value;
-            AnysoundFootstepsHelper.UpdateSurfaceIcons(_surfaceIconsContainer, _currentSurfaceTypeValue, _anysoundFootstepObject.surfaceSettings.Count);
+            _surfaceCrossfade = Mathf.Clamp01(value);
+            UpdateSurfaceLabels();
+        }
+
+        void SetSurfaces(int surfaceA, int surfaceB, float crossfade)
+        {
+            _surfaceADropdown?.SetValueWithoutNotify(surfaceA);
+            _surfaceBDropdown?.SetValueWithoutNotify(surfaceB);
+            // The dropdowns clamp to the existing surfaces
+            _surfaceA = _surfaceADropdown?.value ?? surfaceA;
+            _surfaceB = _surfaceBDropdown?.value ?? surfaceB;
+            OnSurfaceSliderValueChanged(crossfade);
+        }
+
+        // Shows how much of each surface is in the mix, e.g. "GRASS 70%" ... "30% SAND"
+        void UpdateSurfaceLabels()
+        {
+            int percentB = Mathf.RoundToInt(_surfaceCrossfade * 100f);
+            if (_surfaceALabel != null)
+                _surfaceALabel.text = $"{_surfaceADropdown?.selectedName.ToUpperInvariant()} {100 - percentB}%";
+            if (_surfaceBLabel != null)
+                _surfaceBLabel.text = $"{percentB}% {_surfaceBDropdown?.selectedName.ToUpperInvariant()}";
         }
 
         void OnSizeSliderValueChanged(float value)
@@ -221,12 +265,15 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
             if (_rootVisualElement != null)
             {
                 _rootVisualElement.Clear();
+                _isInit = false;
                 CreateGUI();
             }
 
             OnMovementSliderValueChanged(preset.GetPresetValue("MovementSpeed"));
             OnSizeSliderValueChanged(preset.GetPresetValue("Size") );
-            OnSurfaceSliderValueChanged(preset.GetPresetValue("SurfaceType") );
+            _anysoundFootstepObject.GetSurfaceCrossfade(preset.HasPresetValue, preset.GetPresetValue,
+                out int surfaceA, out int surfaceB, out float crossfade);
+            SetSurfaces(surfaceA, surfaceB, crossfade);
             UpdateWaveform();
         }
 
@@ -244,7 +291,8 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
         {
             OnMovementSliderValueChanged(movement);
             OnSizeSliderValueChanged(size);
-            OnSurfaceSliderValueChanged(surface);
+            _anysoundFootstepObject.SurfaceTypeToCrossfade(surface, out int surfaceA, out int surfaceB, out float crossfade);
+            SetSurfaces(surfaceA, surfaceB, crossfade);
             UpdateWaveform();
         }
         

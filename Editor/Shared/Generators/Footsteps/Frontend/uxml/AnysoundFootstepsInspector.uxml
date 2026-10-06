@@ -2,6 +2,7 @@
     <Style src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/Generators/Footsteps/Frontend/uss/SliderElement.uss?fileID=7433441132597879392&amp;guid=aca955fb57f574bc5bc464c79efeee4c&amp;type=3#SliderElement"/>
     <Style src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/Generators/Footsteps/Frontend/uss/AnysoundSurfaceToggle.uss?fileID=7433441132597879392&amp;guid=77f1e976f4e394b148f02e71fe20b1fb&amp;type=3#AnysoundSurfaceToggle"/>
     <Style src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/uss/AnysoundStyles.uss?fileID=7433441132597879392&amp;guid=1e040dc50fcfa49f0aa3378443d2ffaa&amp;type=3#AnysoundStyles"/>
+    <Style src="project://database/Packages/com.floppyclub.anysound/Editor/Shared/uss/AnysoundDropdown.uss?fileID=7433441132597879392&amp;guid=7b8ede17e160441992f477aedaafaed2&amp;type=3#AnysoundDropdown"/>
     <engine:ScrollView style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; min-width: 400px;">
         <engine:VisualElement style="flex-grow: 0; height: 637px; background-color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 14px; padding-right: 14px; padding-bottom: 14px; padding-left: 14px;">
             <engine:VisualElement name="Header" class="header-element" style="flex-grow: 0; background-color: rgb(0, 0, 0); align-self: stretch; justify-content: space-between; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row;">
@@ -15,18 +16,11 @@
                             <engine:Label text="MOVEMENT" class="section-label" style="color: rgb(0, 0, 0); -unity-font-style: bold; font-size: 10px;"/>
                         </engine:VisualElement>
                     </engine:VisualElement>
-                    <engine:VisualElement style="flex-grow: 1;">
-                        <engine:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgb(96, 199, 92); height: 2px;"/>
-                        <engine:VisualElement name="MovementLabelsContainer" style="flex-grow: 0; flex-direction: row; height: 20px;">
-                            <engine:VisualElement style="flex-grow: 1; background-color: rgb(96, 199, 92); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px;">
-                                <engine:Label text="SNEAK" style="-unity-font-definition: url(&quot;project://database/Packages/com.floppyclub.anysound/Editor/Fonts/IBMPlexMono-Medium.ttf?fileID=12800000&amp;guid=e1005e063d97148efacf3cc3692560e8&amp;type=3#IBMPlexMono-Medium&quot;); color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 10px;"/>
-                            </engine:VisualElement>
-                            <engine:VisualElement style="flex-grow: 1; background-color: rgb(96, 199, 92); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px;">
-                                <engine:Label text="WALK" style="-unity-font-definition: url(&quot;project://database/Packages/com.floppyclub.anysound/Editor/Fonts/IBMPlexMono-Medium.ttf?fileID=12800000&amp;guid=e1005e063d97148efacf3cc3692560e8&amp;type=3#IBMPlexMono-Medium&quot;); color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 10px;"/>
-                            </engine:VisualElement>
-                            <engine:VisualElement style="flex-grow: 1; background-color: rgb(96, 199, 92); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 3px; padding-right: 3px; padding-bottom: 3px; padding-left: 3px;">
-                                <engine:Label text="RUN" style="-unity-font-definition: url(&quot;project://database/Packages/com.floppyclub.anysound/Editor/Fonts/IBMPlexMono-Medium.ttf?fileID=12800000&amp;guid=e1005e063d97148efacf3cc3692560e8&amp;type=3#IBMPlexMono-Medium&quot;); color: rgb(0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 10px;"/>
-                            </engine:VisualElement>
+                    <engine:VisualElement class="generator-section-content">
+                        <engine:VisualElement class="generator-section-line" style="background-color: rgb(96, 199, 92);"/>
+                        <engine:VisualElement class="generator-hint-row">
+                            <engine:Label text="SNEAK" class="generator-hint-label" style="color: rgb(96, 199, 92);"/>
+                            <engine:Label text="RUN" class="generator-hint-label" style="color: rgb(96, 199, 92);"/>
                         </engine:VisualElement>
                         <AnysoundSlider label="Movement" name="MovementTypeSlider" show-input-field="false" high-value="2" low-value="0" color="#60C75CFF" inverted="false" value="1" show-label="false" show-values="false" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 60px; flex-grow: 0;"/>
                     </engine:VisualElement>
@@ -66,16 +60,15 @@
                     </engine:VisualElement>
                     <engine:VisualElement style="flex-grow: 1;">
                         <engine:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgb(255, 187, 34); height: 2px;"/>
-                        <engine:VisualElement name="SurfaceIconsContainer" style="flex-grow: 0; flex-direction: row; justify-content: space-between; flex-shrink: 0; height: 58px; align-self: stretch; align-items: flex-start; margin-left: 3px; margin-top: 14px; margin-right: 0;">
-                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_grass" name-text="GRASS"/>
-                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_dirt" name-text="DIRT"/>
-                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_water" name-text="WATER"/>
-                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_sand" name-text="SAND"/>
-                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_wood" name-text="WOOD"/>
-                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_gravel" name-text="GRAVEL"/>
-                            <AnysoundSurfaceToggleControl is-toggled="true" icon-image="surface_snow" name-text="SNOW"/>
+                        <engine:VisualElement class="generator-clip-row" style="margin-top: 14px;">
+                            <AnysoundDropdown name="SurfaceADropdown" color="#FFBB22FF" class="generator-clip-row__type"/>
+                            <AnysoundDropdown name="SurfaceBDropdown" color="#FFBB22FF" class="generator-clip-row__type" style="margin-right: 0;"/>
                         </engine:VisualElement>
-                        <AnysoundSlider label="Surface" name="SurfaceSlider" show-input-field="false" high-value="2" low-value="0" color="#FFBB22FF" unit="%" inverted="false" value="1" show-label="false" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 60px; flex-grow: 0;"/>
+                        <engine:VisualElement class="generator-hint-row">
+                            <engine:Label name="SurfaceALabel" text="A" class="generator-hint-label" style="color: rgb(255, 187, 34);"/>
+                            <engine:Label name="SurfaceBLabel" text="B" class="generator-hint-label" style="color: rgb(255, 187, 34);"/>
+                        </engine:VisualElement>
+                        <AnysoundSlider label="Surface" name="SurfaceSlider" show-input-field="false" high-value="1" low-value="0" color="#FFBB22FF" inverted="false" value="0" show-label="false" show-values="false" style="flex-shrink: 0; align-self: auto; align-content: auto; visibility: visible; opacity: 1; height: 60px; flex-grow: 0;"/>
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="AudioElement" style="flex-grow: 0; height: 80px; flex-direction: row; flex-shrink: 0;">

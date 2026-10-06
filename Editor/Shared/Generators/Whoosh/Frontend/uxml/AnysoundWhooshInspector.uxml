@@ -17,6 +17,7 @@
                     </engine:VisualElement>
                     <engine:VisualElement class="generator-section-content">
                         <engine:VisualElement class="generator-section-line" style="background-color: rgb(96, 199, 92);"/>
+                        <AnysoundWhooshDrawing name="MovementDrawing" color="#60C75CFF" style="height: 56px; margin-top: 8px;"/>
                         <engine:VisualElement class="generator-hint-row">
                             <engine:Label text="SOFT" class="generator-hint-label" style="color: rgb(96, 199, 92);"/>
                             <engine:Label text="HARD" class="generator-hint-label" style="color: rgb(96, 199, 92);"/>

@@ -16,6 +16,37 @@ namespace Anysound.Shared.Generators.Footsteps
         public static AudioClip CreateMorphedAudioClip(AnysoundFootstepObject anysoundFootstepObject, float currentSize, float currentMovementSpeed,
             float currentSurfaceType)
         {
+            List<float> surfaceWeightList = new List<float>();
+            for (var i = 0; i < anysoundFootstepObject.surfaceSettings.Count; i++)
+            {
+                float distance = Mathf.Abs(i - currentSurfaceType);
+                surfaceWeightList.Add(Mathf.Clamp01(1 - distance));
+            }
+
+            return CreateWeightedAudioClip(anysoundFootstepObject, currentSize, currentMovementSpeed, surfaceWeightList);
+        }
+
+        /// <summary>
+        /// Crossfades between two surfaces: 0 = only surface A, 1 = only surface B
+        /// </summary>
+        public static AudioClip CreateCrossfadedAudioClip(AnysoundFootstepObject anysoundFootstepObject, float currentSize, float currentMovementSpeed,
+            int surfaceA, int surfaceB, float crossfade)
+        {
+            int count = anysoundFootstepObject.surfaceSettings.Count;
+            surfaceA = Mathf.Clamp(surfaceA, 0, count - 1);
+            surfaceB = Mathf.Clamp(surfaceB, 0, count - 1);
+            crossfade = Mathf.Clamp01(crossfade);
+
+            List<float> surfaceWeightList = new List<float>(new float[count]);
+            surfaceWeightList[surfaceA] += 1 - crossfade;
+            surfaceWeightList[surfaceB] += crossfade;
+
+            return CreateWeightedAudioClip(anysoundFootstepObject, currentSize, currentMovementSpeed, surfaceWeightList);
+        }
+
+        static AudioClip CreateWeightedAudioClip(AnysoundFootstepObject anysoundFootstepObject, float currentSize, float currentMovementSpeed,
+            List<float> surfaceWeightList)
+        {
             List<AnysoundAudioDSP.BandPassFilterSettings> surfaceBandPassList = new List<AnysoundAudioDSP.BandPassFilterSettings>();
             List<AnysoundAudioDSP.DistortionSettings> surfaceDistortionList = new List<AnysoundAudioDSP.DistortionSettings>();
 
@@ -24,7 +55,6 @@ namespace Anysound.Shared.Generators.Footsteps
 
 
             List<AudioClip> footstepClips = new List<AudioClip>();
-            List<float> surfaceWeightList = new List<float>();
             for (var i = 0; i < anysoundFootstepObject.surfaceSettings.Count; i++)
             {
                 var footstepSurface = anysoundFootstepObject.surfaceSettings[i];
@@ -33,9 +63,6 @@ namespace Anysound.Shared.Generators.Footsteps
                 surfaceEnvelopeList.Add(footstepSurface.GetEnvelopeSettings(currentSize));
                 footstepStyleEnvelopeSettingsList.Add(footstepSurface.GetFootstepStyleEnvelopeCurve(currentMovementSpeed));
                 surfaceDistortionList.Add(footstepSurface.GetDistortionSettings(currentSize));
-
-                float distance = Mathf.Abs(i - currentSurfaceType);
-                surfaceWeightList.Add(Mathf.Clamp01(1 - distance));
             }
 
             var result = AnysoundAudioDSP.Mix(footstepClips, surfaceWeightList);

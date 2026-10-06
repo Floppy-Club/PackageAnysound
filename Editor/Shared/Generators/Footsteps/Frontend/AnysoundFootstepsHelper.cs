@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Anysound.Shared.Footsteps;
 using Anysound.Shared.Generators.Footsteps;
 using UnityEditor;
@@ -46,47 +47,46 @@ namespace Anysound.Shared.Frontend
             return AnysoundFootstepDSP.CreateMorphedAudioClip(anysoundFootstepObject, currentSizeValue, currentMovementSpeed, currentSurfaceType);
         }
 
+        public static AudioClip GenerateAudioClip(
+            AnysoundFootstepObject anysoundFootstepObject,
+            float currentSizeValue,
+            float currentMovementSpeed,
+            int surfaceA,
+            int surfaceB,
+            float crossfade)
+        {
+            return AnysoundFootstepDSP.CreateCrossfadedAudioClip(anysoundFootstepObject, currentSizeValue, currentMovementSpeed, surfaceA, surfaceB,
+                crossfade);
+        }
+
+        /// <summary>
+        /// One item per surface, with the surface_x / surface_x_fill pngs as icons
+        /// </summary>
+        public static List<AnysoundDropdown.Item> GetSurfaceDropdownItems(AnysoundFootstepObject anysoundFootstepObject)
+        {
+            var items = new List<AnysoundDropdown.Item>();
+            for (int i = 0; i < anysoundFootstepObject.surfaceSettings.Count; i++)
+            {
+                string fileName = i < SurfaceFilenames.Length ? SurfaceFilenames[i] : null;
+                string surfaceName = anysoundFootstepObject.surfaceSettings[i].SurfaceTypeName;
+                if (string.IsNullOrEmpty(surfaceName))
+                    surfaceName = fileName != null ? fileName.Replace("surface_", "") : $"Surface {i + 1}";
+
+                items.Add(fileName != null
+                    ? new AnysoundDropdown.Item(surfaceName, AnysoundIcon.Auto, Resources.Load<Texture2D>(fileName),
+                        Resources.Load<Texture2D>(fileName + "_fill"))
+                    : new AnysoundDropdown.Item(surfaceName));
+            }
+
+            return items;
+        }
+
         public static void UpdateWaveform(VisualElement waveformContainer, AudioClip clip)
         {
             if (clip != null)
             {
                 waveformContainer.style.backgroundImage = new StyleBackground(WaveformMaker.GenerateWaveformTexture(clip, 3));
             }
-        }
-
-        public static void UpdateMovementVisuals(VisualElement movementLabelsContainer, float currentMovementSpeed)
-        {
-            int index = 0;
-            int currentMovementIndex = (int)Mathf.Clamp(((currentMovementSpeed / 2f) * 3), 0, 2);
-            movementLabelsContainer.Query<Label>().ForEach((element =>
-            {
-                //if (element != _sizeIconsContainer)
-                {
-                    element.parent.style.backgroundColor =
-                        (index == currentMovementIndex
-                            ? AnysoundFootstepsEditorExtensions.HexToColor("60C75C")
-                            : Color.clear);
-                    element.style.color = (index == currentMovementIndex
-                        ? Color.black
-                        : AnysoundFootstepsEditorExtensions.HexToColor("60C75C"));
-                    index++;
-                }
-            }));
-        }
-
-        public static void UpdateSurfaceIcons(VisualElement surfaceIconsContainer, float currentSurfaceType, int maxSurfaceType)
-        {
-            int index = 0;
-            int surfaceIndex = (int)Mathf.Clamp(((currentSurfaceType / (maxSurfaceType - 1)) * maxSurfaceType), 0, maxSurfaceType - 1);
-            surfaceIconsContainer.Query<AnysoundSurfaceToggleControl>().ForEach((element =>
-            {
-                string fileName = SurfaceFilenames[index];
-                fileName += index == surfaceIndex ? "_fill" : "";
-
-                element.IconImage = Resources.Load<Texture2D>(fileName);
-                element.SetToggleState(index == surfaceIndex);
-                index++;
-            }));
         }
 
         public static void UpdateSizeImages(VisualElement sizeIconsContainer, float value, float maxValue, int currentMovementIndex)

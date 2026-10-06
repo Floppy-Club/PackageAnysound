@@ -17,6 +17,7 @@ namespace Anysound.Shared.Footsteps
         public class FootstepSurfaceSettings
         {
             [SerializeField] string surfaceTypeName;
+            public string SurfaceTypeName => surfaceTypeName;
 
             [Serializable]
             public class FootstepSettingsPreset
@@ -153,18 +154,57 @@ namespace Anysound.Shared.Footsteps
 
         [SerializeField] public List<FootstepSurfaceSettings> surfaceSettings;
 
-  
+        // Old presets store one surface value scrubbing through all surfaces. New presets crossfade between two surfaces
+        public const string SurfaceTypeKey = "SurfaceType";
+        public const string SurfaceAKey = "SurfaceA";
+        public const string SurfaceBKey = "SurfaceB";
+        public const string SurfaceCrossfadeKey = "SurfaceCrossfade";
+
+        /// <summary>
+        /// Converts an old surface value (e.g. 2.4 = between surface 2 and 3) to the same mix as a crossfade
+        /// </summary>
+        public void SurfaceTypeToCrossfade(float surfaceType, out int surfaceA, out int surfaceB, out float crossfade)
+        {
+            int last = Mathf.Max(0, surfaceSettings.Count - 1);
+            surfaceType = Mathf.Clamp(surfaceType, 0, last);
+            surfaceA = Mathf.FloorToInt(surfaceType);
+            surfaceB = Mathf.Min(surfaceA + 1, last);
+            crossfade = surfaceB == surfaceA ? 0f : surfaceType - surfaceA;
+        }
+
+        public void GetSurfaceCrossfade(Func<string, bool> hasValue, Func<string, float> getValue, out int surfaceA, out int surfaceB,
+            out float crossfade)
+        {
+            if (hasValue(SurfaceAKey))
+            {
+                surfaceA = Mathf.RoundToInt(getValue(SurfaceAKey));
+                surfaceB = Mathf.RoundToInt(getValue(SurfaceBKey));
+                crossfade = getValue(SurfaceCrossfadeKey);
+            }
+            else
+            {
+                SurfaceTypeToCrossfade(getValue(SurfaceTypeKey), out surfaceA, out surfaceB, out crossfade);
+            }
+        }
+
+        static string GetSurfaceTag(int surfaceIndex) =>
+            surfaceIndex >= 0 && surfaceIndex < AnysoundFootstepsHelper.SurfaceFilenames.Length
+                ? AnysoundFootstepsHelper.SurfaceFilenames[surfaceIndex].Replace("surface_", "")
+                : $"surface{surfaceIndex}";
+
         public override void CreatePreset(Dictionary<string, float> presetValues)
         {
-            float currentSurfaceTypeValue = presetValues["SurfaceType"];
             float currentSizeValue = presetValues["Size"];
             float currentMovementSpeedValue = presetValues["MovementSpeed"];
-
-
+            GetSurfaceCrossfade(presetValues.ContainsKey, key => presetValues.TryGetValue(key, out var v) ? v : 0f,
+                out int surfaceA, out int surfaceB, out float crossfade);
 
             int maxSize = surfaceSettings[0].FootstepSizeSettings.Count - 1;
-            // Extract tags from the current slider values
-            string surfaceTag = AnysoundFootstepsHelper.SurfaceFilenames[Mathf.RoundToInt(currentSurfaceTypeValue)].Replace("surface_", "");
+            // Extract tags from the current slider values. A real crossfade gets both surfaces
+            string surfaceTagA = GetSurfaceTag(surfaceA);
+            string surfaceTagB = GetSurfaceTag(surfaceB);
+            bool isMixed = surfaceA != surfaceB && crossfade > 0f && crossfade < 1f;
+            string surfaceTag = isMixed ? $"{surfaceTagA}-{surfaceTagB}" : crossfade >= 1f ? surfaceTagB : surfaceTagA;
             string sizeTag = AnysoundFootstepsHelper.SizeFilenames[Mathf.RoundToInt(Mathf.Lerp(5, 0, currentSizeValue / maxSize))]
                 .Replace("size_", "");
             string movementTag = AnysoundFootstepsHelper.MovementTypeFilenames[(int)((currentMovementSpeedValue / 2f) * 3)].Replace("_", "");
@@ -175,10 +215,19 @@ namespace Anysound.Shared.Footsteps
             List<string> tags = new List<string>()
             {
                 "footstep",
-                surfaceTag, // e.g., "grass", "sand", "mud", etc.
                 sizeTag, // e.g., "xxl", "xl", "l", etc.
                 movementTag, // e.g., "sneak", "walk", "run"
             };
+            // e.g., "grass", "sand", "mud", etc.
+            if (isMixed)
+            {
+                tags.Add(surfaceTagA);
+                tags.Add(surfaceTagB);
+            }
+            else
+            {
+                tags.Add(surfaceTag);
+            }
 
 
             // Generate audio clip
@@ -186,7 +235,9 @@ namespace Anysound.Shared.Footsteps
                 this,
                 currentSizeValue,
                 currentMovementSpeedValue,
-                currentSurfaceTypeValue
+                surfaceA,
+                surfaceB,
+                crossfade
             );
 
             AnysoundBrowser.CreatePreset(presetName, presetValues, tags, this, generatedClip);

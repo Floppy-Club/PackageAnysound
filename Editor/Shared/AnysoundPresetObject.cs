@@ -40,6 +40,8 @@ namespace Anysound.Shared
             return _presetValues != null && _presetValues.ContainsKey(key) ? _presetValues[key] : 0f;
         }
 
+        public bool HasPresetValue(string key) => _presetValues != null && _presetValues.ContainsKey(key);
+
         public void Create(string thisName, List<string> thisTags, AnysoundGeneratorBase newFootstepObject)
         {
             soundName = thisName;

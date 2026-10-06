@@ -31,6 +31,10 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
         private AnysoundSlider _durationSlider;
         private AnysoundSlider _sizeSlider;
         private AnysoundSlider _movementSlider;
+        private AnysoundWhooshDrawing _movementDrawing;
+        const int MovementDrawingSamples = 128;
+        // The thickness of the drawing at the smallest size (the biggest size fills the height)
+        const float MinDrawingThickness = 0.35f;
         AnysoundSlider _fluctuationSlider;
         private bool _isInit;
 
@@ -124,6 +128,7 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
             _waveformContainer = _rootVisualElement.Q<VisualElement>("WaveformContainer");
 
 
+            _movementDrawing = _rootVisualElement.Q<AnysoundWhooshDrawing>("MovementDrawing");
             _movementSlider = SetupSlider("MovementSpeedSlider", MovementMin, MovementMax, OnMovementSliderValueChanged);
             _sizeSlider = SetupSlider("SizeSlider", SizeMin, SizeMax, OnSizeSliderValueChanged);
             _durationSlider = SetupSlider("DurationSlider", DurationMin, DurationMax, OnDurationSliderValueChanged);
@@ -212,24 +217,69 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
         {
             _movementSlider.SetValueWithoutNotify(value);
             _currentMovementSpeed = value;
+            UpdateMovementDrawing();
+        }
+
+        // Draws the whoosh the current values give, sampled the same way the DSP applies them:
+        // the amplitude envelope (movement), the length (duration) and the filter LFO (fluctuation)
+        void UpdateMovementDrawing()
+        {
+            if (_movementDrawing == null || !_anysoundWhooshObject) return;
+            var settings = _anysoundWhooshObject.MovementSettings;
+            if (settings == null || settings.Length == 0) return;
+
+            var movementSettings = _anysoundWhooshObject.GetWhooshMovementSettings(_currentMovementSpeed);
+            var envelope = movementSettings.AmplitudeEnvelope;
+            var lfo = movementSettings.FluctuationLFOGenerator;
+            float wobbleDepth = Mathf.Clamp01(lfo.amplitude * _currentFluctuation);
+
+            var amplitude = new float[MovementDrawingSamples];
+            var wobble = new float[MovementDrawingSamples];
+            for (int i = 0; i < amplitude.Length; i++)
+            {
+                float t = i / (amplitude.Length - 1f);
+                amplitude[i] = envelope.Evaluate(t, _currentDurationType);
+                float lfoPhase = Mathf.Repeat(2f * Mathf.PI * lfo.speed * t * _currentDurationType, 2f * Mathf.PI);
+                wobble[i] = EvaluateLfo(lfo.lfoType, lfoPhase) * wobbleDepth;
+            }
+
+            _movementDrawing.SetWhoosh(amplitude, wobble, Mathf.InverseLerp(0f, DurationMax, _currentDurationType),
+                Mathf.Lerp(MinDrawingThickness, 1f, Mathf.InverseLerp(SizeMin, SizeMax, _currentSizeValue)));
+        }
+
+        // Same shapes as the filter LFO in AnysoundWhooshDSP
+        static float EvaluateLfo(AnysoundWhooshObject.LFOGeneratorSettings.LFOTypes type, float phase)
+        {
+            switch (type)
+            {
+                case AnysoundWhooshObject.LFOGeneratorSettings.LFOTypes.Square:
+                    return phase < Mathf.PI ? 1f : -1f;
+                case AnysoundWhooshObject.LFOGeneratorSettings.LFOTypes.Triangle:
+                    return phase < Mathf.PI ? phase / Mathf.PI * 2f - 1f : 1f - (phase - Mathf.PI) / Mathf.PI * 2f;
+                default:
+                    return Mathf.Sin(phase);
+            }
         }
 
         void OnSizeSliderValueChanged(float value)
         {
             _sizeSlider.SetValueWithoutNotify(value);
             _currentSizeValue = value;
+            UpdateMovementDrawing();
         }
 
         void OnDurationSliderValueChanged(float value)
         {
             _durationSlider.SetValueWithoutNotify(value);
             _currentDurationType = value;
+            UpdateMovementDrawing();
         }
 
         void OnFluctuationSliderValueChanged(float value)
         {
             _fluctuationSlider.SetValueWithoutNotify(value);
             _currentFluctuation = value;
+            UpdateMovementDrawing();
         }
 
         // Presets without stored values return 0, which is outside some ranges (e.g. duration), so fall back to the default

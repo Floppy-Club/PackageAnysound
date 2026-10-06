@@ -17,6 +17,11 @@ namespace Anysound.Shared.Exporter
         private float _currentSizeValue;
         private int _numberOfClips;
 
+        // Set when exporting a surface crossfade (instead of the single surface value)
+        private bool _useSurfaceCrossfade;
+        private int _surfaceA, _surfaceB;
+        private float _surfaceCrossfade;
+
         public static void ShowExporterWindow(AnysoundFootstepObject anysoundFootstepObject,
             float currentSizeValue,
             float currentMovementSpeed,
@@ -28,6 +33,26 @@ namespace Anysound.Shared.Exporter
             window._currentSizeValue = currentSizeValue;
             window._currentMovementSpeed = currentMovementSpeed;
             window._currentSurfaceType = currentSurfaceType;
+            window._useSurfaceCrossfade = false;
+            window.CreateGUI();
+        }
+
+        public static void ShowExporterWindow(AnysoundFootstepObject anysoundFootstepObject,
+            float currentSizeValue,
+            float currentMovementSpeed,
+            int surfaceA,
+            int surfaceB,
+            float surfaceCrossfade)
+        {
+            AnysoundExporterWindow window = GetWindow<AnysoundExporterWindow>();
+            window.titleContent = new GUIContent("Anysound exporter");
+            window._anysoundFootstepObject = anysoundFootstepObject;
+            window._currentSizeValue = currentSizeValue;
+            window._currentMovementSpeed = currentMovementSpeed;
+            window._useSurfaceCrossfade = true;
+            window._surfaceA = surfaceA;
+            window._surfaceB = surfaceB;
+            window._surfaceCrossfade = surfaceCrossfade;
             window.CreateGUI();
         }
 
@@ -136,11 +161,19 @@ namespace Anysound.Shared.Exporter
                     try
                     {
                         // Generate a unique audio clip
-                        var clip = AnysoundFootstepsHelper.GenerateAudioClip(
-                            _anysoundFootstepObject,
-                            _currentSizeValue,
-                            _currentMovementSpeed,
-                            _currentSurfaceType);
+                        var clip = _useSurfaceCrossfade
+                            ? AnysoundFootstepsHelper.GenerateAudioClip(
+                                _anysoundFootstepObject,
+                                _currentSizeValue,
+                                _currentMovementSpeed,
+                                _surfaceA,
+                                _surfaceB,
+                                _surfaceCrossfade)
+                            : AnysoundFootstepsHelper.GenerateAudioClip(
+                                _anysoundFootstepObject,
+                                _currentSizeValue,
+                                _currentMovementSpeed,
+                                _currentSurfaceType);
 
                         // Create a filename with index
                         string filename = _numberOfClips > 1 ? 
