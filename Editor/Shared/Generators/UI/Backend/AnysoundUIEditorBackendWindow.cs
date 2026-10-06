@@ -13,6 +13,9 @@ namespace Anysound.Shared.Generators.UI.Backend
         private Vector2 _scrollPosition;
         private bool _showAllContent;
 
+        // Each preview picks new step values and random clips, like pressing the random buttons in the frontend
+        private bool _randomizeOnPreview = true;
+
         [MenuItem("Window/Audio/Anysound UI editor")]
         public static void ShowWindow()
         {
@@ -103,18 +106,25 @@ namespace Anysound.Shared.Generators.UI.Backend
             string[] extraNames = _anysoundUIObject.ExtraNames;
 
             _parameters.material = EditorGUILayout.Popup("Material", _parameters.material, materialNames);
+            _parameters.materialClip = ClipPopup(_anysoundUIObject.GetMaterialCollection(_parameters.material), _parameters.materialClip);
             _parameters.extraMaterial = EditorGUILayout.Popup("Extra material", _parameters.extraMaterial, WithNone(materialNames));
+            if (_parameters.HasExtraMaterial)
+                _parameters.extraMaterialClip = ClipPopup(_anysoundUIObject.GetMaterialCollection(_parameters.ExtraMaterialIndex),
+                    _parameters.extraMaterialClip);
             _parameters.action = EditorGUILayout.Popup("Action", _parameters.action, actionNames);
             _parameters.extraSample = EditorGUILayout.Popup("A little extra", _parameters.extraSample, WithNone(extraNames));
+            if (_parameters.HasExtraSample)
+                _parameters.extraSampleClip = ClipPopup(_anysoundUIObject.GetExtraCollection(_parameters.ExtraSampleIndex, _parameters.action),
+                    _parameters.extraSampleClip);
             _parameters.size = EditorGUILayout.Slider("Size", _parameters.size, 0f, 1f);
 
-            // Same as the random action button in the frontend: picks new step values within the min/max ranges
+            // Same as the random buttons in the frontend: picks new step values within the min/max ranges and random clips
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Action values", _parameters.actionSeed == 0 ? "Middle of ranges" : $"Seed {_parameters.actionSeed}");
             if (GUILayout.Button("Randomize", GUILayout.Width(80)))
             {
-                _parameters.actionSeed = AnysoundUIParameters.NewActionSeed();
-                GenerateAndPlayPreview();
+                RandomizePreviewValues();
+                GenerateAndPlayPreview(randomize: false);
             }
 
             if (GUILayout.Button("Middle", GUILayout.Width(60)))
@@ -122,6 +132,39 @@ namespace Anysound.Shared.Generators.UI.Backend
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.EndVertical();
+        }
+
+        // The exact sample within a collection, named like the frontend's clip dropdowns
+        static int ClipPopup(AnysoundSoundCollectionObject collection, int clipIndex)
+        {
+            var items = AnysoundUIObject.GetClipDropdownItems(collection);
+            if (items.Count == 0)
+            {
+                EditorGUILayout.LabelField("    Clip", "No samples");
+                return 0;
+            }
+
+            var names = new string[items.Count];
+            for (int i = 0; i < items.Count; i++)
+                names[i] = items[i].name;
+            return EditorGUILayout.Popup("    Clip", Mathf.Clamp(clipIndex, 0, items.Count - 1), names);
+        }
+
+        // New step values and a random clip for each chosen material / extra
+        private void RandomizePreviewValues()
+        {
+            _parameters.actionSeed = AnysoundUIParameters.NewActionSeed();
+            _parameters.materialClip = RandomClip(_anysoundUIObject.GetMaterialCollection(_parameters.material));
+            if (_parameters.HasExtraMaterial)
+                _parameters.extraMaterialClip = RandomClip(_anysoundUIObject.GetMaterialCollection(_parameters.ExtraMaterialIndex));
+            if (_parameters.HasExtraSample)
+                _parameters.extraSampleClip = RandomClip(_anysoundUIObject.GetExtraCollection(_parameters.ExtraSampleIndex, _parameters.action));
+        }
+
+        static int RandomClip(AnysoundSoundCollectionObject collection)
+        {
+            int count = collection ? collection.Count : 0;
+            return count > 0 ? Random.Range(0, count) : 0;
         }
 
         static string[] WithNone(string[] names)
@@ -242,6 +285,10 @@ namespace Anysound.Shared.Generators.UI.Backend
                 }
             }
 
+            _randomizeOnPreview = EditorGUILayout.ToggleLeft(
+                new GUIContent("Randomize on preview", "Every preview picks new step values within the ranges and random clips"),
+                _randomizeOnPreview);
+
             if (_previewClip)
             {
                 EditorGUILayout.LabelField("Length", $"{_previewClip.length * 1000f:0} ms");
@@ -259,13 +306,18 @@ namespace Anysound.Shared.Generators.UI.Backend
             }
         }
 
-        private void GenerateAndPlayPreview()
+        private void GenerateAndPlayPreview() => GenerateAndPlayPreview(_randomizeOnPreview);
+
+        private void GenerateAndPlayPreview(bool randomize)
         {
             if (!_anysoundUIObject)
             {
                 EditorUtility.DisplayDialog("Error", "Please add a UI object.", "OK");
                 return;
             }
+
+            if (randomize)
+                RandomizePreviewValues();
 
             _previewClip = AnysoundUIDSP.CreateAudioClip(_anysoundUIObject, _parameters);
             if (_previewClip != null)

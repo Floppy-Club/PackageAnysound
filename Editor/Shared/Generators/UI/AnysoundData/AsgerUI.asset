@@ -99,21 +99,31 @@ MonoBehaviour:
     icon: 23
     customIcon: {fileID: 0}
     customIconSelected: {fileID: 0}
+  - name: Tonal
+    clipCollection: {fileID: 11400000, guid: 90eb24a7d309c4144974dd667aa23f11, type: 2}
+    volume: 1
+    icon: 23
+    customIcon: {fileID: 0}
+    customIconSelected: {fileID: 0}
   actions:
   - name: Click
     icon: 0
+    pitchMode: 1
+    scale: 1
     steps:
-    - delayMin: 0
-      delayMax: 0
-      pitchMin: -1.7557081
-      pitchMax: 3.0434918
-      volumeMin: 0.59006834
-      volumeMax: 0.7967006
-      durationMin: 0.056823827
-      durationMax: 0.100149944
+    - delayMin: 0.03666056
+      delayMax: 0.060156617
+      pitchMin: 3
+      pitchMax: 11
+      volumeMin: 0.58340275
+      volumeMax: 0.790035
+      durationMin: 0.07015494
+      durationMax: 0.11348105
       hasRanges: 1
   - name: Hover
     icon: 0
+    pitchMode: 0
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
@@ -126,6 +136,8 @@ MonoBehaviour:
       hasRanges: 1
   - name: Up
     icon: 0
+    pitchMode: 0
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
@@ -147,6 +159,8 @@ MonoBehaviour:
       hasRanges: 1
   - name: Down
     icon: 0
+    pitchMode: 0
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
@@ -168,6 +182,8 @@ MonoBehaviour:
       hasRanges: 1
   - name: Ok
     icon: 0
+    pitchMode: 0
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
@@ -189,6 +205,8 @@ MonoBehaviour:
       hasRanges: 1
   - name: Confirm
     icon: 0
+    pitchMode: 1
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
@@ -200,18 +218,18 @@ MonoBehaviour:
       durationMax: 0.06682216
       hasRanges: 1
     - delayMin: 0.050158262
-      delayMax: 0.12681216
-      pitchMin: 0.16063929
-      pitchMax: 4.6398935
+      delayMax: 0.1501416
+      pitchMin: 1
+      pitchMax: 4
       volumeMin: 0.37343773
       volumeMax: 0.7067155
       durationMin: 0.09015161
       durationMax: 0.20013326
       hasRanges: 1
-    - delayMin: 0.013331112
-      delayMax: 0.109981656
-      pitchMin: 0.7610394
-      pitchMax: 7.47992
+    - delayMin: 0.07332112
+      delayMax: 0.19663389
+      pitchMin: 2
+      pitchMax: 7
       volumeMin: 0.65670717
       volumeMax: 0.9
       durationMin: 0.32011333
@@ -219,6 +237,8 @@ MonoBehaviour:
       hasRanges: 1
   - name: Back
     icon: 0
+    pitchMode: 0
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
@@ -240,6 +260,8 @@ MonoBehaviour:
       hasRanges: 1
   - name: Delete
     icon: 0
+    pitchMode: 0
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
@@ -270,6 +292,8 @@ MonoBehaviour:
       hasRanges: 1
   - name: In
     icon: 0
+    pitchMode: 0
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
@@ -300,6 +324,8 @@ MonoBehaviour:
       hasRanges: 1
   - name: Out
     icon: 0
+    pitchMode: 0
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
@@ -330,6 +356,8 @@ MonoBehaviour:
       hasRanges: 1
   - name: Error
     icon: 0
+    pitchMode: 0
+    scale: 1
     steps:
     - delayMin: 0
       delayMax: 0
