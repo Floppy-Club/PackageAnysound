@@ -157,16 +157,22 @@ namespace Anysound.Shared.Generators.UI.Backend
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             GUILayout.Label($"{title}: {element.FindPropertyRelative("name").stringValue}", EditorStyles.boldLabel);
 
+            // The scale only matters when the action's pitch is set to notes
+            SerializedProperty pitchMode = element.FindPropertyRelative("pitchMode");
+            bool hideScale = pitchMode != null && pitchMode.enumValueIndex != (int)AnysoundUIObject.UIPitchMode.Notes;
+
             SerializedProperty iterator = element.Copy();
             SerializedProperty endProperty = iterator.GetEndProperty();
             bool enterChildren = true;
             while (iterator.NextVisible(enterChildren))
             {
+                enterChildren = false;
                 if (SerializedProperty.EqualContents(iterator, endProperty))
                     break;
+                if (hideScale && iterator.name == "scale")
+                    continue;
 
                 EditorGUILayout.PropertyField(iterator, true);
-                enterChildren = false;
             }
 
             if (listName == "actions")
@@ -174,7 +180,8 @@ namespace Anysound.Shared.Generators.UI.Backend
                 EditorGUILayout.HelpBox(
                     $"Each step triggers the material (and extras) after 'delay' seconds from the previous step, pitched in semitones. " +
                     $"'Duration' cuts the step after that many seconds (0 = the whole sample). Max {AnysoundUIObject.MaxActionSteps} steps. " +
-                    "Every value is a min/max range: the random action button picks a value within it, set min = max for a fixed value.",
+                    "Every value is a min/max range: the random action button picks a value within it, set min = max for a fixed value. " +
+                    "Pitch 'Notes' snaps the pitch ranges to whole semitones and picks only notes of the chosen scale (0 = root).",
                     MessageType.None);
             }
 

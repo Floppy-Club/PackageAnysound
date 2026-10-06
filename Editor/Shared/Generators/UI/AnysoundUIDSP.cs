@@ -46,10 +46,14 @@ namespace Anysound.Shared.Generators.UI
 
             List<AnysoundUIObject.UIActionStep> steps = new();
             string actionName = "";
+            var pitchMode = AnysoundUIObject.UIPitchMode.Free;
+            var scale = AnysoundUIObject.UIScale.Chromatic;
             if (uiObject.actions != null && uiObject.actions.Count > 0)
             {
                 var action = uiObject.actions[Mathf.Clamp(parameters.action, 0, uiObject.actions.Count - 1)];
                 actionName = action.name;
+                pitchMode = action.pitchMode;
+                scale = action.scale;
                 if (action.steps != null)
                 {
                     for (int i = 0; i < action.steps.Count && i < AnysoundUIObject.MaxActionSteps; i++)
@@ -75,7 +79,7 @@ namespace Anysound.Shared.Generators.UI
                 return null;
             }
 
-            var resolvedSteps = parameters.ResolveSteps(steps);
+            var resolvedSteps = parameters.ResolveSteps(steps, pitchMode, scale);
 
             List<RenderJob> jobs = new();
             List<RenderJob> extraJobs = new();

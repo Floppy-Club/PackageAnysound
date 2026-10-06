@@ -71,15 +71,114 @@ namespace Anysound.Shared.Generators.UI
             }
 
             /// <summary>
-            /// The step values at the given positions in the ranges (0 = min, 1 = max)
+            /// The step values at the given positions in the ranges (0 = min, 1 = max).
+            /// In notes mode the pitch is picked among the scale notes within the pitch range
             /// </summary>
-            public ResolvedStep Resolve(float delayT, float pitchT, float volumeT, float durationT) => new()
+            public ResolvedStep Resolve(float delayT, float pitchT, float volumeT, float durationT,
+                UIPitchMode pitchMode = UIPitchMode.Free, UIScale scale = UIScale.Chromatic) => new()
             {
                 delay = Mathf.Max(0f, Mathf.Lerp(delayMin, delayMax, delayT)),
-                pitchSemitones = Mathf.Lerp(pitchMin, pitchMax, pitchT),
+                pitchSemitones = pitchMode == UIPitchMode.Notes
+                    ? UIScales.PickNote(scale, pitchMin, pitchMax, pitchT)
+                    : Mathf.Lerp(pitchMin, pitchMax, pitchT),
                 volume = Mathf.Max(0f, Mathf.Lerp(volumeMin, volumeMax, volumeT)),
                 duration = Mathf.Max(0f, Mathf.Lerp(durationMin, durationMax, durationT)),
             };
+        }
+
+        public enum UIPitchMode
+        {
+            Free,
+            Notes,
+        }
+
+        public enum UIScale
+        {
+            Chromatic,
+            Major,
+            Minor,
+            [InspectorName("Major pentatonic")] MajorPentatonic,
+            [InspectorName("Minor pentatonic")] MinorPentatonic,
+            [InspectorName("Harmonic minor")] HarmonicMinor,
+            Dorian,
+            Mixolydian,
+            Blues,
+            [InspectorName("Whole tone")] WholeTone,
+        }
+
+        /// <summary>
+        /// Scales as semitones above the root. Pitch 0 (the unpitched sample) is the root
+        /// </summary>
+        public static class UIScales
+        {
+            static readonly int[] Chromatic = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+            static readonly int[] Major = { 0, 2, 4, 5, 7, 9, 11 };
+            static readonly int[] Minor = { 0, 2, 3, 5, 7, 8, 10 };
+            static readonly int[] MajorPentatonic = { 0, 2, 4, 7, 9 };
+            static readonly int[] MinorPentatonic = { 0, 3, 5, 7, 10 };
+            static readonly int[] HarmonicMinor = { 0, 2, 3, 5, 7, 8, 11 };
+            static readonly int[] Dorian = { 0, 2, 3, 5, 7, 9, 10 };
+            static readonly int[] Mixolydian = { 0, 2, 4, 5, 7, 9, 10 };
+            static readonly int[] Blues = { 0, 3, 5, 6, 7, 10 };
+            static readonly int[] WholeTone = { 0, 2, 4, 6, 8, 10 };
+
+            public static int[] GetIntervals(UIScale scale) => scale switch
+            {
+                UIScale.Major => Major,
+                UIScale.Minor => Minor,
+                UIScale.MajorPentatonic => MajorPentatonic,
+                UIScale.MinorPentatonic => MinorPentatonic,
+                UIScale.HarmonicMinor => HarmonicMinor,
+                UIScale.Dorian => Dorian,
+                UIScale.Mixolydian => Mixolydian,
+                UIScale.Blues => Blues,
+                UIScale.WholeTone => WholeTone,
+                _ => Chromatic,
+            };
+
+            public static bool IsInScale(UIScale scale, int semitones) =>
+                Array.IndexOf(GetIntervals(scale), ((semitones % 12) + 12) % 12) >= 0;
+
+            /// <summary>
+            /// The scale note closest to the given pitch (ties go down)
+            /// </summary>
+            public static int Snap(UIScale scale, float semitones)
+            {
+                int rounded = Mathf.RoundToInt(semitones);
+                for (int offset = 0; offset < 12; offset++)
+                {
+                    if (IsInScale(scale, rounded - offset)) return rounded - offset;
+                    if (IsInScale(scale, rounded + offset)) return rounded + offset;
+                }
+
+                return rounded;
+            }
+
+            /// <summary>
+            /// Picks one of the scale notes within [min, max] (t = 0 the lowest, 1 the highest, 0.5 the middle one).
+            /// If no scale note is within the range, the note closest to the middle of the range is used
+            /// </summary>
+            public static int PickNote(UIScale scale, float min, float max, float t)
+            {
+                int low = Mathf.RoundToInt(Mathf.Min(min, max));
+                int high = Mathf.RoundToInt(Mathf.Max(min, max));
+
+                int count = 0;
+                for (int note = low; note <= high; note++)
+                    if (IsInScale(scale, note)) count++;
+
+                if (count == 0)
+                    return Snap(scale, (low + high) * 0.5f);
+
+                int pick = Mathf.Clamp(Mathf.FloorToInt(t * count), 0, count - 1);
+                for (int note = low; note <= high; note++)
+                {
+                    if (!IsInScale(scale, note)) continue;
+                    if (pick-- == 0) return note;
+                }
+
+                return low;
+            }
         }
 
         public struct ResolvedStep
@@ -101,6 +200,12 @@ namespace Anysound.Shared.Generators.UI
 
             [Tooltip("Auto picks a built-in icon from the name")]
             public AnysoundIcon icon = AnysoundIcon.Auto;
+
+            [Tooltip("Free = any pitch. Notes = the pitch ranges snap to whole semitones and every step plays a note of the scale")]
+            public UIPitchMode pitchMode = UIPitchMode.Free;
+
+            [Tooltip("The scale all steps of the action snap to in notes mode. Pitch 0 (the unpitched sample) is the root")]
+            public UIScale scale = UIScale.Major;
 
             public List<UIActionStep> steps = new();
 
@@ -289,6 +394,23 @@ namespace Anysound.Shared.Generators.UI
                     Debug.LogWarning($"Action '{action.name}' can have at most {MaxActionSteps} steps");
                     action.steps.RemoveRange(MaxActionSteps, action.steps.Count - MaxActionSteps);
                 }
+
+                SnapPitchRanges(action);
+            }
+        }
+
+        /// <summary>
+        /// In notes mode the pitch ranges are whole semitones
+        /// </summary>
+        static void SnapPitchRanges(UIActionSettings action)
+        {
+            if (action.pitchMode != UIPitchMode.Notes || action.steps == null) return;
+            for (int i = 0; i < action.steps.Count; i++)
+            {
+                var step = action.steps[i];
+                step.pitchMin = Mathf.Floor(step.pitchMin + 0.5f);
+                step.pitchMax = Mathf.Floor(step.pitchMax + 0.5f);
+                action.steps[i] = step;
             }
         }
 
@@ -414,7 +536,9 @@ namespace Anysound.Shared.Generators.UI
         /// The step values of the action for this seed. The random positions are drawn in a fixed order,
         /// so the same seed always gives the same sound, no matter how the ranges are set
         /// </summary>
-        public List<AnysoundUIObject.ResolvedStep> ResolveSteps(IReadOnlyList<AnysoundUIObject.UIActionStep> steps)
+        public List<AnysoundUIObject.ResolvedStep> ResolveSteps(IReadOnlyList<AnysoundUIObject.UIActionStep> steps,
+            AnysoundUIObject.UIPitchMode pitchMode = AnysoundUIObject.UIPitchMode.Free,
+            AnysoundUIObject.UIScale scale = AnysoundUIObject.UIScale.Chromatic)
         {
             var rng = actionSeed != 0 ? new System.Random(actionSeed) : null;
             float Next() => rng != null ? (float)rng.NextDouble() : 0.5f;
@@ -423,7 +547,7 @@ namespace Anysound.Shared.Generators.UI
             foreach (var step in steps)
             {
                 float delayT = Next(), pitchT = Next(), volumeT = Next(), durationT = Next();
-                resolved.Add(step.Resolve(delayT, pitchT, volumeT, durationT));
+                resolved.Add(step.Resolve(delayT, pitchT, volumeT, durationT, pitchMode, scale));
             }
 
             return resolved;
