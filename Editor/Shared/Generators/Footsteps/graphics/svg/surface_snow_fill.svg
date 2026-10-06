@@ -1,42 +1,81 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 234 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;">
-    <g transform="matrix(1,0,0,1,-1083,-1242)">
-        <g>
-            <g transform="matrix(4.16667,0,0,-4.16667,1083.33,1375)">
-                <rect x="0.5" y="0.5" width="55" height="31" style="fill:rgb(255,187,35);stroke:rgb(36,36,36);stroke-width:1px;"/>
-            </g>
-            <g transform="matrix(4.16667,0,0,4.16667,0,0)">
-                <clipPath id="_clip1">
-                    <rect x="260" y="298" width="56" height="32"/>
-                </clipPath>
-                <g clip-path="url(#_clip1)">
-                    <g>
-                        <g>
-                            <clipPath id="_clip2">
-                                <rect x="260" y="298" width="56" height="32" clip-rule="nonzero"/>
-                            </clipPath>
-                            <g clip-path="url(#_clip2)">
-                                <g transform="matrix(-0.997431,-0.0716375,0.0716375,-0.997431,330.488,311.504)">
-                                    <path d="M15.345,9.077C15.345,9.077 37.681,0.266 56.246,9.077" style="fill:none;fill-rule:nonzero;stroke:rgb(36,36,36);stroke-width:1px;stroke-miterlimit:10;"/>
-                                </g>
-                                <g transform="matrix(1,0,0,-1,259.999,314.457)">
-                                    <path d="M55.835,7.862C55.835,7.862 44.704,4.326 34.451,5.058C24.2,5.79 21.146,6.948 15.039,8.96C8.932,10.972 3.82,12.253 0.214,12.253" style="fill:none;fill-rule:nonzero;stroke:rgb(36,36,36);stroke-width:1px;stroke-miterlimit:10;"/>
-                                </g>
-                                <g transform="matrix(1,0,0,-1,259.999,328.88)">
-                                    <path d="M0.214,21.371C0.214,21.371 18.529,20.036 19.51,14.91C20.492,9.785 0.214,10.395 0.214,10.395" style="fill:none;fill-rule:nonzero;stroke:rgb(36,36,36);stroke-width:1px;stroke-miterlimit:10;"/>
-                                </g>
-                                <g transform="matrix(0.170987,0.985273,-0.985273,0.170987,304.007,287.45)">
-                                    <path d="M26.651,-7.378C26.651,-7.378 27.709,-0.988 26.389,6.974C25.069,14.936 24.574,18.503 26.651,23.291C28.729,28.079 30.413,32.645 29.547,39.767C28.683,46.889 29.397,49.551 29.397,49.551" style="fill:none;fill-rule:nonzero;stroke:rgb(36,36,36);stroke-width:1px;stroke-miterlimit:10;"/>
-                                </g>
-                                <g transform="matrix(1,0,0,-1,259.867,351.753)">
-                                    <path d="M55.966,30.464C55.966,30.464 44.617,32.171 40.145,30.464C35.674,28.756 33.493,25.708 29.567,24.366C25.64,23.025 19.677,22.236 19.677,22.236" style="fill:none;fill-rule:nonzero;stroke:rgb(36,36,36);stroke-width:1px;stroke-miterlimit:10;"/>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </g>
+<svg width="100%" height="100%" viewBox="0 0 234 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;">
+    <g transform="matrix(4.16667,0,0,4.16667,0.333,0)">
+        <clipPath id="_clip1">
+            <rect x="1" y="1" width="54" height="30"/>
+        </clipPath>
+        <rect x="0.5" y="0.5" width="55" height="31" style="fill:rgb(255,187,35);stroke:rgb(36,36,36);stroke-width:1px;"/>
+        <g clip-path="url(#_clip1)" style="fill:none;stroke:rgb(36,36,36);stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;">
+            <line x1="6.69" y1="4.74" x2="6.69" y2="9.34"/>
+            <line x1="4.69" y1="5.89" x2="8.68" y2="8.19"/>
+            <line x1="8.68" y1="5.89" x2="4.69" y2="8.19"/>
+            <line x1="20.84" y1="3.80" x2="20.84" y2="8.40"/>
+            <line x1="18.85" y1="4.95" x2="22.84" y2="7.25"/>
+            <line x1="22.84" y1="4.95" x2="18.85" y2="7.25"/>
+            <line x1="35.15" y1="5.27" x2="35.15" y2="9.87"/>
+            <line x1="33.16" y1="6.42" x2="37.14" y2="8.72"/>
+            <line x1="37.14" y1="6.42" x2="33.16" y2="8.72"/>
+            <line x1="48.42" y1="4.04" x2="48.42" y2="8.64"/>
+            <line x1="46.42" y1="5.19" x2="50.41" y2="7.49"/>
+            <line x1="50.41" y1="5.19" x2="46.42" y2="7.49"/>
+            <line x1="13.71" y1="14.93" x2="13.71" y2="19.53"/>
+            <line x1="11.72" y1="16.08" x2="15.70" y2="18.38"/>
+            <line x1="15.70" y1="16.08" x2="11.72" y2="18.38"/>
+            <line x1="28.59" y1="14.17" x2="28.59" y2="18.77"/>
+            <line x1="26.60" y1="15.32" x2="30.59" y2="17.62"/>
+            <line x1="30.59" y1="15.32" x2="26.60" y2="17.62"/>
+            <line x1="42.40" y1="16.18" x2="42.40" y2="20.78"/>
+            <line x1="40.41" y1="17.33" x2="44.40" y2="19.63"/>
+            <line x1="44.40" y1="17.33" x2="40.41" y2="19.63"/>
+            <line x1="7.17" y1="23.85" x2="7.17" y2="28.45"/>
+            <line x1="5.18" y1="25.00" x2="9.16" y2="27.30"/>
+            <line x1="9.16" y1="25.00" x2="5.18" y2="27.30"/>
+            <line x1="21.16" y1="25.07" x2="21.16" y2="29.67"/>
+            <line x1="19.17" y1="26.22" x2="23.15" y2="28.52"/>
+            <line x1="23.15" y1="26.22" x2="19.17" y2="28.52"/>
+            <line x1="35.03" y1="23.94" x2="35.03" y2="28.54"/>
+            <line x1="33.04" y1="25.09" x2="37.02" y2="27.39"/>
+            <line x1="37.02" y1="25.09" x2="33.04" y2="27.39"/>
+            <line x1="49.21" y1="22.76" x2="49.21" y2="27.36"/>
+            <line x1="47.21" y1="23.91" x2="51.20" y2="26.21"/>
+            <line x1="51.20" y1="23.91" x2="47.21" y2="26.21"/>
+            <line x1="14.00" y1="9.90" x2="14.00" y2="12.10"/>
+            <line x1="13.05" y1="10.45" x2="14.95" y2="11.55"/>
+            <line x1="14.95" y1="10.45" x2="13.05" y2="11.55"/>
+            <line x1="28.00" y1="10.40" x2="28.00" y2="12.60"/>
+            <line x1="27.05" y1="10.95" x2="28.95" y2="12.05"/>
+            <line x1="28.95" y1="10.95" x2="27.05" y2="12.05"/>
+            <line x1="42.00" y1="11.40" x2="42.00" y2="13.60"/>
+            <line x1="41.05" y1="11.95" x2="42.95" y2="13.05"/>
+            <line x1="42.95" y1="11.95" x2="41.05" y2="13.05"/>
+            <line x1="4.00" y1="15.90" x2="4.00" y2="18.10"/>
+            <line x1="3.05" y1="16.45" x2="4.95" y2="17.55"/>
+            <line x1="4.95" y1="16.45" x2="3.05" y2="17.55"/>
+            <line x1="51.50" y1="16.40" x2="51.50" y2="18.60"/>
+            <line x1="50.55" y1="16.95" x2="52.45" y2="18.05"/>
+            <line x1="52.45" y1="16.95" x2="50.55" y2="18.05"/>
+            <line x1="14.00" y1="22.90" x2="14.00" y2="25.10"/>
+            <line x1="13.05" y1="23.45" x2="14.95" y2="24.55"/>
+            <line x1="14.95" y1="23.45" x2="13.05" y2="24.55"/>
+            <line x1="28.00" y1="20.90" x2="28.00" y2="23.10"/>
+            <line x1="27.05" y1="21.45" x2="28.95" y2="22.55"/>
+            <line x1="28.95" y1="21.45" x2="27.05" y2="22.55"/>
+            <line x1="42.00" y1="22.90" x2="42.00" y2="25.10"/>
+            <line x1="41.05" y1="23.45" x2="42.95" y2="24.55"/>
+            <line x1="42.95" y1="23.45" x2="41.05" y2="24.55"/>
+            <circle cx="18.06" cy="3.81" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="46.28" cy="15.29" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="38.94" cy="25.85" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="38.71" cy="26.95" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="22.75" cy="23.82" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="25.23" cy="27.33" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="9.80" cy="8.64" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="51.27" cy="14.34" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="20.55" cy="18.21" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="45.82" cy="28.77" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="46.03" cy="28.08" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
+            <circle cx="48.23" cy="17.80" r="0.5" style="fill:rgb(36,36,36);stroke:none;"/>
         </g>
     </g>
 </svg>
