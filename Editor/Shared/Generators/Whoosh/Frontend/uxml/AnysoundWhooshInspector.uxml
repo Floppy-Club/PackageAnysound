@@ -90,10 +90,13 @@
                 <engine:Button display-tooltip-when-elided="false" name="ExportButton" class="anysound-button-box" style="background-image: resource(&quot;button_export&quot;); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; height: 100px; -unity-background-scale-mode: scale-to-fit; background-size: 80px 80px; border-left-color: rgb(142, 142, 142); border-right-color: rgb(142, 142, 142); border-top-color: rgb(142, 142, 142); border-bottom-color: rgb(142, 142, 142); margin-right: 20px;"/>
             </engine:VisualElement>
             <engine:VisualElement class="anysound-button" style="flex-grow: 1;">
+                <engine:Label text="Create preset" style="-unity-text-align: middle-left; height: 30px; width: 150px;"/>
+                <engine:Button display-tooltip-when-elided="false" name="CreatePresetButton" tooltip="Save the current sound as a preset with a name and tags" class="anysound-button-box" style="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; height: 100px; background-image: resource(&quot;button_preset&quot;); -unity-background-scale-mode: scale-to-fit; background-size: 80px 80px; border-left-color: rgb(142, 142, 142); border-right-color: rgb(142, 142, 142); border-top-color: rgb(142, 142, 142); border-bottom-color: rgb(142, 142, 142); margin-right: 20px;"/>
+            </engine:VisualElement>
+            <engine:VisualElement class="anysound-button" style="flex-grow: 1;">
                 <engine:Label text="Preview sound (spacebar)" style="-unity-text-align: middle-left; height: 30px; width: 150px;"/>
                 <engine:Button display-tooltip-when-elided="false" name="PreviewButton" class="anysound-button-box" style="background-image: resource(&quot;button_preview&quot;); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; height: 100px; -unity-background-scale-mode: scale-to-fit; background-size: 80px 80px; border-left-color: rgb(142, 142, 142); border-right-color: rgb(142, 142, 142); border-top-color: rgb(142, 142, 142); border-bottom-color: rgb(142, 142, 142);"/>
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:Button text="Create preset" name="RedrawButton" style="display: none;"/>
     </engine:ScrollView>
 </engine:UXML>

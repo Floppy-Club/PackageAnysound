@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using Anysound.Shared.BaseClasses;
 using Anysound.Shared.Footsteps;
 using Anysound.Shared.Frontend;
 using Anysound.Shared.Generators.Footsteps;
@@ -11,30 +14,25 @@ namespace Anysound.Shared.Exporter
     public class AnysoundExporterWindow : EditorWindow
     {
         [SerializeField] private VisualTreeAsset visualTreeAsset = default;
-        private AnysoundFootstepObject _anysoundFootstepObject;
-        private float _currentSurfaceType;
-        private float _currentMovementSpeed;
-        private float _currentSizeValue;
         private int _numberOfClips;
 
-        // Set when exporting a surface crossfade (instead of the single surface value)
-        private bool _useSurfaceCrossfade;
-        private int _surfaceA, _surfaceB;
-        private float _surfaceCrossfade;
+        // Generates one new clip per call, so each exported clip is unique
+        private Func<AudioClip> _generateClip;
+        private string _defaultFileName = "AnysoundClip";
+
+        // Remembered on the exported files, so they show up in the browser
+        private AnysoundGeneratorBase _generator;
+        private Dictionary<string, float> _presetValues;
 
         public static void ShowExporterWindow(AnysoundFootstepObject anysoundFootstepObject,
             float currentSizeValue,
             float currentMovementSpeed,
             float currentSurfaceType)
         {
-            AnysoundExporterWindow window = GetWindow<AnysoundExporterWindow>();
-            window.titleContent = new GUIContent("Anysound exporter");
-            window._anysoundFootstepObject = anysoundFootstepObject;
-            window._currentSizeValue = currentSizeValue;
-            window._currentMovementSpeed = currentMovementSpeed;
-            window._currentSurfaceType = currentSurfaceType;
-            window._useSurfaceCrossfade = false;
-            window.CreateGUI();
+            ShowExporterWindow(
+                () => AnysoundFootstepsHelper.GenerateAudioClip(anysoundFootstepObject, currentSizeValue,
+                    currentMovementSpeed, currentSurfaceType),
+                "AnysoundFootstepClip");
         }
 
         public static void ShowExporterWindow(AnysoundFootstepObject anysoundFootstepObject,
@@ -44,15 +42,29 @@ namespace Anysound.Shared.Exporter
             int surfaceB,
             float surfaceCrossfade)
         {
+            ShowExporterWindow(
+                () => AnysoundFootstepsHelper.GenerateAudioClip(anysoundFootstepObject, currentSizeValue,
+                    currentMovementSpeed, surfaceA, surfaceB, surfaceCrossfade),
+                "AnysoundFootstepClip");
+        }
+
+        public static void ShowExporterWindow(AnysoundGeneratorBase generator, Dictionary<string, float> presetValues,
+            Func<AudioClip> generateClip, string defaultFileName)
+        {
+            ShowExporterWindow(generateClip, defaultFileName);
+            var window = GetWindow<AnysoundExporterWindow>();
+            window._generator = generator;
+            window._presetValues = presetValues;
+        }
+
+        public static void ShowExporterWindow(Func<AudioClip> generateClip, string defaultFileName)
+        {
             AnysoundExporterWindow window = GetWindow<AnysoundExporterWindow>();
             window.titleContent = new GUIContent("Anysound exporter");
-            window._anysoundFootstepObject = anysoundFootstepObject;
-            window._currentSizeValue = currentSizeValue;
-            window._currentMovementSpeed = currentMovementSpeed;
-            window._useSurfaceCrossfade = true;
-            window._surfaceA = surfaceA;
-            window._surfaceB = surfaceB;
-            window._surfaceCrossfade = surfaceCrossfade;
+            window._generateClip = generateClip;
+            window._defaultFileName = defaultFileName;
+            window._generator = null;
+            window._presetValues = null;
             window.CreateGUI();
         }
 
@@ -88,7 +100,7 @@ namespace Anysound.Shared.Exporter
             string baseName = EditorUtility.SaveFilePanel(
                 "Enter File Name",
                 "Assets",
-                "AnysoundFootstepClip",
+                _defaultFileName,
                 "");
 
             if (string.IsNullOrEmpty(baseName))
@@ -110,6 +122,10 @@ namespace Anysound.Shared.Exporter
             {
                 relativePath = "Assets" + folderPath.Substring(Application.dataPath.Length);
             }
+
+            // The window closes below, so keep what the export needs
+            var generator = _generator;
+            var presetValues = _presetValues;
 
             // Use a coroutine-like approach with EditorApplication.update
             bool isExporting = true;
@@ -161,19 +177,7 @@ namespace Anysound.Shared.Exporter
                     try
                     {
                         // Generate a unique audio clip
-                        var clip = _useSurfaceCrossfade
-                            ? AnysoundFootstepsHelper.GenerateAudioClip(
-                                _anysoundFootstepObject,
-                                _currentSizeValue,
-                                _currentMovementSpeed,
-                                _surfaceA,
-                                _surfaceB,
-                                _surfaceCrossfade)
-                            : AnysoundFootstepsHelper.GenerateAudioClip(
-                                _anysoundFootstepObject,
-                                _currentSizeValue,
-                                _currentMovementSpeed,
-                                _currentSurfaceType);
+                        var clip = _generateClip();
 
                         // Create a filename with index
                         string filename = _numberOfClips > 1 ? 
@@ -213,6 +217,8 @@ namespace Anysound.Shared.Exporter
                 {
                     EditorUtility.ClearProgressBar();
                     AssetDatabase.Refresh(); // Refresh the asset database to show the new files
+                    foreach (var savedPath in savedPaths)
+                        AnysoundExportedSounds.MarkAsExported(savedPath, generator, presetValues);
                     Debug.Log($"Successfully exported {_numberOfClips} audio clips");
                     isExporting = false;
                 }

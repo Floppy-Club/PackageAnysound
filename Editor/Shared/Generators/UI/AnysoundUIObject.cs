@@ -463,7 +463,7 @@ namespace Anysound.Shared.Generators.UI
             };
         }
 
-        public override void CreatePreset(Dictionary<string, float> presetValues)
+        public override void DescribePreset(Dictionary<string, float> presetValues, out string presetName, out List<string> tags)
         {
             var parameters = AnysoundUIParameters.FromPresetValues(presetValues);
 
@@ -472,16 +472,20 @@ namespace Anysound.Shared.Generators.UI
             string extraMaterialTag = parameters.HasExtraMaterial ? SafeName(MaterialNames, parameters.ExtraMaterialIndex) : null;
             string extraTag = parameters.HasExtraSample ? SafeName(ExtraNames, parameters.ExtraSampleIndex) : null;
 
-            string presetName = $"UI {materialTag}";
+            presetName = $"UI {materialTag}";
             if (extraMaterialTag != null) presetName += $"+{extraMaterialTag}";
             presetName += $" {actionTag}";
             if (extraTag != null) presetName += $" {extraTag}";
 
-            List<string> tags = new List<string> { "ui", materialTag, actionTag };
+            tags = new List<string> { "ui", materialTag, actionTag };
             if (extraMaterialTag != null && !tags.Contains(extraMaterialTag)) tags.Add(extraMaterialTag);
             if (extraTag != null) tags.Add(extraTag);
+        }
 
-            AudioClip generatedClip = AnysoundUIDSP.CreateAudioClip(this, parameters);
+        public override void CreatePreset(Dictionary<string, float> presetValues)
+        {
+            DescribePreset(presetValues, out string presetName, out List<string> tags);
+            AudioClip generatedClip = AnysoundUIDSP.CreateAudioClip(this, AnysoundUIParameters.FromPresetValues(presetValues));
 
             AnysoundBrowser.CreatePreset(presetName, presetValues, tags, this, generatedClip);
         }

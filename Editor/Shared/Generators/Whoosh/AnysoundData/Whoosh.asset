@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Whoosh
   m_EditorClassIdentifier: 
   coverTexture: {fileID: 2800000, guid: 02c818bd614664d52b94a1a464622569, type: 3}
-  isLoadable: 0
+  isLoadable: 1
   movementSettings:
   - noiseGenerator1:
       amplitude: 1

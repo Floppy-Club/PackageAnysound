@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Anysound.Shared.BaseClasses;
+using Anysound.Shared.Exporter;
 using Anysound.Shared.Frontend;
 using Anysound.Shared.Generators.Footsteps;
 using UnityEditor;
@@ -22,9 +23,9 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
         private VisualElement _waveformContainer, _playheadContainer;
 
         // Same ranges as the backend window, so presets created there load with the same values
-        const float MovementMin = 0f, MovementMax = 1f, MovementDefault = 0.5f;
-        const float SizeMin = 0.5f, SizeMax = 2f, SizeDefault = 1f;
-        const float DurationMin = 0.05f, DurationMax = 0.5f, DurationDefault = 0.25f;
+        const float MovementMin = AnysoundWhooshHelper.MovementMin, MovementMax = AnysoundWhooshHelper.MovementMax, MovementDefault = 0.5f;
+        const float SizeMin = AnysoundWhooshHelper.SizeMin, SizeMax = AnysoundWhooshHelper.SizeMax, SizeDefault = 1f;
+        const float DurationMin = AnysoundWhooshHelper.DurationMin, DurationMax = AnysoundWhooshHelper.DurationMax, DurationDefault = 0.25f;
         const float FluctuationMin = 0f, FluctuationMax = 1f, FluctuationDefault = 0.5f;
 
         private Button _previewButton;
@@ -146,14 +147,10 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
             exportButton.clicked += ExportClips;
 
 
-            var redrawButton = _rootVisualElement.Q<Button>("RedrawButton");
-            if (redrawButton != null)
+            var createPresetButton = _rootVisualElement.Q<Button>("CreatePresetButton");
+            if (createPresetButton != null)
             {
-                redrawButton.clicked += () =>
-                {
-                    Debug.Log("create preset with 0 values");
-                    _anysoundWhooshObject.CreatePreset(GetCurrentPreset());
-                };
+                createPresetButton.clicked += () => _anysoundWhooshObject.CreatePreset(GetCurrentPreset());
             }
 
             var backButton = _rootVisualElement.Q<Button>("BackButton");
@@ -173,6 +170,9 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
         AnysoundSlider SetupSlider(string sliderName, float min, float max, System.Action<float> onValueChanged)
         {
             var slider = _rootVisualElement.Q<AnysoundSlider>(sliderName);
+            // Move the value into the range first: otherwise raising lowValue clamps it, which sends a change event
+            // that arrives after a preset has been loaded and overwrites its value with the minimum
+            slider.SetValueWithoutNotify(min);
             slider.lowValue = min;
             slider.highValue = max;
             slider.RegisterValueChangedCallback(evt => onValueChanged(evt.newValue));
@@ -183,28 +183,17 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
 
         void ExportClips()
         {
-            Debug.Log("Exporting audio clip");
-
-            var clip = AnysoundWhooshHelper.GenerateAudioClip(_anysoundWhooshObject, GetCurrentPreset());
-
-            string path = EditorUtility.SaveFilePanel(
-                "Save Audio Clip",
-                "Assets",
-                "AnysoundFootstepClip.wav",
-                "wav");
-
-            if (!string.IsNullOrEmpty(path))
-            {
-                // Convert to a project-relative path if inside the project
-                if (path.StartsWith(Application.dataPath))
-                {
-                    path = "Assets" + path.Substring(Application.dataPath.Length);
-                }
-
-                AnysoundFootstepDSP.SaveClipToWav(clip, path);
-                AssetDatabase.Refresh(); // Refresh the asset database to show the new file
-            }
+            // Copy the current values, so later slider changes don't affect the export
+            var whooshObject = _anysoundWhooshObject;
+            var presetValues = GetCurrentPreset();
+            AnysoundExporterWindow.ShowExporterWindow(whooshObject, presetValues,
+                () => AnysoundWhooshHelper.GenerateAudioClip(whooshObject, presetValues),
+                GetDefaultFileName());
         }
+
+        // Describes the current sound, e.g. "Whoosh_Large_Fast_Short"
+        string GetDefaultFileName() =>
+            "Whoosh_" + string.Join("_", AnysoundWhooshHelper.GetDescription(_currentSizeValue, _currentMovementSpeed, _currentDurationType));
 
 
         void UpdateWaveform()
@@ -282,12 +271,10 @@ namespace Anysound.Shared.Generators.Whoosh.Frontend
             UpdateMovementDrawing();
         }
 
-        // Presets without stored values return 0, which is outside some ranges (e.g. duration), so fall back to the default
-        static float PresetValueOrDefault(AnysoundPresetObject preset, string key, float min, float max, float defaultValue)
-        {
-            float value = preset.GetPresetValue(key);
-            return value >= min && value <= max ? value : defaultValue;
-        }
+        // Presets without a stored value get the default. Stored values are clamped, so a value a rounding error
+        // outside the range (e.g. 0.50000006 for a duration of 0.5) still loads instead of falling back to the default
+        static float PresetValueOrDefault(AnysoundPresetObject preset, string key, float min, float max, float defaultValue) =>
+            preset.HasPresetValue(key) ? Mathf.Clamp(preset.GetPresetValue(key), min, max) : defaultValue;
 
         public sealed override void SetPresetObject(AnysoundPresetObject preset)
         {

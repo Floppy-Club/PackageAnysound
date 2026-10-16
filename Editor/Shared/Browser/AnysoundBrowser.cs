@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Anysound.Shared.BaseClasses;
 using Anysound.Shared.Footsteps;
+using Anysound.Shared.Exporter;
 using Anysound.Shared.Frontend;
 using Anysound.Shared.Generators.Footsteps;
 using Anysound.Shared.Generators.Footsteps.Frontend;
@@ -74,6 +75,8 @@ namespace Anysound.Shared.Browser
             rootVisualElement.Clear();
 
             TemplateContainer container = visualTreeAsset.CloneTree();
+            // Fill the window, so the sounds list gets a fixed height to scroll within
+            container.style.flexGrow = 1;
             rootVisualElement.Add(container);
             SetupObjectEditing();
         }
@@ -83,6 +86,21 @@ namespace Anysound.Shared.Browser
             var preview = rootVisualElement.Q("SoundPreviewContainer").Q<VisualElement>();
             _soundPreviewController = new UISoundPreviewController(preview);
             _listView = rootVisualElement.Q<ListView>("SoundsList");
+            // Fill the space left in the window and scroll, instead of growing past the bottom of it
+            _listView.style.height = StyleKeyword.Auto;
+            _listView.style.flexGrow = 1;
+            _listView.style.flexShrink = 1;
+            _listView.style.minHeight = 0;
+            _listView.selectionChanged += objects =>
+            {
+                if (_listView.selectedIndex >= 0 && _listView.selectedIndex < _currentPresetsList.Count)
+                {
+                    _soundPreviewController.SetSound(_currentPresetsList[_listView.selectedIndex]);
+                    PlaySound();
+                }
+            };
+            // Double-click (or Enter) opens the sound in its editor
+            _listView.itemsChosen += _ => LoadGenerator();
             _tagsContainer = rootVisualElement.Q("Tags");
             _generatorButtonsContainer = rootVisualElement.Q("GeneratorButtonsContainer");
 
@@ -93,6 +111,7 @@ namespace Anysound.Shared.Browser
 
             _allPresets.Clear();
             _allPresets.AddRange(LoadAllAssetsOfType<AnysoundPresetObject>());
+            _allPresets.AddRange(AnysoundExportedSounds.LoadAll());
             _generatorPresets.AddRange(_allPresets);
 
             _currentPresetsList.Clear();
@@ -129,6 +148,15 @@ namespace Anysound.Shared.Browser
             _searchText.RegisterValueChangedCallback(evt => SearchList());
 
             PopulateListView();
+            SelectFirstSound();
+        }
+
+        // Shows the first sound in the preview without playing it
+        void SelectFirstSound()
+        {
+            if (_currentPresetsList.Count == 0) return;
+            _listView.SetSelectionWithoutNotify(new[] { 0 });
+            _soundPreviewController.SetSound(_currentPresetsList[0]);
         }
 
 
@@ -184,17 +212,20 @@ namespace Anysound.Shared.Browser
             }
         }
 
+        const int MaxTagButtons = 25;
+
+        // The most used tags first, limited to MaxTagButtons
         void GetTags()
         {
             _soundTags.Clear();
-            foreach (var o in _currentPresetsList)
-            {
-                foreach (var tag in o.tags)
-                {
-                    if (!_soundTags.Contains(tag))
-                        _soundTags.Add(tag);
-                }
-            }
+            _soundTags.AddRange(_currentPresetsList
+                .Where(preset => preset.tags != null)
+                .SelectMany(preset => preset.tags.Distinct())
+                .GroupBy(tag => tag)
+                .OrderByDescending(group => group.Count())
+                .ThenBy(group => group.Key)
+                .Take(MaxTagButtons)
+                .Select(group => group.Key));
         }
 
         private void OnEnable()
@@ -244,15 +275,38 @@ namespace Anysound.Shared.Browser
                 return;
             }
 
-            AnysoundPresetObject selectedPreset = _currentPresetsList[_listView.selectedIndex];
+            LoadPreset(_currentPresetsList[_listView.selectedIndex]);
+        }
 
-            AnysoundGeneratorWindowBase newWindow = selectedPreset.generatorObject switch
+        // Opens the Anysound window with the generator editor for this preset, with its values loaded
+        public static void OpenPreset(AnysoundPresetObject preset)
+        {
+            if (!preset || !preset.generatorObject)
             {
-                AnysoundFootstepObject settings => new AnysoundFootstepsEditorWindow(rootVisualElement, settings, selectedPreset),
-                AnysoundWhooshObject settings => new AnysoundWhooshEditorWindow(rootVisualElement, settings, selectedPreset),
-                AnysoundUIObject settings => new AnysoundUIEditorWindow(rootVisualElement, settings, selectedPreset),
+                Debug.LogWarning("This preset has no generator to load it into");
+                return;
+            }
+
+            ShowSoundBrowser();
+            // A newly opened window builds its GUI itself, which would replace the editor, so load once that's done
+            var window = GetWindow<AnysoundBrowser>();
+            EditorApplication.delayCall += () =>
+            {
+                if (window) window.LoadPreset(preset);
+            };
+        }
+
+        void LoadPreset(AnysoundPresetObject preset)
+        {
+            AnysoundGeneratorWindowBase newWindow = preset.generatorObject switch
+            {
+                AnysoundFootstepObject settings => new AnysoundFootstepsEditorWindow(rootVisualElement, settings, preset),
+                AnysoundWhooshObject settings => new AnysoundWhooshEditorWindow(rootVisualElement, settings, preset),
+                AnysoundUIObject settings => new AnysoundUIEditorWindow(rootVisualElement, settings, preset),
                 _ => null
             };
+            if (newWindow == null)
+                Debug.LogWarning($"No editor can load presets made with {preset.generatorObject.GetType().Name}");
         }
 
         internal bool IsTagActive(string tag)
@@ -400,7 +454,6 @@ namespace Anysound.Shared.Browser
 
             // Set the item source
             _listView.itemsSource = _currentPresetsList;
-            _listView.style.height = new StyleLength(new Length(10000, LengthUnit.Pixel));
             _listView.fixedItemHeight = 30; // Adjust this value based on your item height
             _listView.unbindItem = null;
             _listView.bindItem = null;
@@ -413,16 +466,6 @@ namespace Anysound.Shared.Browser
                 if (i >= 0 && i < _currentPresetsList.Count)
                 {
                     _soundListItems.Add(new UISoundListItemController(element, _currentPresetsList[i], tagLabelTemplate, this));
-                }
-            };
-
-
-            _listView.selectionChanged += objects =>
-            {
-                if (_listView.selectedIndex >= 0 && _listView.selectedIndex < _currentPresetsList.Count)
-                {
-                    _soundPreviewController.SetSound(_currentPresetsList[_listView.selectedIndex]);
-                    PlaySound();
                 }
             };
 
@@ -447,12 +490,18 @@ namespace Anysound.Shared.Browser
             AnysoundGeneratorBase generatorBase,
             AudioClip previewClip)
         {
+            // Let the user name the preset and edit its tags before saving it
+            AnysoundCreatePresetWindow.Show(fileName, tags,
+                (presetName, presetTags) => SavePreset(presetName, presetValues, presetTags, generatorBase, previewClip));
+        }
+
+        static void SavePreset(string presetName, Dictionary<string, float> presetValues, List<string> tags,
+            AnysoundGeneratorBase generatorBase,
+            AudioClip previewClip)
+        {
             // Create a new preset object
             AnysoundPresetObject preset = CreateInstance<AnysoundPresetObject>();
 
-
-            // Generate an initial name for the preset
-            string presetName = fileName;
             preset.soundName = presetName;
             preset.SetPresetValues(presetValues);
 
@@ -548,9 +597,14 @@ namespace Anysound.Shared.Browser
                 var n = tagTemplate.CloneTree();
                 var tagLabel = n.Q<Label>();
                 tagLabel.text = tag;
-                var backgroundColor = anysoundBrowser.IsTagActive(tag) ? AnysoundBrowser.ColorHighLight : AnysoundBrowser.ColorLowLight;
-                tagLabel.style.backgroundColor = backgroundColor;
-                tagLabel.style.color = anysoundBrowser.GetTextColor(backgroundColor);
+                // Quiet outlined labels; a tag you filter by gets the highlight color, still without a fill
+                if (anysoundBrowser.IsTagActive(tag))
+                {
+                    tagLabel.style.color = AnysoundBrowser.ColorHighLight;
+                    tagLabel.style.borderLeftColor = tagLabel.style.borderRightColor =
+                        tagLabel.style.borderTopColor = tagLabel.style.borderBottomColor = AnysoundBrowser.ColorHighLight;
+                }
+
                 tagsContainer.Add(n);
             }
         }

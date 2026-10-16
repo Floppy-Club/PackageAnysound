@@ -280,30 +280,26 @@ namespace Anysound.Shared.Generators.Whoosh
         }
 
 
+        public override void DescribePreset(Dictionary<string, float> presetValues, out string presetName, out List<string> tags)
+        {
+            // Describe the current slider values, e.g. "Large", "Fast", "Short"
+            string[] description = AnysoundWhooshHelper.GetDescription(presetValues["Size"], presetValues["Movement"], presetValues["Duration"]);
+            presetName = $"Whoosh {string.Join(" ", description)}";
+            tags = new List<string>()
+            {
+                "whoosh",
+                $"{description[0]} size".ToLower(),
+                $"{description[1]} speed".ToLower(),
+                $"{description[2]} length".ToLower(),
+            };
+        }
+
         public override void CreatePreset(Dictionary<string, float> presetValues)
         {
-            // Extract tags from the current slider values
-            string surfaceTag = AnysoundWhooshHelper
-                .SurfaceFilenames[(int)(presetValues["Size"] / 2f * AnysoundWhooshHelper.SurfaceFilenames.Length)].Replace("size_", "");
-            string sizeTag = AnysoundWhooshHelper.SizeFilenames[5 - (int)((presetValues["Movement"] / 3f) * 6)].Replace("movement_", "");
-            string movementTag = AnysoundWhooshHelper.MovementTypeFilenames[(int)((presetValues["Duration"] / 2f) * 3)].Replace("duration_", "");
-
-            // Generate an initial name for the preset
-            string thisPresetName = $"Whoosh {surfaceTag} size-{sizeTag} {movementTag}";
-
-
-            // Generate audio clip
+            DescribePreset(presetValues, out string presetName, out List<string> tags);
             AudioClip generatedClip = AnysoundWhooshHelper.GenerateAudioClip(this, presetValues);
 
-            List<string> thisTags = new List<string>()
-            {
-                "Whoosh",
-                surfaceTag, // e.g., "grass", "sand", "mud", etc.
-                sizeTag, // e.g., "xxl", "xl", "l", etc.
-                movementTag, // e.g., "sneak", "walk", "run"
-            };
-
-            AnysoundBrowser.CreatePreset(thisPresetName, presetValues, thisTags, this, generatedClip);
+            AnysoundBrowser.CreatePreset(presetName, presetValues, tags, this, generatedClip);
         }
     }
 }

@@ -13,5 +13,12 @@ namespace Anysound.Shared.BaseClasses
         {
 
         }
+
+        // A suggested name and tags for a sound made with these values
+        public virtual void DescribePreset(Dictionary<string, float> presetValues, out string presetName, out List<string> tags)
+        {
+            presetName = name;
+            tags = new List<string>();
+        }
     }
 }

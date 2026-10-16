@@ -192,7 +192,7 @@ namespace Anysound.Shared.Footsteps
                 ? AnysoundFootstepsHelper.SurfaceFilenames[surfaceIndex].Replace("surface_", "")
                 : $"surface{surfaceIndex}";
 
-        public override void CreatePreset(Dictionary<string, float> presetValues)
+        public override void DescribePreset(Dictionary<string, float> presetValues, out string presetName, out List<string> tags)
         {
             float currentSizeValue = presetValues["Size"];
             float currentMovementSpeedValue = presetValues["MovementSpeed"];
@@ -205,14 +205,18 @@ namespace Anysound.Shared.Footsteps
             string surfaceTagB = GetSurfaceTag(surfaceB);
             bool isMixed = surfaceA != surfaceB && crossfade > 0f && crossfade < 1f;
             string surfaceTag = isMixed ? $"{surfaceTagA}-{surfaceTagB}" : crossfade >= 1f ? surfaceTagB : surfaceTagA;
-            string sizeTag = AnysoundFootstepsHelper.SizeFilenames[Mathf.RoundToInt(Mathf.Lerp(5, 0, currentSizeValue / maxSize))]
-                .Replace("size_", "");
-            string movementTag = AnysoundFootstepsHelper.MovementTypeFilenames[(int)((currentMovementSpeedValue / 2f) * 3)].Replace("_", "");
+            // Clamped like the editor does: the top of the movement range (2) would otherwise index past "run"
+            var sizeNames = AnysoundFootstepsHelper.SizeFilenames;
+            var movementNames = AnysoundFootstepsHelper.MovementTypeFilenames;
+            int sizeIndex = Mathf.Clamp(Mathf.RoundToInt(Mathf.Lerp(sizeNames.Length - 1, 0, maxSize > 0 ? currentSizeValue / maxSize : 0f)), 0, sizeNames.Length - 1);
+            int movementIndex = Mathf.Clamp((int)(currentMovementSpeedValue / 2f * movementNames.Length), 0, movementNames.Length - 1);
+            string sizeTag = sizeNames[sizeIndex].Replace("size_", "");
+            string movementTag = movementNames[movementIndex].Replace("_", "");
 
             // Generate an initial name for the preset
-            string presetName = $"Footstep {surfaceTag} size-{sizeTag} {movementTag}";
+            presetName = $"Footstep {surfaceTag} size-{sizeTag} {movementTag}";
 
-            List<string> tags = new List<string>()
+            tags = new List<string>()
             {
                 "footstep",
                 sizeTag, // e.g., "xxl", "xl", "l", etc.
@@ -228,13 +232,19 @@ namespace Anysound.Shared.Footsteps
             {
                 tags.Add(surfaceTag);
             }
+        }
 
+        public override void CreatePreset(Dictionary<string, float> presetValues)
+        {
+            DescribePreset(presetValues, out string presetName, out List<string> tags);
+            GetSurfaceCrossfade(presetValues.ContainsKey, key => presetValues.TryGetValue(key, out var v) ? v : 0f,
+                out int surfaceA, out int surfaceB, out float crossfade);
 
             // Generate audio clip
             AudioClip generatedClip = AnysoundFootstepsHelper.GenerateAudioClip(
                 this,
-                currentSizeValue,
-                currentMovementSpeedValue,
+                presetValues["Size"],
+                presetValues["MovementSpeed"],
                 surfaceA,
                 surfaceB,
                 crossfade

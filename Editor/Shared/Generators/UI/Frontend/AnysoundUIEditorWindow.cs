@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Anysound.Shared.BaseClasses;
 using Anysound.Shared.Frontend;
 using Anysound.Shared.Generators.Footsteps;
+using Anysound.Shared.Exporter;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -144,10 +145,10 @@ namespace Anysound.Shared.Generators.UI.Frontend
                 exportButton.clicked += ExportClip;
             }
 
-            var redrawButton = _rootVisualElement.Q<Button>("RedrawButton");
-            if (redrawButton != null)
+            var createPresetButton = _rootVisualElement.Q<Button>("CreatePresetButton");
+            if (createPresetButton != null)
             {
-                redrawButton.clicked += () => { _anysoundUIObject.CreatePreset(_parameters.ToPresetValues()); };
+                createPresetButton.clicked += () => _anysoundUIObject.CreatePreset(_parameters.ToPresetValues());
             }
 
             var backButton = _rootVisualElement.Q<Button>("BackButton");
@@ -274,6 +275,11 @@ namespace Anysound.Shared.Generators.UI.Frontend
             {
                 AnysoundFootstepDSP.SaveClipToWav(clip, path);
                 AssetDatabase.Refresh();
+
+                // Files inside the project show up in the browser
+                if (path.StartsWith(Application.dataPath))
+                    AnysoundExportedSounds.MarkAsExported("Assets" + path.Substring(Application.dataPath.Length), _anysoundUIObject,
+                        _parameters.ToPresetValues());
             }
         }
 

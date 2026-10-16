@@ -148,10 +148,10 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
             exportButton.clicked += ExportClips;
 
 
-            var redrawButton = _rootVisualElement.Q<Button>("RedrawButton");
-            if (_previewButton != null)
+            var createPresetButton = _rootVisualElement.Q<Button>("CreatePresetButton");
+            if (createPresetButton != null)
             {
-                redrawButton.clicked += () => { _anysoundFootstepObject.CreatePreset(GetPresetValues()); };
+                createPresetButton.clicked += () => _anysoundFootstepObject.CreatePreset(GetPresetValues());
             }
 
             var backButton = _rootVisualElement.Q<Button>("BackButton");
@@ -186,8 +186,13 @@ namespace Anysound.Shared.Generators.Footsteps.Frontend
 
         void ExportClips()
         {
-            AnysoundExporterWindow.ShowExporterWindow(_anysoundFootstepObject, _currentSizeValue, _currentMovementSpeedValue, _surfaceA, _surfaceB,
-                _surfaceCrossfade);
+            // Copy the current values, so later slider changes don't affect the export
+            var footstepObject = _anysoundFootstepObject;
+            float size = _currentSizeValue, movementSpeed = _currentMovementSpeedValue, crossfade = _surfaceCrossfade;
+            int surfaceA = _surfaceA, surfaceB = _surfaceB;
+            AnysoundExporterWindow.ShowExporterWindow(footstepObject, GetPresetValues(),
+                () => AnysoundFootstepsHelper.GenerateAudioClip(footstepObject, size, movementSpeed, surfaceA, surfaceB, crossfade),
+                "AnysoundFootstepClip");
         }
 
 
