@@ -10,6 +10,8 @@ namespace Anysound.Shared.Generators.Whoosh
     [CreateAssetMenu(fileName = "New AnysoundWhooshObject", menuName = "Anysound/AnysoundWhooshObject")]
     public class AnysoundWhooshObject : AnysoundGeneratorBase
     {
+        public override string ProductId => Licensing.AnysoundProducts.Whoosh;
+
         [SerializeField] WhooshMovementSettings[] movementSettings;
         public WhooshMovementSettings[] MovementSettings => movementSettings;
 

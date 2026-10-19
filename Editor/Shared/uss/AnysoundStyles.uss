@@ -234,3 +234,15 @@
     width: 20px;
     height: 20px;
 }
+
+/* Shown on a generator button in the browser when the key doesn't include that generator */
+.generator-lock-badge {
+    position: absolute;
+    left: 6px;
+    bottom: 6px;
+    padding: 1px 4px;
+    font-size: 10px;
+    -unity-font-style: bold;
+    color: rgb(0, 0, 0);
+    background-color: rgb(96, 199, 92);
+}

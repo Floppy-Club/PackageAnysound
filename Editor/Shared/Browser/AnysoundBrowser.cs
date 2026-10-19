@@ -8,8 +8,11 @@ using Anysound.Shared.Generators.Footsteps;
 using Anysound.Shared.Generators.Footsteps.Frontend;
 using Anysound.Shared.Generators.Whoosh;
 using Anysound.Shared.Generators.Whoosh.Frontend;
+using Anysound.Shared.Generators.Retro;
+using Anysound.Shared.Generators.Retro.Frontend;
 using Anysound.Shared.Generators.UI;
 using Anysound.Shared.Generators.UI.Frontend;
+using Anysound.Shared.Licensing;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -30,6 +33,7 @@ namespace Anysound.Shared.Browser
         private List<UISoundListItemController> _soundListItems = new();
 
         private List<AnysoundGeneratorBase> _generatorsList = new();
+        private Dictionary<AnysoundGeneratorBase, Button> _generatorButtons = new();
 
         private ListView _listView;
         private List<string> _currentTagsList = new();
@@ -79,6 +83,24 @@ namespace Anysound.Shared.Browser
             container.style.flexGrow = 1;
             rootVisualElement.Add(container);
             SetupObjectEditing();
+            AddLicenseButton();
+            AnysoundLicense.RefreshIfStale();
+        }
+
+        // Opens the key dialog from the header
+        void AddLicenseButton()
+        {
+            var header = rootVisualElement.Q("HeaderContainer");
+            header.style.flexDirection = FlexDirection.Row;
+            header.style.justifyContent = Justify.SpaceBetween;
+            var button = new Button(() => AnysoundUnlockWindow.Show(null))
+            {
+                text = "License",
+                tooltip = "Enter your key or buy generators",
+                style = { paddingLeft = 8, paddingRight = 8, height = 24 }
+            };
+            button.AddToClassList("anysound-button-box");
+            header.Add(button);
         }
 
         private void SetupObjectEditing()
@@ -191,6 +213,7 @@ namespace Anysound.Shared.Browser
 
         void CreateGeneratorButtons()
         {
+            _generatorButtons.Clear();
             foreach (var generator in _generatorsList)
             {
                 // Instantiate the template
@@ -205,11 +228,46 @@ namespace Anysound.Shared.Browser
                 button.style.color = Color.clear;
                 button.SetEnabled(generator.isLoadable);
 
-                button.clicked += () => { ToggleGenerator(generator); };
+                // A locked generator opens the key dialog instead of filtering the sounds
+                button.clicked += () =>
+                {
+                    if (AnysoundLicense.IsUnlocked(generator.ProductId))
+                        ToggleGenerator(generator);
+                    else
+                        AnysoundUnlockWindow.Show(generator);
+                };
+
+                var lockBadge = new Label("LOCKED") { name = "LockBadge", pickingMode = PickingMode.Ignore };
+                lockBadge.AddToClassList("generator-lock-badge");
+                button.Add(lockBadge);
+                _generatorButtons[generator] = button;
 
                 // Add the instantiated template to the tags container
                 _generatorButtonsContainer.Add(generatorTemplateInstance);
             }
+
+            UpdateGeneratorButtons();
+        }
+
+        // Dims the generators that aren't the current filter, and marks the locked ones
+        void UpdateGeneratorButtons()
+        {
+            foreach (var pair in _generatorButtons)
+            {
+                var generator = pair.Key;
+                var button = pair.Value;
+                bool locked = !AnysoundLicense.IsUnlocked(generator.ProductId);
+                button.Q("LockBadge").style.display = locked ? DisplayStyle.Flex : DisplayStyle.None;
+                button.tooltip = locked ? $"{AnysoundProducts.DisplayName(generator.ProductId)} is locked. Click to unlock" : "";
+
+                bool dimmed = locked || (_currentGenerator != null && _currentGenerator != generator);
+                button.style.unityBackgroundImageTintColor = dimmed ? Color.grey : Color.white;
+            }
+        }
+
+        void OnLicenseChanged()
+        {
+            UpdateGeneratorButtons();
         }
 
         const int MaxTagButtons = 25;
@@ -231,11 +289,13 @@ namespace Anysound.Shared.Browser
         private void OnEnable()
         {
             AnysoundFootstepDSP.Setup();
+            AnysoundLicense.Changed += OnLicenseChanged;
         }
 
         private void OnDisable()
         {
             AnysoundFootstepDSP.Release();
+            AnysoundLicense.Changed -= OnLicenseChanged;
         }
 
         void PlaySound()
@@ -298,11 +358,19 @@ namespace Anysound.Shared.Browser
 
         void LoadPreset(AnysoundPresetObject preset)
         {
+            // Locked sounds can still be previewed, but not opened in their generator
+            if (!AnysoundLicense.IsUnlocked(preset.generatorObject.ProductId))
+            {
+                AnysoundUnlockWindow.Show(preset.generatorObject);
+                return;
+            }
+
             AnysoundGeneratorWindowBase newWindow = preset.generatorObject switch
             {
                 AnysoundFootstepObject settings => new AnysoundFootstepsEditorWindow(rootVisualElement, settings, preset),
                 AnysoundWhooshObject settings => new AnysoundWhooshEditorWindow(rootVisualElement, settings, preset),
                 AnysoundUIObject settings => new AnysoundUIEditorWindow(rootVisualElement, settings, preset),
+                AnysoundRetroObject settings => new AnysoundRetroEditorWindow(rootVisualElement, settings, preset),
                 _ => null
             };
             if (newWindow == null)
@@ -332,17 +400,7 @@ namespace Anysound.Shared.Browser
                 _currentGenerator = generator;
 
 
-            _generatorButtonsContainer.Query<Button>().ForEach((b) =>
-            {
-                if (_currentGenerator == null)
-                {
-                    b.style.unityBackgroundImageTintColor = Color.white;
-                }
-                else
-                {
-                    b.style.unityBackgroundImageTintColor = (b.text == _currentGenerator.name) ? Color.white : Color.grey;
-                }
-            });
+            UpdateGeneratorButtons();
 
 
             PopulateListView();
@@ -499,15 +557,6 @@ namespace Anysound.Shared.Browser
             AnysoundGeneratorBase generatorBase,
             AudioClip previewClip)
         {
-            // Create a new preset object
-            AnysoundPresetObject preset = CreateInstance<AnysoundPresetObject>();
-
-            preset.soundName = presetName;
-            preset.SetPresetValues(presetValues);
-
-            // Create the preset with all tags
-            preset.Create(presetName, tags, generatorBase);
-
             // Save the preset file first to get a path
             string presetPath = EditorUtility.SaveFilePanelInProject(
                 "Save Preset",
@@ -518,6 +567,24 @@ namespace Anysound.Shared.Browser
 
             if (string.IsNullOrEmpty(presetPath))
                 return;
+
+            var preset = SavePresetAt(presetPath, presetName, presetValues, tags, generatorBase, previewClip);
+
+            // Select the preset in the Project window
+            Selection.activeObject = preset;
+        }
+
+        /// <summary>
+        /// Saves a preset at the given path without asking, e.g. for the default presets a generator ships with
+        /// </summary>
+        public static AnysoundPresetObject SavePresetAt(string presetPath, string presetName, Dictionary<string, float> presetValues,
+            List<string> tags, AnysoundGeneratorBase generatorBase, AudioClip previewClip)
+        {
+            // Create a new preset object with all tags
+            AnysoundPresetObject preset = CreateInstance<AnysoundPresetObject>();
+            preset.soundName = presetName;
+            preset.SetPresetValues(presetValues);
+            preset.Create(presetName, tags, generatorBase);
 
             // Create and save the preset object
             AssetDatabase.CreateAsset(preset, presetPath);
@@ -550,9 +617,7 @@ namespace Anysound.Shared.Browser
             AssetDatabase.Refresh();
 
             Debug.Log($"Created preset at {presetPath} with embedded audio clip");
-
-            // Select the preset in the Project window
-            Selection.activeObject = preset;
+            return preset;
         }
     }
 

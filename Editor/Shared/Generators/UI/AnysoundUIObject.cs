@@ -10,6 +10,8 @@ namespace Anysound.Shared.Generators.UI
     [CreateAssetMenu(fileName = "New AnysoundUIObject", menuName = "Anysound/AnysoundUIObject")]
     public class AnysoundUIObject : AnysoundGeneratorBase
     {
+        public override string ProductId => Licensing.AnysoundProducts.UI;
+
         public const int MaxActionSteps = 4;
 
         /// <summary>

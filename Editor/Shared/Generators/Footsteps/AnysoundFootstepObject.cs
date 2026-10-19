@@ -10,6 +10,7 @@ namespace Anysound.Shared.Footsteps
     [CreateAssetMenu(fileName = "New FootstepObject", menuName = "Anysound/FootstepObject")]
     public class AnysoundFootstepObject : AnysoundGeneratorBase
     {
+        public override string ProductId => Licensing.AnysoundProducts.Footsteps;
 
         
         

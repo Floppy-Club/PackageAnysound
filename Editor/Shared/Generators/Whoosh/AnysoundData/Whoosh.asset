@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8142d8212fa9c4779974f0eae79ef0f1, type: 3}
   m_Name: Whoosh
   m_EditorClassIdentifier: 
-  coverTexture: {fileID: 2800000, guid: 02c818bd614664d52b94a1a464622569, type: 3}
+  coverTexture: {fileID: 2800000, guid: 838e01d38f7443698d5db6baa5cd9fb3, type: 3}
   isLoadable: 1
   movementSettings:
   - noiseGenerator1:

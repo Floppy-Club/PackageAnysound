@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9557218e6524245dfb19101503cb102c, type: 3}
   m_Name: AsgerUI
   m_EditorClassIdentifier: AnysoundShared::Anysound.Shared.Generators.UI.AnysoundUIObject
-  coverTexture: {fileID: 2800000, guid: 3e2dbf157d65249e39ca5ec3bc192d37, type: 3}
+  coverTexture: {fileID: 2800000, guid: 1aed8afd2bc14d1b986b16e2896c167d, type: 3}
   isLoadable: 1
   materials:
   - name: Dirt

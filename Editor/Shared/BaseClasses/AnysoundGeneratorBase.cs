@@ -8,6 +8,9 @@ namespace Anysound.Shared.BaseClasses
         [SerializeField] private Texture2D coverTexture;
         public Texture2D CoverTexture => coverTexture;
         public bool isLoadable = true;
+
+        // The product a key must hold to use this generator, see AnysoundProducts. Null means free
+        public virtual string ProductId => null;
         
         public virtual void CreatePreset(Dictionary<string, float> presetValues)
         {
