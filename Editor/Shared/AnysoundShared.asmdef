@@ -1,3 +1,6 @@
 {
-	"name": "AnysoundShared"
+	"name": "AnysoundShared",
+	"includePlatforms": [
+		"Editor"
+	]
 }
